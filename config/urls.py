@@ -22,7 +22,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     # path("chat/", include("chat.urls")),
     path("products/", include("products.urls")),
-    # path("reviews/", include("reviews.urls")),
+    path("reviews/", include("reviews.urls")),
     path("admin/", admin.site.urls),
 ]
 #  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
