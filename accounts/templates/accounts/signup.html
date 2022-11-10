@@ -1,0 +1,19 @@
+{% load django_bootstrap5 %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="m-5 p-5">
+    <h1 class="text-center">회원가입</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% bootstrap_button button_type="submit" content="가입하기" %}
+    </form>
+  </div>
+</div>
+
+{% endblock %}
