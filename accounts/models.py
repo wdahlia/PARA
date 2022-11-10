@@ -5,7 +5,7 @@ from imagekit.processors import ResizeToFill
 
 
 class User(AbstractUser):
-    follows = models.ManyToManyField(
+    followings = models.ManyToManyField(
         "self", symmetrical=False, related_name="followers"
     )
     profile_image = ProcessedImageField(

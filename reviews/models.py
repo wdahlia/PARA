@@ -1,4 +1,5 @@
 from django.db import models
+from products.models import Product
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -25,7 +26,7 @@ class Review(models.Model):
         format="JPEG",
         options={"quality": 90},
     )
-    # product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
 class Comment(models.Model):
@@ -33,4 +34,4 @@ class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
 
-    # product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
