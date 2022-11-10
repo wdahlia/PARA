@@ -1,0 +1,9 @@
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block body %}
+{{ product.name }}
+{{ review.user.username }}
+{{ review.grade }}
+{{ review.content }}
+{% endblock body %}
