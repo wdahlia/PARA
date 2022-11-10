@@ -6,6 +6,8 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from .models import User
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -77,3 +79,43 @@ def update(request):
         "form": form,
     }
     return render(request, "accounts/update.html", context)
+
+
+def follow(request, pk):
+    if request.user.is_authenticated:
+        user = User.objects.get(pk=pk)
+        if user != request.user:
+            if user.followers.filter(pk=request.user.pk).exists():
+                user.followers.remove(request.user)
+                is_followed = False
+            else:
+                user.followers.add(request.user)
+                is_followed = True
+            follow_user = user.followers.filter(pk=request.user.pk)
+            following_user = user.followings.filter(pk=request.user.pk)
+            follow_user_list = []
+            following_user_list = []
+            for follow in follow_user:
+                follow_user_list.append(
+                    {
+                        "pk": follow.pk,
+                        "username": follow.username,
+                    }
+                )
+            for following in following_user:
+                following_user_list.append(
+                    {
+                        "pk": following.pk,
+                        "username": following.username,
+                    }
+                )
+            context = {
+                "is_followed": is_followed,
+                "follow_user": follow_user_list,
+                "following_user": following_user_list,
+                "followers_count": user.followers.count(),
+                "followings_count": user.followings.count(),
+            }
+            return JsonResponse(context)
+        return redirect("accounts:detail", user.username)
+    return redirect("accounts:login")
