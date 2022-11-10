@@ -1,4 +1,6 @@
-{% block body %}
+{% load django_bootstrap5 %}
+
+{% block content %}
 <div class="row mt-5 text-center justify-content-center">
   <h1 class="my-5">{{ user.username }}님의 프로필</h1>
   {% if request.user == user %}
@@ -8,4 +10,4 @@
   {% endif %}
 </div>
 
-{% endblock body %}
+{% endblock content %}
