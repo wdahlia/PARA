@@ -8,7 +8,7 @@ class ReviewForm(forms.ModelForm):
         fields = [
             "content",
             "grade",
-            "image",
+            "review_image",
         ]
 
 
