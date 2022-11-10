@@ -1,0 +1,58 @@
+@font-face {
+  font-family: 'GothicA1-Light';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/GothicA1-Light.woff2') format('woff2');
+  font-weight: 100 200 300 400 500 600 700 800 900;
+  font-style: normal;
+}
+
+body {
+  font-family : 'GothicA1-Light', 
+}
+
+.button-background {
+  background-color: transparent;
+  color: transparent;
+  border: 0 transparent;
+}
+
+.form-control:focus,.form-control:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+/*검색 버튼*/
+.gnb_search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 38px;
+  height: 38px;
+  background: url(./images/ico_package.png) no-repeat 13px -337px;
+  text-align: left;
+  text-indent: -999em;
+}
+.gnb_search {
+  width: 30%;
+  box-sizing: border-box;
+  position: absolute;
+  top: 20px;
+  left: -200px;
+  z-index: 0;
+}
+.gnb_search fieldset {
+  position: relative;
+  padding-right: 38px;
+  border-bottom: 1px solid #e6e6e6;
+width: 170px;
+}
+.gnb_search input {
+  height: 38px;
+  padding: 0 10px;
+  border: 0;
+  font-size: 0.875em;
+  line-height: 1.5714;
+  color: #b2b2b2;
+  box-sizing: border-box;
+  width: 95%;
+}

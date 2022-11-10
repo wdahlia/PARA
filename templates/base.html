@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARA</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/logo.png' %}">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- CSS 파일 -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+  </head>
+
+  <body>
+    {% block nav %}
+      <!-- navbar -->
+      <nav class="navbar bg-none fixed-top">
+        <div class="container-fluid justify-content-between">
+          <!-- 토글 아이콘과 로고 이미지 -->
+          <div class="d-flex">
+            <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+              <i class="bi bi-list fs-3"></i>
+            </button>
+            <a class="navbar-brand" href="#"><img src="{% static 'images/navlogo.png' %}" alt=""></a>
+          </div>
+          <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
+          <div class="offcanvas bg-white offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
+            <div class="offcanvas-header">
+              <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+            </div>
+            <div class="offcanvas-body bg-white">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active text-black pb-0" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active text-black pt-0" aria-current="page" href="#">Best Sellers</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active text-black p-0" aria-current="page" href="#">Outer</a>
+                </li>
+                <li class="nav-item p-0">
+                  <a class="nav-link active text-black p-0" aria-current="page" href="#">Top</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active text-black p-0" aria-current="page" href="#">Bottom</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-black p-0" href="#">Accessories</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-black p-0" href="#">Shoes</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between" style="width: 50%;">
+            <!-- 검색 기능 존재하는 곳 -->
+            <form class="d-flex" role="search">
+              <input type="text" name="[##_search_name_##]" value="" placeholder="찾을 내용을 입력하세요.">
+              <button type="button">검색</button>
+            </form>
+            <div class="d-flex justify-content-around align-items-center" style="width: 30%">
+              <!-- 매장 찾기 accounts앱의 매장 지도가 모달 창으로 뜨게 됨 (내 위치 기반 주변 매장 찾기)-->
+              <a href="" class="text-decoration-none text-black">매장찾기</a>
+              <!-- 장바구니 버튼 추가 -->
+              <div>
+                <i class="bi bi-basket3 fs-4"></i>
+              </div>
+              <!-- div 누르면 프로필 디테일 페이지로 이동 -->
+              <div class="d-flex flex-column">
+                <!-- 프로필 이미지 들어갈 곳 -->
+                <img src="" alt="">
+                <!-- 프로필 닉네임 들어갈 곳-->
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </nav>
+    {% endblock nav %}
+
+    {% block content %}{% endblock content %}
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </body>
+
+</html>
