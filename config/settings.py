@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "reviews",
     "chat",
     "imagekit",
+    "django_extensions",
     "django_bootstrap5",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -127,6 +128,9 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+MEDIA_ROOT = BASE_DIR / "images"
+MEDIA_URL = "/media/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
