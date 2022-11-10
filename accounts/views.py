@@ -45,20 +45,22 @@ def detail(request, pk):
 
 
 def login(request):
-    if request.user.is_anonymous:
-        if request.method == "POST":
-            form = AuthenticationForm(request, data=request.POST)
-            if form.is_valid():
-                auth_login(request, form.get_user())
-                return redirect("accounts:index")
-        else:
-            form = AuthenticationForm()
-        context = {
-            "form": form,
-        }
-        return render(request, "accounts/login.html", context)
+    # if request.user.is_anonymous:
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            auth_login(request, form.get_user())
+            return redirect("accounts:index")
     else:
-        return redirect("accounts:index")
+        form = AuthenticationForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "accounts/login.html", context)
+
+
+# else:
+#     return redirect("accounts:index")
 
 
 def logout(request):

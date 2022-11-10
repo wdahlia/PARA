@@ -1,8 +1,11 @@
+{% extends 'base.html' %}
 {% load django_bootstrap5 %}
 
-{% block content %}
+{% block body %}
 <div class="row mt-5 text-center justify-content-center">
   <h1 class="my-5">{{ user.username }}님의 프로필</h1>
+  <p class="mb-4">이메일 :
+    {{ user.email }}</p>
   {% if request.user == user %}
   <div>
     <a class="btn btn-primary me-3" href="{% url 'accounts:update' %}">수정하기</a>
@@ -10,4 +13,4 @@
   {% endif %}
 </div>
 
-{% endblock content %}
+{% endblock body %}
