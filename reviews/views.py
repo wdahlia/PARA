@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
-from reviews.forms import ReviewForm
-from .models import Review, Comment, Product
+from .forms import ReviewForm
+from .models import Review, Product, Comment
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Avg
@@ -22,13 +22,13 @@ def review_create(request, product_pk):
             review.product = product
             review.user = request.user
             review.save()
-            return redirect("reviews:product_detail", product.pk)
+            return redirect("accounts:account_detail", product.pk)
     else:
         review_form = ReviewForm()
     context = {
         "review_form": review_form,
     }
-    return render(request, "reviews/review_form.html", context)
+    return render(request, "reviews/review_create.html", context)
 
 
 def review_detail(request, product_pk, review_pk):
