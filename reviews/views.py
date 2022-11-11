@@ -68,7 +68,7 @@ def review_update(request, product_pk, review_pk):
         context = {
             "review_form": review_form,
         }
-        return render(request, "reviews/review_create.html", context)
+        return render(request, "reviews/review_update.html", context)
     else:
         messages.warning(request, "작성자만 수정할 수 있습니다.")
         return redirect("reviews:product_detail", product_pk)
