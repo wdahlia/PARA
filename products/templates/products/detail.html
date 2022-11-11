@@ -1,3 +1,25 @@
-{% block content %}
-  <h1>products detail페이지입니다.</h1>
-{% endblock content %}
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% block css %}{% endblock %}
+{% block body %}
+  <div class='d-flex'>
+    <div class='m-0' style='width: 16rem;'>
+      {% for image in images %}
+
+        <img style='width: 5rem; height: 10rem;' src="{{ image.product_image }}" alt="">
+
+      {% endfor %}
+    </div>
+    <div>
+      <p>{{ products.name }}</p>
+      <p>{{ products.content }}</p>
+      <p>{{ products.color }}</p>
+      <p>{{ products.price }}</p>
+      <button>장바구니</button>
+    </div>
+
+  </div>
+{% endblock body %}
+{% bootstrap_javascript %}
