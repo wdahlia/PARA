@@ -6,23 +6,15 @@
 {% block body %}
 
   {% regroup images by product.name as product_list %}
-
-  {% for clothe in product_list %}
-  <a href="{% url 'products:detail' clothe.list.0.product.pk %}">
-    <div class="card m-0 row row-cols-2 g-1 m-3 justify-content-center justify-content-md-around align-items-center" style="width: 20rem; height: 17rem; position: relative; overflow: hidden; margin: 0;">
-      {% comment %} {% for image in clothe.list %}
-        <p>{{ image.product_image }}</p>
-        <img src="{{ image.product_image }}" alt="">
-      {% endfor %} {% endcomment %}
-      
-      <img src="{{ clothe.list.0.product_image }}" alt="">
-      
-     
-        {{ clothe.grouper }}
-      
-      
-    </div>
-  </a>
-  {% endfor %}
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4">
+    {% for clothe in product_list %}
+      <a href="{% url 'products:detail' clothe.list.0.product.pk %}">
+        <div class="d-flex flex-column">
+          <img src="{{ clothe.list.0.product_image }}" alt="" class="index-card-image">
+          <p class="text-center pt-2 font-space">{{ clothe.grouper }}</p>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
 {% endblock body %}
 {% bootstrap_javascript %}
