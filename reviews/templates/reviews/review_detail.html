@@ -6,4 +6,13 @@
 {{ review.user.username }}
 {{ review.grade }}
 {{ review.content }}
+
+
+<form action="{% url 'reviews:review_delete' product.pk review.pk %}" method="POST">
+  {% csrf_token %}
+  <a href="{% url 'reviews:review_update' product.pk review.pk %}" class="btn btn-outline-primary" method="POST">수정</a>
+  <input class="btn btn-outline-danger" type="submit" value="삭제">
+  <a href="{% url 'reviews:product_detail' product.pk %}" class="btn btn-outline-secondary">뒤로</a>
+</form>
+
 {% endblock body %}
