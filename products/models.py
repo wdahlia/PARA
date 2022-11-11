@@ -17,6 +17,7 @@ class Product(models.Model):
     size = models.TextField()
     hits = models.PositiveIntegerField(default=0, verbose_name="조회수")
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_restaurants')
+    gender = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category')
 
 

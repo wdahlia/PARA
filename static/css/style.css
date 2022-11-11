@@ -6,7 +6,8 @@
 }
 
 body {
-  font-family : 'GothicA1-Light', 
+  font-family : 'GothicA1-Light';
+  height: 1000rem;
 }
 
 .button-background {
@@ -45,12 +46,14 @@ body {
   left: -200px;
   z-index: 0;
 }
+
 .gnb_search fieldset {
   position: relative;
   padding-right: 38px;
   border-bottom: 1px solid #e6e6e6;
 width: 170px;
 }
+
 .gnb_search input {
   height: 38px;
   padding: 0 10px;
@@ -60,4 +63,11 @@ width: 170px;
   color: #b2b2b2;
   box-sizing: border-box;
   width: 95%;
+}
+
+
+.padding-page {
+  margin-top: 20rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
 }
