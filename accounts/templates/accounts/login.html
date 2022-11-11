@@ -2,10 +2,27 @@
 {% load django_bootstrap5 %}
 
 {% block body %}
-<h1>로그인</h1>
-<form action="" method="POST">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% bootstrap_button button_type="submit" content="OK" %}
-</form>
+<div class="container-css">
+  <div class="row justify-content-around">
+    <div class="col-12 col-md-6 mb-5">
+      <h6 class="mb-3 login_font-weight">로그인</h6>
+      <form action="" method="POST" class="d-flex flex-column">
+        {% csrf_token %}
+        <div class="fs-6 mb-2 login_font-weight font-space login_form-width">
+          {% bootstrap_form form %}
+        </div>
+        {% bootstrap_button button_type="submit" button_class="login_form-width bg-black text-white rounded-0" content="로그인" %}
+      </form>
+    </div>
+    <div class="col-12 col-md-6 mt-3">
+      <h6 class="login_font-weight">등록</h6>
+      <p class="notice-font-size">PARA.COM 회원으로 가입하시면 빠르고 편리하게 이용하실 수 있습니다.
+        <br>
+        아직 PARA.COM 의 회원이 아니시라면 이메일로 간편하게 가입하실 수 있습니다.</p>
+      <form action="{% url 'accounts:signup' %}">
+        <button type="submit" class="btn bg-black text-center rounded-0 text-white signup__button">계정 만들기</button>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock body %}
