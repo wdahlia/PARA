@@ -7,6 +7,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .models import User
+from .forms import CustomUserAuthenticationForm
 from django.http import JsonResponse
 
 # Create your views here.
@@ -47,12 +48,12 @@ def detail(request, pk):
 def login(request):
     # if request.user.is_anonymous:
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomUserAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
             return redirect("accounts:index")
     else:
-        form = AuthenticationForm()
+        form = CustomUserAuthenticationForm()
     context = {
         "form": form,
     }
