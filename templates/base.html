@@ -124,9 +124,6 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button onclick="relayout()">현재위치</button>
-          </div>
         </div>
       </div>
     </div>
@@ -294,6 +291,7 @@
       // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
       // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
       map.relayout();
+     
 
       //여기부터 내 위치!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
@@ -310,7 +308,7 @@
 
           // 마커와 인포윈도우를 표시합니다
           displayMarker(locPosition, message);
-
+          
         });
 
       } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
@@ -320,31 +318,7 @@
 
         displayMarker(locPosition, message);
       }
-
-
     }
-
-    // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-    function addMarker(position, idx, title) {
-      var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-        imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
-        imgOptions = {
-          spriteSize: new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
-          spriteOrigin: new kakao.maps.Point(0, (idx * 46) + 10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-          offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-        },
-        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-        marker = new kakao.maps.Marker({
-          position: position, // 마커의 위치
-          image: markerImage
-        });
-
-      marker.setMap(map); // 지도 위에 마커를 표출합니다
-      markers.push(marker);  // 배열에 생성된 마커를 추가합니다
-
-      return marker;
-    }
-
 
     // 지도 위에 표시되고 있는 마커를 모두 제거합니다
     function removeMarker() {
@@ -427,6 +401,13 @@
         el.removeChild(el.lastChild);
       }
     }
+
+    // 모달이 열리면 아래 함수가 실행된다.
+    const my_modal = document.querySelector('#exampleModal')
+    my_modal.addEventListener('shown.bs.modal', function (e) {
+      console.log('모달 열렸다!!')
+      relayout() 
+    });
   </script>
 
   <div class="container-css padding-page">
