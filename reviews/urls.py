@@ -20,5 +20,9 @@ urlpatterns = [
         views.review_update,
         name="review_update",
     ),
-
+    path(
+        "<int:review_pk>/review_detail/comments/",
+        views.comment_create,
+        name="comment_create",
+    ),
 ]
