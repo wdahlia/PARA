@@ -117,24 +117,6 @@ width: 170px;
 } */
 
 
-	/* image modal */
-  .modal {
-    display: none;
-    z-index: 500;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-}
-.modalBox {
-    position: relative;
-    text-align: center;
-    top : 50%;
-    left : 50%;
-    position : sticky;
-}
 .detail-image:hover{
     cursor: -webkit-zoom-in;
 }

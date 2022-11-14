@@ -1,8 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load django_bootstrap5 %}
-{% bootstrap_css %}
-{% block css %}{% endblock %}
 {% block body %}
   <div class="pt-5 d-flex justify-content-around text-center container">
     <div class="mx-2 fw-bolder text-secondary">
@@ -29,4 +26,3 @@
     {% endfor %}
   </div>
 {% endblock body %}
-{% bootstrap_javascript %}

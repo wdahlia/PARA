@@ -1,27 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block css %}{% endblock %}
 {% block body %}
-
-  {% block script %}
-  <script>
-  function() {
-    const $detail-image = document.querySelector('.detail-image');
-    $detail-image.addEventListener('click', function(){
-      let img = new Image();
-      img.src = $(this).attr("src");
-      $('.modalBox').html(img);
-      $(".modal").show();
-    });
-  // 모달 클릭할때 이미지 닫음
-
-    
-    $(".modal").addEventListener('click', function(){
-    $(".modal").toggle();
-  });
-    };
-  </script>
-  {% endblock script %}
 
   <div class='d-sm-flex justify-content-center'>
     <div class='d-flex flex-column'>
@@ -42,11 +21,7 @@
     </div>
 
   </div>
-  <!-- 이미지 원본 모달 표시해주기 -->
-  <div class="modal">
-    <div class="modalBox"></div>
-  </div>
-
- 
 
 {% endblock body %}
+
+{% block script %}{% endblock script %}

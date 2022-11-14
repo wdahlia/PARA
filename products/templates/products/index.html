@@ -1,8 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load django_bootstrap5 %}
-{% bootstrap_css %}
-{% block css %}{% endblock %}
 {% block body %}
 
   {% regroup images by product.name as product_list %}
@@ -17,4 +14,3 @@
     {% endfor %}
   </div>
 {% endblock body %}
-{% bootstrap_javascript %}
