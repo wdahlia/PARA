@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% block css %}{% endblock %}
+{% block body %}
+  <div class="pt-5 d-flex justify-content-around text-center container">
+    <div class="mx-2 fw-bolder text-secondary">
+      <a type="button" id="manProduct" class="text-decoration-none text-black">MAN</a>
+    </div>
+    <div class="mx-2 fw-bolder text-secondary">
+      <a type="button" id="womanProduct" class="text-decoration-none text-black">WOMAN</a>
+    </div>
+  </div>
+
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4">
+    {% for product in products %}
+      <a href="{% url 'products:detail' product.pk %}">
+        <p>{{ product.name }}</p>
+      </a>
+      {% for k, v in img_dict.items %}
+        {% if k == product.id %}
+          {% for img_obj in v %}
+            <img src="{{ img_obj.product_image }}" alt="">
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+
+    {% endfor %}
+  </div>
+{% endblock body %}
+{% bootstrap_javascript %}
