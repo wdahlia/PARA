@@ -8,10 +8,10 @@
   {% regroup images by product.name as product_list %}
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4">
     {% for clothe in product_list %}
-      <a href="{% url 'products:detail' clothe.list.0.product.pk %}" class="text-decoration-none text-black">
+      <a href="{% url 'products:detail' clothe.list.0.product.pk %}" class="text-decoration-none">
         <div class="d-flex flex-column">
           <img src="{{ clothe.list.0.product_image }}" alt="" class="index-card-image">
-          <p class="text-center pt-2 font-space">{{ clothe.grouper }}</p>
+          <p class="text-center pt-1 font-space clothe_font-size">{{ clothe.grouper }}</p>
         </div>
       </a>
     {% endfor %}
