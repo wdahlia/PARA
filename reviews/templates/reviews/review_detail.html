@@ -22,19 +22,7 @@
     <input class="btn btn-outline-danger" type="submit" value="삭제">
   </form>
 
-  <!--
-  {% if request.user.is_authenticated %}
-
-  <div class='my-3 inline'>
-    <form id="comment-form" action="{% url 'reviews:comment_create' review.pk %}" method="POST"
-      class="border border-5 rounded p-3">
-      {% csrf_token %}
-      {% bootstrap_form comment_form %}
-      <div class="text-end"><input class="btn btn-primary" type="submit" value="댓글 작성"></div>
-    </form>
-  </div>
-  {% endif %}
--->
+  <a href=""></a>
 
   <div class="container d-flex flex-column" style="z-index: 2;">
     <form id='comment-form' data-detail-id="{{ review.pk }}">
@@ -48,6 +36,13 @@
       {{ comment.user }}
       |
       {{ comment.content}}
+      {% if request.user == comment.user %}
+      <form action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST"
+        class="align-self-center">
+        {% csrf_token %}
+        <input class="" type="submit" value="삭제">
+      </form>
+      {% endif %}
       <hr>
       {% endfor %}
     </div>
