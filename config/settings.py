@@ -51,7 +51,10 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     # ... 소셜로그인을 할 제공자 리스트를 아래에 포함
+    # 네이버
     "allauth.socialaccount.providers.naver",
+    # 카카오
+    "allauth.socialaccount.providers.kakao",
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -163,7 +166,7 @@ MESSAGE_TAGS = {
 # 이메일 회원가입 설정
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_FROM = "unboxing96@gmail.com"       # 발신 주소
+EMAIL_FROM = "unboxing96@gmail.com"  # 발신 주소
 EMAIL_HOST_USER = "unboxing96@gmail.com"  # 호스트 주소
 EMAIL_HOST_PASSWORD = "ybsdoqbipsazoaqn"  # google에서 발급받은, 이메일 보내기 서비스를 이용하기 위한 2차 비밀번호
 EMAIL_PORT = 587
