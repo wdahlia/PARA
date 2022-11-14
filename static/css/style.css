@@ -106,3 +106,36 @@ width: 170px;
   font-size: 13px;
   letter-spacing: -1px;
 }
+
+.clothe_font-size {
+  font-size: 14px;
+  color: rgb(60, 57, 57);
+}
+
+/* .index-card-image {
+  box-shadow: 2px 3px 15px rgba(181, 189, 193, 0.52);
+} */
+
+
+	/* image modal */
+  .modal {
+    display: none;
+    z-index: 500;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.modalBox {
+    position: relative;
+    text-align: center;
+    top : 50%;
+    left : 50%;
+    position : sticky;
+}
+.detail-image:hover{
+    cursor: -webkit-zoom-in;
+}
+/* image modal end */
