@@ -4,15 +4,17 @@
 
 {% block body %}
 <div class="row justify-content-center padding-page">
-  {{ product.name }}
-  {{ review.user.username }}
+  <p>구매목록: {{ product.name }}</p>
+  <p>작성자:{{ review.user.username }}</p>
   {% if review.review_image %}
-  <img src="{{ review.review_image.url }}" alt="{{review.review_image}}">
+  <div>
+    <img src="{{ review.review_image.url }}" width='600px;'  alt="{{review.review_image}}">
+  </div>
   {% else %}
   <img src="" alt="">
   {% endif %}
-  {{ review.grade }}
-  {{ review.content }}
+  <p>평점: {{ review.grade }}</p>
+  <p>리뷰: {{ review.content }}</p>
 
 
   <form action="{% url 'reviews:review_delete' product.pk review.pk %}" method="POST">
@@ -32,18 +34,21 @@
       <button class="btn btn-primary w-100">작성</button>
     </form>
     <div id="comments" class="my-5">
+      {% comment %} 반복문으로 댓글 뽑음 {% endcomment %}
       {% for comment in comments %}
-      {{ comment.user }}
-      |
-      {{ comment.content}}
-      {% if request.user == comment.user %}
-      <form action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST"
-        class="align-self-center">
+      <div class="d-flex align-items-center">
+        <span class='me-auto'>
+          <span class='text-muted'>작성자: {{ comment.user }}</span> - {{ comment.content}}</span>
+        {% if request.user == comment.user %}
+        <form action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST">
+       
         {% csrf_token %}
-        <input class="" type="submit" value="삭제">
+        <input class="btn btn-outline-danger" type="submit" value="삭제">
       </form>
       {% endif %}
-      <hr>
+    </div>
+    <hr>
+    <br>
       {% endfor %}
     </div>
   </div>
@@ -67,11 +72,21 @@
         })
           .then(response => {
             console.log(response.status)
+            console.log(response.data)
+
             const comments = document.querySelector('#comments')
-            const p = document.createElement('p')
-            p.innerText = `${response.data.userName} | ${response.data.content}`
-            const hr = document.createElement('hr')
-            comments.append(p, hr)
+            comments.insertAdjacentHTML('beforeend',
+            `
+            <div class="d-flex align-items-center">
+              <span class='me-auto'>
+                <span class='text-muted'>작성자: ${response.data.userName}</span> - ${response.data.content}</span>
+
+              <input class="btn btn-outline-danger" type="submit" value="삭제">
+            </form>
+          </div>
+          <hr>
+          <br>`
+            );
             commentForm.reset()
           })
           .catch(error => {
