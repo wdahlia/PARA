@@ -160,13 +160,12 @@ MESSAGE_TAGS = {
     messages.SUCCESS: "success",
 }
 
-# Emailing settings
+# 이메일 회원가입 설정
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_FROM = "unboxing96@gmail.com"
-EMAIL_HOST_USER = "unboxing96@gmail.com"
-EMAIL_HOST_PASSWORD = "ybsdoqbipsazoaqn"  # 구글로 발급
+EMAIL_FROM = "unboxing96@gmail.com"       # 발신 주소
+EMAIL_HOST_USER = "unboxing96@gmail.com"  # 호스트 주소
+EMAIL_HOST_PASSWORD = "ybsdoqbipsazoaqn"  # google에서 발급받은, 이메일 보내기 서비스를 이용하기 위한 2차 비밀번호
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-PASSWORD_RESET_TIMEOUT = 14400
+PASSWORD_RESET_TIMEOUT = 14400  # 인증용 메일 만료 시간(초) (4시간)

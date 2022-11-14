@@ -10,7 +10,8 @@ from .models import User
 from .forms import CustomUserAuthenticationForm
 from django.http import JsonResponse
 
-from django.contrib import messages  # 알림 메세지
+# 알림 메세지
+from django.contrib import messages
 
 # 이메일 회원가입 관련 메서드
 from django.template.loader import render_to_string
@@ -37,15 +38,19 @@ def signup(request):
         return redirect("accounts:index")
     else:
         if request.method == "POST":
-            form = CustomUserCreationForm(request.POST)
+            form = CustomUserCreationForm(request.POST, request.FILES)
             if form.is_valid():
-                # 👇👇 바로 로그인 되도록 새로 추가된 코드
+                # 바로 저장 안 하고 user 객체 받아옴
                 user = form.save(commit=False)
+                # user의 is_active(인증 여부)를 False로 저장 (default : True)
                 user.is_active = False
+                # user 정보 저장
                 user.save()
+                # "이메일 보내기 함수" 만들어서 정보 전달 (request, user 객체, 검증된 데이터["email"])
                 activateEmail(request, user, form.cleaned_data.get("email"))
                 return redirect("accounts:index")
             else:
+                # error 발생하면 error 내용을 알림으로 띄움
                 for err in list(form.errors.values()):
                     messages.error(request, err)
         else:
@@ -56,8 +61,14 @@ def signup(request):
         return render(request, "accounts/signup.html", context)
 
 
+# 이메일 보내기 함수
+# 1. signup form에서 받은 정보를 암호화
+# 2. accounts/template_activate_account.html에 정보 전달
+# 3. activateEmail()과 tokens.py의 정보를 받은 accounts/template_activate_account.html 양식으로, user.email에게 accounts:activate 링크로 연결되는 메일 보냄
 def activateEmail(request, user, to_email):
+    # 메일 제목
     mail_subject = "Activate your user account."
+    # user 정보(+암호화) 전달 -> accounts/template_activate_account.html
     message = render_to_string(
         "accounts/template_activate_account.html",
         {
@@ -68,6 +79,7 @@ def activateEmail(request, user, to_email):
             "protocol": "https" if request.is_secure() else "http",
         },
     )
+    # 이메일 전송 (제목, 내용, 보낼 곳)
     email = EmailMessage(mail_subject, message, to=[to_email])
     if email.send():
         messages.success(
@@ -76,12 +88,18 @@ def activateEmail(request, user, to_email):
             received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.",
         )
     else:
+        # 에러 처리
         messages.error(
             request,
             f"Problem sending confirmation email to {to_email}, check if you typed it correctly.",
         )
 
 
+# user 정보 복호화 및 인증 함수
+# 1. user 정보 복호화
+# 2. 복호화된 pk 값으로 user 객체 찾음
+# 3. 찾은 user 객체를 is_active=True로 인증시킴
+# 4. 로그인 후 accounts:index로 redirect
 def activate(request, uidb64, token):
     User = get_user_model()
     try:
