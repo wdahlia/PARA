@@ -11,4 +11,5 @@ urlpatterns = [
     path("logout/", views.logout, name="logout"),
     path("update/", views.update, name="update"),
     path("<int:pk>/follow/", views.follow, name="follow"),
+    path("activate/<uidb64>/<token>", views.activate, name="activate"),
 ]
