@@ -3,93 +3,118 @@
 <html lang="en">
 
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARA</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/logo.png' %}">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- bootstrap icon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <!-- CSS 파일 -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PARA</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/logo.png' %}">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <!-- bootstrap icon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <!-- CSS 파일 -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 
-  </head>
+</head>
 
-  <body>
-    {% block nav %}
-      <!-- navbar -->
-      {% if messages %}
-        <nav class="navbar nav-margin bg-none fixed-top">
-        {% else %}
-          <nav class="navbar bg-none fixed-top">
-          {% endif %}
-          <div class="container-fluid justify-content-between">
-            <!-- 토글 아이콘과 로고 이미지 -->
-            <div class="d-flex align-items-start">
-              <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
-                <i class="bi bi-list fs-3 text-black"></i>
-              </button>
-              <a class="navbar-brand" href="#"><img src="{% static 'images/navlogo.png' %}" alt="" class="mx-3" style="width: 40%; height: 70%;"></a>
-            </div>
-            <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
-            <div class="offcanvas bg-white offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
-              <div class="offcanvas-header bg-none align-items-start">
-                <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
-                  <i class="bi bi-x-lg"></i>
-                </button>
-                <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel"><img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;"></div>
-              </div>
-              <div class="offcanvas-body bg-white">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
-                  <li class="nav-item">
-                    <a class="nav-link active text-black pb-0" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black pt-0" aria-current="page" href="#">Best Sellers</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black p-0" aria-current="page" href="#">Jacket</a>
-                  </li>
-                  <li class="nav-item p-0">
-                    <a class="nav-link active text-black p-0" aria-current="page" href="#">Coat</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black p-0" aria-current="page" href="#">Knit</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-black p-0" href="#">Shirt</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link text-black p-0" href="#">Pants</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between d-none d-md-block" style="width: 50%;">
-              <!-- 검색 기능 존재하는 곳 -->
-              <form class="d-flex" role="search">
-                <input type="text" name="[##_search_name_##]" value="" placeholder="찾을 내용을 입력하세요.">
-                <button type="button">검색</button>
-              </form>
-              <div class="d-flex justify-content-around align-items-center" style="width: 30%">
-                <!-- 매장 찾기 accounts앱의 매장 지도가 모달 창으로 뜨게 됨 (내 위치 기반 주변 매장 찾기)-->
-                <a href="" class="text-decoration-none text-black" data-bs-toggle="modal" data-bs-target="#exampleModal">매장찾기</a>
-                <!-- 장바구니 버튼 추가 -->
-                <div>
-                  <i class="bi bi-basket3 fs-4"></i>
-                </div>
-                <!-- div 누르면 프로필 디테일 페이지로 이동 -->
-                <div class="d-flex flex-column">
-                  <!-- 프로필 이미지 들어갈 곳 -->
-                  <img src="" alt="">
-                  <!-- 프로필 닉네임 들어갈 곳-->
-                  <p></p>
-                </div>
-              </div>
-            </div>
+<body>
+  {% block nav %}
+  <!-- navbar -->
+  <nav class="navbar bg-none fixed-top">
+    <div class="container-fluid justify-content-between">
+      <!-- 토글 아이콘과 로고 이미지 -->
+      <div class="d-flex align-items-start">
+        <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+          <i class="bi bi-list fs-3 text-black"></i>
+        </button>
+        <a class="navbar-brand" href="#"><img src="{% static 'images/navlogo.png' %}" alt="" class="mx-3"
+            style="width: 40%; height: 70%;"></a>
+      </div>
+      <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
+      <div class="offcanvas bg-white offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
+        <div class="offcanvas-header bg-none align-items-start">
+          <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="bi bi-x-lg"></i>
+          </button>
+          <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel"><img
+              src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;"></div>
+        </div>
+        <div class="offcanvas-body bg-white">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
+            <li class="nav-item">
+              <a class="nav-link active text-black pb-0" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-black pt-0" aria-current="page" href="#">Best Sellers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
+            </li>
+            <li class="nav-item p-0">
+              <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between d-none d-md-block" style="width: 50%;">
+        <!-- 검색 기능 존재하는 곳 -->
+        <form class="d-flex" role="search">
+          <input type="text" name="[##_search_name_##]" value="" placeholder="찾을 내용을 입력하세요.">
+          <button type="button">검색</button>
+        </form>
+        <div class="d-flex justify-content-around align-items-center" style="width: 30%">
+          <!-- 매장 찾기 accounts앱의 매장 지도가 모달 창으로 뜨게 됨 (내 위치 기반 주변 매장 찾기)-->
+          <a href="" class="text-decoration-none text-black" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">매장찾기</a>
+          <!-- 장바구니 버튼 추가 -->
+          <div>
+            <i class="bi bi-basket3 fs-4"></i>
+          </div>
+          <!-- div 누르면 프로필 디테일 페이지로 이동 -->
+          <div class="d-flex flex-column">
+            <!-- 프로필 이미지 들어갈 곳 -->
+            <img src="" alt="">
+            <!-- 프로필 닉네임 들어갈 곳-->
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+  {% endblock nav %}
+
+  {% comment %} 메일 전송 알림 {% endcomment %}
+  {% autoescape off %}
+    {% if messages %}
+    <ul class="messages ps-0" style="list-style:none;">
+        {% for message in messages %}
+        <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+  {% endautoescape %}
+
+  <div class="row justify-content-center padding-page">
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">ZARA 매장 위치</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
           </div>
 
