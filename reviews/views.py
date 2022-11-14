@@ -94,3 +94,14 @@ def comment_create(request, review_pk):
             return HttpResponse(status=403)
     else:
         return redirect("accounts:login")
+
+
+@login_required
+def comment_delete(request, product_pk, review_pk, comment_pk):
+
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.user == comment.user:
+        if request.method == "POST":
+            comment.delete()
+            return redirect("reviews:review_detail", product_pk, review_pk)
+    return redirect("reviews:review_detail", product_pk, review_pk)
