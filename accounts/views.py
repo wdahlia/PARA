@@ -40,10 +40,14 @@ def signup(request):
             form = CustomUserCreationForm(request.POST)
             if form.is_valid():
                 # 👇👇 바로 로그인 되도록 새로 추가된 코드
-                user = form.save(commit=False)
-                user.is_active = False
-                user.save()
-                activateEmail(request, user, form.cleaned_data.get("email"))
+                user = form.save(commit=False)  # 바로 저장 안 하고 user 객체 받아옴
+                user.is_active = (
+                    False  # user의 is_active(인증 여부)를 False로 저장 (default : True)
+                )
+                user.save()  # user 정보 저장
+                activateEmail(
+                    request, user, form.cleaned_data.get("email")
+                )  # 이메일 보내기 함수 만들어서 정보 전달 (request, user 객체, 검증된 데이터["email"])
                 return redirect("accounts:index")
             else:
                 for err in list(form.errors.values()):
