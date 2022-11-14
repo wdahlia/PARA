@@ -1,3 +1,10 @@
+{% comment %} 
+accounts/views.py/activateEmail로 부터 user 정보를 받아,
+accounts/views.py/activate로 연결되는 링크를 담은 템플릿
+(user가 이메일로 받게 될 내용)
+{% endcomment %}
+
+
 {% autoescape off %}
 Hi {{ user.username }},
 
