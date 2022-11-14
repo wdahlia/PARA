@@ -86,9 +86,12 @@ def comment_create(request, review_pk):
                 comment.user = request.user
                 comment.save()
                 context = {
+                    "review_pk":review_pk,
+                    "comment_pk":comment.pk,
                     "content": comment.content,
                     "userName": comment.user.username,
                 }
+                
                 return JsonResponse(context)
         else:
             return HttpResponse(status=403)
@@ -98,10 +101,20 @@ def comment_create(request, review_pk):
 
 @login_required
 def comment_delete(request, product_pk, review_pk, comment_pk):
-
+    review_rpk = get_object_or_404(Review, pk=review_pk)
+    product_ppk = get_object_or_404(Product, pk=review_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
+    is_del=False
     if request.user == comment.user:
         if request.method == "POST":
+            is_del=True
             comment.delete()
-            return redirect("reviews:review_detail", product_pk, review_pk)
-    return redirect("reviews:review_detail", product_pk, review_pk)
+
+    data = {
+        
+    }
+    return JsonResponse(data)
+        
+
+
+    
