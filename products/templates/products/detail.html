@@ -1,18 +1,39 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load django_bootstrap5 %}
-{% bootstrap_css %}
 {% block css %}{% endblock %}
 {% block body %}
-  <div class='d-flex'>
-    <div class='m-0' style='width: 16rem;'>
-      {% for image in images %}
 
-        <img style='width: 5rem; height: 10rem;' src="{{ image.product_image }}" alt="">
+  {% block script %}
+  <script>
+  function() {
+    const $detail-image = document.querySelector('.detail-image');
+    $detail-image.addEventListener('click', function(){
+      let img = new Image();
+      img.src = $(this).attr("src");
+      $('.modalBox').html(img);
+      $(".modal").show();
+    });
+  // 모달 클릭할때 이미지 닫음
 
-      {% endfor %}
+    
+    $(".modal").addEventListener('click', function(){
+    $(".modal").toggle();
+  });
+    };
+  </script>
+  {% endblock script %}
+
+  <div class='d-sm-flex justify-content-center'>
+    <div class='d-flex flex-column'>
+      <div style="width: 45.4rem; height:63rem;">
+        {% for image in images %}
+
+          <img style='width: 45.4rem; height: 63rem;' class="detail-image" src="{{ image.product_image }}" alt="">
+
+        {% endfor %}
+      </div>
     </div>
-    <div>
+    <div class="px-5">
       <p>{{ products.name }}</p>
       <p>{{ products.content }}</p>
       <p>{{ products.color }}</p>
@@ -21,5 +42,11 @@
     </div>
 
   </div>
+  <!-- 이미지 원본 모달 표시해주기 -->
+  <div class="modal">
+    <div class="modalBox"></div>
+  </div>
+
+ 
+
 {% endblock body %}
-{% bootstrap_javascript %}

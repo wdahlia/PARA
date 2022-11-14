@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
 {% load django_bootstrap5 %}
-
+{% load static %}
 {% block body %}
+
 <div class="container-css">
   <div class="row justify-content-around">
     <div class="col-12 col-md-6 mb-5">
@@ -11,14 +13,25 @@
         <div class="fs-6 mb-2 login_font-weight font-space login_form-width">
           {% bootstrap_form form %}
         </div>
-        {% bootstrap_button button_type="submit" button_class="login_form-width bg-black text-white rounded-0" content="로그인" %}
+        {% bootstrap_button button_type="submit" button_class="login_form-width bg-black text-white rounded-0"
+        content="로그인" %}
       </form>
+      <!-- 네이버 로그인 -->
+      <div>
+        <a href="{% provider_login_url 'naver'%}?next=/" onclick="naverLogin()">
+          <img src="{% static 'images/naver.png' %}" height="34">
+        </a>
+        <a href="{% provider_login_url 'kakao'%}?next=/" onclick="naverLogin()">
+          <img src="{% static 'images/kakao.png' %}" height="34">
+        </a>
+      </div>
     </div>
     <div class="col-12 col-md-6 mt-3">
       <h6 class="login_font-weight">등록</h6>
       <p class="notice-font-size">PARA.COM 회원으로 가입하시면 빠르고 편리하게 이용하실 수 있습니다.
         <br>
-        아직 PARA.COM 의 회원이 아니시라면 이메일로 간편하게 가입하실 수 있습니다.</p>
+        아직 PARA.COM 의 회원이 아니시라면 이메일로 간편하게 가입하실 수 있습니다.
+      </p>
       <form action="{% url 'accounts:signup' %}">
         <button type="submit" class="btn bg-black text-center rounded-0 text-white signup__button">계정 만들기</button>
       </form>

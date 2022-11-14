@@ -38,7 +38,7 @@ def signup(request):
         return redirect("accounts:index")
     else:
         if request.method == "POST":
-            form = CustomUserCreationForm(request.POST)
+            form = CustomUserCreationForm(request.POST, request.FILES)
             if form.is_valid():
                 # 바로 저장 안 하고 user 객체 받아옴
                 user = form.save(commit=False)
