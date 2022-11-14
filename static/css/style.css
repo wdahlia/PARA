@@ -139,3 +139,7 @@ width: 170px;
     cursor: -webkit-zoom-in;
 }
 /* image modal end */
+
+.nav-margin {
+  margin-top: 5rem;
+}
