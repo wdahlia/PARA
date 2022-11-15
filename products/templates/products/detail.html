@@ -11,35 +11,42 @@
 
       {% endfor %}
     </div>
-  </div>
-  <div class="px-5">
-    <span>
-      <form action="{% url 'products:like' products.pk %}" method='POST'>
-        {% csrf_token %}
-        {% if user in products.like_users.all %}
-        <input type="submit" value='찜하기 취소'>
-        {% else %}
-        <input type="submit" value='찜하기'>
-        {% endif %}
-      </form>
-    </span>
-    <p>{{ products.name }}</p>
-    <p>{{ products.content }}</p>
-    <p>{{ products.color }}</p>
-    <p>{{ products.price }}</p>
-    <p>조회수:{{ products.hits }}</p>
-    <p>평균평점 : {{ review_ave }}</p>
-    <button>장바구니</button>
-    <div>
-      <div class="col-5 p-0">
-        <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark">
-          리뷰 쓰기
-        </a>
-      </div>
-      <div class='d-flex my-1'>
-        {% for review in reviews %}
-        <img src="{{ accounts.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
-        <p href="">{{ review.user.username }}</p>
+
+    <div class="px-5">
+      <span>
+        <form action="{% url 'products:like' products.pk %}" method='POST'>
+          {% csrf_token %}
+          {% if user in products.like_users.all %}
+            <input type="submit" value='찜하기 취소'>
+          {% else %}
+            <input type="submit" value='찜하기'>
+          {% endif %}
+        </form>
+      </span>
+      <p>{{ products.name }}</p>
+      <p>{{ products.content }}</p>
+      <p>{{ products.color }}</p>
+      <p>{{ products.price }}</p>
+      <p>조회수:{{ products.hits }}</p>
+      <p>평균평점 : {{ review_ave }}</p>
+      <button>장바구니</button>
+      <div>
+        <div class="col-5 p-0">
+          <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark">
+            리뷰 쓰기
+          </a>
+        </div>
+        <div class='d-flex my-1'>
+          {% for review in reviews %}
+          {% if review.user.profile_image %}
+          <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
+          {% endif %}
+            <p href="">{{ review.user.username }}</p>
+          </div>
+          <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
+          <a href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
+        {% endfor %}
+
       </div>
 
       <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
