@@ -1,12 +1,14 @@
 from django.db import models
 from django.conf import settings
+
 # Create your models here.
+
 
 class Category(models.Model):
     sort = models.CharField(max_length=255)
 
     def __str__(self):
-        return '{}'.format(self.sort)
+        return "{}".format(self.sort)
 
 
 class Product(models.Model):
@@ -16,12 +18,20 @@ class Product(models.Model):
     price = models.TextField()
     size = models.TextField()
     hits = models.PositiveIntegerField(default=0, verbose_name="조회수")
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_restaurants')
+    like_users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="like_restaurants"
+    )
     gender = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product_category')
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="product_category"
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True
+    )
 
 
 class Image(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product')
-    product_image = models.URLField(max_length = 200)
-
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="product"
+    )
+    product_image = models.URLField(max_length=200)
