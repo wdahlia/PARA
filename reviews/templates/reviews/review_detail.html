@@ -8,12 +8,22 @@
   <p>작성자:{{ review.user.username }}</p>
   {% if review.review_image %}
   <div>
-    <img src="{{ review.review_image.url }}" width='600px;'  alt="{{review.review_image}}">
+    <img src="{{ review.review_image.url }}" width='600px;' alt="{{review.review_image}}">
   </div>
   {% else %}
   <img src="" alt="">
   {% endif %}
-  <p>평점: {{ review.grade }}</p>
+  {% if review.grade == 1 %}
+  <p>평점: ⭐</p>
+  {% elif review.grade == 2 %}
+  <p>평점: ⭐⭐</p>
+  {% elif review.grade == 3 %}
+  <p>평점: ⭐⭐⭐</p>
+  {% elif review.grade == 4 %}
+  <p>평점: ⭐⭐⭐⭐</p>
+  {% elif review.grade == 5 %}
+  <p>평점: ⭐⭐⭐⭐⭐</p>
+  {% endif %}
   <p>리뷰: {{ review.content }}</p>
 
 
@@ -35,27 +45,28 @@
     <div id="comments" class="my-5">
       {% comment %} 반복문으로 댓글 뽑음 {% endcomment %}
       {% for comment in comments %}
-      <div id ='com{{ comment.pk }}' class='comments_set'>
-      <div class="d-flex align-items-center">
-        <span class='me-auto'>
-          <span class='text-muted'>작성자: {{ comment.user }}</span> - {{ comment.content}}</span>
-        {% if request.user == comment.user %}
-        <form  data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}' data-comment-id='{{ comment.pk }}' action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST">
-        {% csrf_token %}
-        <input class="btn btn-outline-danger" type="submit" value="삭제">
-        </form>
-      {% endif %}
-    </div>
-    <hr>
-    <br>
-  </div>
+      <div id='com{{ comment.pk }}' class='comments_set'>
+        <div class="d-flex align-items-center">
+          <span class='me-auto'>
+            <span class='text-muted'>작성자: {{ comment.user }}</span> - {{ comment.content}}</span>
+          {% if request.user == comment.user %}
+          <form data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}' data-comment-id='{{ comment.pk }}'
+            action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST">
+            {% csrf_token %}
+            <input class="btn btn-outline-danger" type="submit" value="삭제">
+          </form>
+          {% endif %}
+        </div>
+        <hr>
+        <br>
+      </div>
       {% endfor %}
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-  
+
     const product_pk = document.querySelector('#product_pk').dataset.infoId
     //console.log(product_pk)
     const commentForm = document.querySelector('#comment-form')
@@ -73,13 +84,13 @@
           },
           data: new FormData(commentForm)
         })
-        .then(response => {
-          //console.log(response.data.comment_pk)
-          //console.log(response.data.review_pk)
+          .then(response => {
+            //console.log(response.data.comment_pk)
+            //console.log(response.data.review_pk)
 
             const comments = document.querySelector('#comments')
             comments.insertAdjacentHTML('beforeend',
-            `
+              `
             <div id ='com${response.data.comment_pk}' class='comments_set'>
             <div class="d-flex align-items-center">
               <span class='me-auto'>
@@ -101,20 +112,20 @@
             console.log(result)
             result.addEventListener('submit', event => {
               event.preventDefault()
-        //console.log(event.target.dataset)
-        const product_pk = event.target.dataset.productId
-        const review_pk = event.target.dataset.reviewId
-        const comment_pk = event.target.dataset.commentId
-        axios({
-          method:'post',
-          url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
-          headers: {'X-CSRFToken': csrftoken},
-        })
-        .then(response => {
-          const deldiv = document.getElementById(`com${comment_pk}`)
-          console.log(deldiv)
-          deldiv.remove();
-        })
+              //console.log(event.target.dataset)
+              const product_pk = event.target.dataset.productId
+              const review_pk = event.target.dataset.reviewId
+              const comment_pk = event.target.dataset.commentId
+              axios({
+                method: 'post',
+                url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
+                headers: { 'X-CSRFToken': csrftoken },
+              })
+                .then(response => {
+                  const deldiv = document.getElementById(`com${comment_pk}`)
+                  console.log(deldiv)
+                  deldiv.remove();
+                })
             })
             commentForm.reset()
           })
@@ -127,7 +138,7 @@
           })
       })
 
-      //삭제를 해보자아
+    //삭제를 해보자아
     const commentDel = document.querySelectorAll('.comments_set')
     commentDel.forEach(form => {
       form.addEventListener('submit', event => {
@@ -136,26 +147,26 @@
         const product_pk = event.target.dataset.productId
         const review_pk = event.target.dataset.reviewId
         const comment_pk = event.target.dataset.commentId
-        
+
         axios({
-          method:'post',
+          method: 'post',
           url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
-          headers: {'X-CSRFToken': csrftoken},
-          
+          headers: { 'X-CSRFToken': csrftoken },
+
         })
-        .then(response => {
-          const deldiv = document.getElementById(`com${comment_pk}`)
-          console.log(deldiv)
-          deldiv.remove();
-          
-        })
-        .catch(error => {
-          console.log(deldiv)
-        })
+          .then(response => {
+            const deldiv = document.getElementById(`com${comment_pk}`)
+            console.log(deldiv)
+            deldiv.remove();
+
+          })
+          .catch(error => {
+            console.log(deldiv)
+          })
       })
     })
 
-      
+
   </script>
 
   {% endblock body %}

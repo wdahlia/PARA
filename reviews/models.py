@@ -9,15 +9,17 @@ from django.conf import settings
 
 
 class Review(models.Model):
+    grade_choices = (
+        ("1", "⭐"),
+        ("2", "⭐⭐"),
+        ("3", "⭐⭐⭐"),
+        ("4", "⭐⭐⭐⭐"),
+        ("5", "⭐⭐⭐⭐⭐"),
+    )
+    grade = models.CharField(max_length=2, choices=grade_choices)
     content = models.CharField(max_length=160)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    grade = models.IntegerField(
-        "숫자",
-        default=1,
-        help_text="1~5사이 값으로 입력하세요",
-        validators=[MinValueValidator(1), MaxValueValidator(5)],
-    )
     review_image = ProcessedImageField(
         null=True,
         upload_to="images/",
