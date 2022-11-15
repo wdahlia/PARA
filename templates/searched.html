@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block body %}
+<form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="post">
+  {% csrf_token %}
+  <input class="form-control mr-sm-2" type="search" placeholder="검색을 위해 입력해주세요" aria-label="Search" name="q"
+    value="{{q}}">
+  <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+</form>
+
+<div class="container">
+  {% if not name %}
+  <h1 class="">검색 없음</h1>
+  {% else %}
+
+  {% for i in name.all %}
+  <div class="">
+    <div class="card">
+      <a href="{% url 'products:detail' i.pk %}" class="d-flex align-items-center"
+        style="text-decoration: none; color: black;">
+        <img class="m-5" src="" alt="" style="width: 80px; height: 80px;">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ i.name }}</h5>
+        </div>
+      </a>
+    </div>
+  </div>
+  <hr>
+  {% endfor %}
+
+  {% endif %}
+</div>
+
+{% endblock body %}

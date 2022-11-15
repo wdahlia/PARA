@@ -30,8 +30,15 @@ class Product(models.Model):
     )
 
 
+
 class Image(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="product"
     )
     product_image = models.URLField(max_length=200)
+
+
+class Search(models.Model):
+    keyword = models.TextField(max_length=30)
+    count = models.IntegerField(default=1)
+
