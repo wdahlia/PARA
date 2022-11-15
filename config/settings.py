@@ -33,8 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "daphne",
     "channels",
+    "daphne",
     "chat",
     "accounts",
     "products",

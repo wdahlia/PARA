@@ -29,7 +29,7 @@ def detail(request, pk):
     review_ave = 0
     cnt = 0
     for review in reviews:
-        review_ave += review.grade
+        review_ave += int(review.grade)
         cnt += 1
     if cnt == 0:
         review_ave = "평가없음"
