@@ -36,7 +36,9 @@
         </div>
         <div class='d-flex my-1'>
           {% for review in reviews %}
-            <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
+          {% if review.user.profile_image %}
+          <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
+          {% endif %}
             <p href="">{{ review.user.username }}</p>
           </div>
           <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
