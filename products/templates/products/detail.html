@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load filter_tags %}
+
 {% block body %}
 
 <div class='d-sm-flex justify-content-center'>
@@ -24,7 +26,13 @@
       </form>
     </span>
     <p>{{ products.name }}</p>
-    <p>{{ products.content }}</p>
+
+    {% with products.content|split:"." as cons %}
+      {% for con in cons %}
+      <p>{{ con }}</p>
+      {% endfor %}
+    {% endwith %}
+    
     <p>{{ products.color }}</p>
     <p>{{ products.price }}</p>
     <p>조회수:{{ products.hits }}</p>
