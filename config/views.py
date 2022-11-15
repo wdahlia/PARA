@@ -14,9 +14,14 @@ def main(request):
 def search(request):
     search = Product.objects.all().order_by("-pk")
     q = request.POST.get("q", "")
+    name = search.filter(name__icontains=q)
+    dicts={}
+    for n in name:
+        image = Image.objects.filter(product_id = n.id)[0]
+        dicts[n]=image
     if q:
-        name = search.filter(name__icontains=q)
         context = {
+            "dicts":dicts,
             "name": name,
             "q": q,
         }
