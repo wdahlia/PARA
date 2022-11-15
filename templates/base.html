@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- CSS 파일 -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
-
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/8b9825c831.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -46,7 +47,7 @@
               <div class="offcanvas-body" style="background-color: rgba(255, 255, 249, 0.677);">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
                   <li class="nav-item">
-                    <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)"aria-current="page" href="{% url 'products:index' %}">Home</a>
+                    <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">Home</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link active text-black pt-0" aria-current="page" href="#">Best Sellers</a>
@@ -84,15 +85,17 @@
                   <!-- 프로필 이미지 들어갈 곳 -->
                   {% if request.user.is_authenticated %}
                     <div class="d-flex justify-content-center align-items-center">
+
                       <a href="{% url 'accounts:detail' request.user.pk %}" class="text-center text-decoration-none text-black">
                         {% if request.user.profile_image %}
-                        <img src="{{ request.user.profile_image.url }}" style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
+                          <img src="{{ request.user.profile_image.url }}" style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
                         {% else %}
-                        <img src="{% static 'images/userimage.png' %}" style="width: 50px; height: 50px;" alt="images/userimage.png">
+                          <img src="{% static 'images/userimage.png' %}" style="width: 50px; height: 50px;" alt="images/userimage.png">
                         {% endif %}
                         <!-- 프로필 닉네임 들어갈 곳-->
-                        <p class="font-space mb-0">{{ request.user.username }}</p>
+                        <p class="font-space mb-0 fw-lighter">{{ request.user.username }}</p>
                       </a>
+
                       <a href="{% url 'accounts:logout' %}" class="ms-3 text-black">Logout</a>
                     {% else %}
                       <div class="d-flex">

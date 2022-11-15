@@ -10,7 +10,7 @@
   </div>
 </div>
 
-  <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4">
+  <div class="row">
     {% for product in products %}
       <a href="{% url 'products:detail' product.pk %}">
         <p>{{ product.name }}</p>
@@ -24,3 +24,4 @@
   {% endfor %}
 </div>
 {% endblock body %}
+

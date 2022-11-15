@@ -3,9 +3,10 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     UserChangeForm,
     AuthenticationForm,
+    ReadOnlyPasswordHashField
 )
 from django import forms
-from django.forms import TextInput, PasswordInput, EmailInput
+from django.forms import TextInput, PasswordInput, EmailInput, FileInput
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -38,6 +39,11 @@ class CustomUserCreationForm(UserCreationForm):
                     "placeholder": "이메일을 입력해주세요",
                 }
             ),
+            "profile_image": FileInput(
+                attrs={
+                    "style": "background: transparent;",
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -62,7 +68,34 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = get_user_model()
-        fields = ("email", "profile_image")
+        fields = ("email", "profile_image", "content")
+        labels = {
+            "email": "이메일",
+            "profile_image": "프로필이미지",
+            "content": "프로필 컨텐츠",
+        }
+
+        widgets = {
+            "email": EmailInput(
+                attrs={
+                    "class": "border-0 border-bottom border-1 border-dark rounded-0 mx-1 mb-4",
+                    "style": "background: transparent;",
+                }
+            ),
+            "profile_image": FileInput(
+                attrs={
+                    "class": "mb-4",
+                    "style": "background: transparent;",
+                }
+            ),
+            "content": TextInput(
+                 attrs={
+                    "class": "border-0 border-bottom border-1 border-dark rounded-0 mx-1",
+                    "style": "background: transparent;",
+                    "placeholder": "소개를 입력해주세요"
+                }
+            )
+        }
 
 
 class CustomUserAuthenticationForm(AuthenticationForm):
