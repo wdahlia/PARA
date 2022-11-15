@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Image, Product, Category
 from reviews.models import Review
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -71,3 +73,16 @@ def category(request, category_pk):
 #         "categories": categories,
 #     }
 #     return render(request, "products/category.html", context)
+@login_required
+def like(request, pk):
+    product = Product.objects.get(pk=pk)
+    # 만약에 로그인한 유저가 이 글을 좋아요를 눌렀다면,
+    # if product.like_users.filter(id=request.user.id).exists():
+    if request.user in product.like_users.all():
+        # 좋아요 삭제하고
+        product.like_users.remove(request.user)
+    else:
+        # 좋아요 추가하고
+        product.like_users.add(request.user)
+        # 상세 페이지로 redirect
+    return redirect("products:detail", pk)
