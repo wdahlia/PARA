@@ -55,7 +55,9 @@ def category(request, category_pk):
     img_dict = {}
     for product in products:
 
-        img = Image.objects.filter(product_id=product.id)[0]  # 프로덕트 ID에 해당하는 0번째 이미지 객체 가져옴
+        img = Image.objects.filter(product_id=product.id)[
+            0
+        ]  # 프로덕트 ID에 해당하는 0번째 이미지 객체 가져옴
 
         img_dict[product.id] = img
     # print(img_dict)
