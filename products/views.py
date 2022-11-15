@@ -38,9 +38,9 @@ def category(request, category_pk):
     # images = Image.objects.filter()
     img_dict = {}
     for product in products:
-        img = Image.objects.filter(product_id=product.id)  # 프로덕트 ID에 해당하는 이미지 객체 다 가져옴
+        img = Image.objects.filter(product_id=product.id)[1]  # 프로덕트 ID에 해당하는 이미지 객체 다 가져옴
         img_dict[product.id] = img
-    print(img_dict)
+    #print(img_dict)
     # gender = Product.objects.filter(gender=gender)
     # print(images)
     context = {

@@ -10,6 +10,11 @@ class ReviewForm(forms.ModelForm):
             "grade",
             "review_image",
         ]
+        labels = {
+            "content": "리뷰 내용",
+            "grade": "평점",
+            "review_image": "이미지",
+        }
 
 
 class CommentForm(forms.ModelForm):
