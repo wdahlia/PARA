@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Image, Product, Category
 from reviews.models import Review
+from django.db.models import Avg
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -24,12 +25,27 @@ def detail(request, pk):
     reviews = Review.objects.filter(product_id=pk)
 
     # template에 객체 전달
+
+    review_ave = 0
+    cnt = 0
+    for review in reviews:
+        review_ave += review.grade
+        cnt += 1
+    if cnt == 0:
+        review_ave = "평가없음"
+    else:
+        review_ave = round((review_ave / cnt), 2)
     context = {
         "products": products,
         "images": images,
         "reviews": reviews,
+        "review_ave": review_ave,
     }
-    return render(request, "products/detail.html", context)
+    response = render(request, "products/detail.html", context)
+    products.hits += 1
+    products.save()
+
+    return response
 
 
 def category(request, category_pk):
@@ -38,9 +54,11 @@ def category(request, category_pk):
     # images = Image.objects.filter()
     img_dict = {}
     for product in products:
+
         img = Image.objects.filter(product_id=product.id)[0]  # 프로덕트 ID에 해당하는 0번째 이미지 객체 가져옴
+
         img_dict[product.id] = img
-    #print(img_dict)
+    # print(img_dict)
     # gender = Product.objects.filter(gender=gender)
     # print(images)
     context = {
