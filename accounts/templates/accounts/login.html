@@ -8,20 +8,19 @@
   <div class="row justify-content-around">
     <div class="col-12 col-md-6 mb-5">
       <h6 class="mb-3 login_font-weight">로그인</h6>
-      <form action="" method="POST" class="d-flex flex-column">
+      <form action="" method="POST" class="d-flex flex-column mb-3">
         {% csrf_token %}
         <div class="fs-6 mb-2 login_font-weight font-space login_form-width">
           {% bootstrap_form form %}
         </div>
-        {% bootstrap_button button_type="submit" button_class="login_form-width bg-black text-white rounded-0"
-        content="로그인" %}
+        {% bootstrap_button button_type="submit" button_class="login_form-width bg-black text-white rounded-0" content="로그인" %}
       </form>
       <!-- 네이버 로그인 -->
       <div>
-        <a href="{% provider_login_url 'naver'%}?next=/" onclick="naverLogin()">
+        <a href="{% provider_login_url 'naver'%}?next=/" class="text-decoration-none" onclick="naverLogin()">
           <img src="{% static 'images/naver.png' %}" height="34">
         </a>
-        <a href="{% provider_login_url 'kakao'%}?next=/" onclick="naverLogin()">
+        <a href="{% provider_login_url 'kakao'%}?next=/" class="text-decoration-none" onclick="naverLogin()">
           <img src="{% static 'images/kakao.png' %}" height="34">
         </a>
       </div>
