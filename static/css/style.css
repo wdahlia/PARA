@@ -173,3 +173,48 @@ width: 170px;
 }
 
 /* absolute의 기준은 원래 body */
+
+
+.follow-btn {
+  border: 1px solid rgb(41, 40, 46);
+  color: rgb(41, 40, 46);
+}
+
+.follow-btn:hover {
+  background-color: rgba(104, 101, 161, 0.47);
+  color: rgb(114, 108, 175);
+}
+
+
+input[type="checkbox"] {
+  height: 50px;
+  width: 50px;
+  appearance: none;
+  -webkit-appearance: none;
+  box-shadow:
+  -10px -10px 15px rgba(255,255,255,0.5),
+  10px 10px 15px rgba(70,70,70,0.12);
+  border-radius: 50%;
+  border: 8px solid #ececec;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ececec;
+}
+
+input[type="checkbox"]:after {
+  font-family: FontAwesome;
+  content: '\f075';
+  color: #7a7a7a;
+  font-size: 20px;
+}
+
+input[type="checkbox"]:checked:after {
+  color: rgb(171, 171, 232)
+}
+
+.vr {
+  background-color: black !important;
+  opacity: 1;
+}
