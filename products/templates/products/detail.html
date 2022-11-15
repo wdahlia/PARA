@@ -28,6 +28,27 @@
     <p>{{ products.color }}</p>
     <p>{{ products.price }}</p>
     <p>조회수:{{ products.hits }}</p>
+    {% if star == 0.5 %}
+    <div><img src="{% static 'images/star_0.5.jpg' %}" alt=""></div>
+    {% elif star == 1.0 %}
+    <div><img src="{% static 'images/star_1.0.jpg' %}" alt=""></div>
+    {% elif star == 1.5 %}
+    <div><img src="{% static 'images/star_1.5.jpg' %}" alt=""></div>
+    {% elif star == 2.0 %}
+    <div><img src="{% static 'images/star_2.0.jpg' %}" alt=""></div>
+    {% elif star == 2.5 %}
+    <div><img src="{% static 'images/star_2.5.jpg' %}" alt=""></div>
+    {% elif star == 3.0 %}
+    <div><img src="{% static 'images/star_3.0.jpg' %}" alt=""></div>
+    {% elif star == 3.5 %}
+    <div><img src="{% static 'images/star_3.5.jpg' %}" alt=""></div>
+    {% elif star == 4.0 %}
+    <div><img src="{% static 'images/star_4.0.jpg' %}" alt=""></div>
+    {% elif star == 4.5 %}
+    <div><img src="{% static 'images/star_4.5.jpg' %}" alt=""></div>
+    {% elif star == 5.0 %}
+    <div><img src="{% static 'images/star_5.0.jpg' %}" alt=""></div>
+    {% endif %}
     <p>평균평점:{{ review_ave }}</p>
     <button>장바구니</button>
     <div>

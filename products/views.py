@@ -33,13 +33,36 @@ def detail(request, pk):
         cnt += 1
     if cnt == 0:
         review_ave = "평가없음"
+        star = ""
     else:
         review_ave = round((review_ave / cnt), 2)
+    if review_ave != "평가없음":
+        if review_ave > 4.5:
+            star = 5.0
+        elif 4.5 >= review_ave > 4:
+            star = 4.5
+        elif 4 >= review_ave > 3.5:
+            star = 4.0
+        elif 3.5 >= review_ave > 3:
+            star = 3.5
+        elif 3 >= review_ave > 2.5:
+            star = 3.0
+        elif 2.5 >= review_ave > 2:
+            star = 2.5
+        elif 2 >= review_ave > 1.5:
+            star = 2
+        elif 1.5 >= review_ave > 1:
+            star = 1.5
+        elif 1 >= review_ave > 0.5:
+            star = 1.0
+        elif 0.5 >= review_ave > 0:
+            star = 0.5
     context = {
         "products": products,
         "images": images,
         "reviews": reviews,
         "review_ave": review_ave,
+        "star": star,
     }
     response = render(request, "products/detail.html", context)
     products.hits += 1
