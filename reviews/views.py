@@ -22,7 +22,7 @@ def review_create(request, product_pk):
             review.product = product
             review.user = request.user
             review.save()
-            return redirect("accounts:account_detail", product.pk)
+            return redirect("products:detail", product.pk)
     else:
         review_form = ReviewForm()
     context = {
@@ -49,8 +49,8 @@ def review_delete(request, product_pk, review_pk):
     if request.user == review.user:
         if request.method == "POST":
             review.delete()
-            return redirect("reviews:product_detail", product_pk)
-    return redirect("reviews:product_detail", product_pk)
+            return redirect("products:detail", product_pk)
+    return redirect("products:detail", product_pk)
 
 
 @login_required
@@ -72,7 +72,7 @@ def review_update(request, product_pk, review_pk):
         return render(request, "reviews/review_update.html", context)
     else:
         messages.warning(request, "작성자만 수정할 수 있습니다.")
-        return redirect("reviews:product_detail", product_pk)
+        return redirect("products:detail", product_pk)
 
 
 def comment_create(request, review_pk):
@@ -86,12 +86,12 @@ def comment_create(request, review_pk):
                 comment.user = request.user
                 comment.save()
                 context = {
-                    "review_pk":review_pk,
-                    "comment_pk":comment.pk,
+                    "review_pk": review_pk,
+                    "comment_pk": comment.pk,
                     "content": comment.content,
                     "userName": comment.user.username,
                 }
-                
+
                 return JsonResponse(context)
         else:
             return HttpResponse(status=403)
@@ -104,17 +104,11 @@ def comment_delete(request, product_pk, review_pk, comment_pk):
     review_rpk = get_object_or_404(Review, pk=review_pk)
     product_ppk = get_object_or_404(Product, pk=review_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
-    is_del=False
+    is_del = False
     if request.user == comment.user:
         if request.method == "POST":
-            is_del=True
+            is_del = True
             comment.delete()
 
-    data = {
-        
-    }
+    data = {}
     return JsonResponse(data)
-        
-
-
-    

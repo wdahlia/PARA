@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Image, Product, Category
+from reviews.models import Review
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
@@ -18,10 +19,13 @@ def detail(request, pk):
     # 특정 글을 가져온다.
     products = Product.objects.get(pk=pk)
     images = Image.objects.filter(product_id=pk)
+    reviews = Review.objects.filter(product_id=pk)
+
     # template에 객체 전달
     context = {
         "products": products,
         "images": images,
+        "reviews": reviews,
     }
     return render(request, "products/detail.html", context)
 

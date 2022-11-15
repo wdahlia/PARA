@@ -2,25 +2,37 @@
 {% load static %}
 {% block body %}
 
-  <div class='d-sm-flex justify-content-center'>
-    <div class='d-flex flex-column'>
-      <div style="width: 45.4rem; height:63rem;">
-        {% for image in images %}
+<div class='d-sm-flex justify-content-center'>
+  <div class='d-flex flex-column'>
+    <div style="width: 45.4rem; height:63rem;">
+      {% for image in images %}
 
-          <img style='width: 45.4rem; height: 63rem;' class="detail-image" src="{{ image.product_image }}" alt="">
+      <img style='width: 45.4rem; height: 63rem;' class="detail-image" src="{{ image.product_image }}" alt="">
 
-        {% endfor %}
-      </div>
+      {% endfor %}
     </div>
-    <div class="px-5">
-      <p>{{ products.name }}</p>
-      <p>{{ products.content }}</p>
-      <p>{{ products.color }}</p>
-      <p>{{ products.price }}</p>
-      <button>장바구니</button>
-    </div>
-
   </div>
+  <div class="px-5">
+    <p>{{ products.name }}</p>
+    <p>{{ products.content }}</p>
+    <p>{{ products.color }}</p>
+    <p>{{ products.price }}</p>
+    <button>장바구니</button>
+  </div>
+
+</div>
+<div class="col-5 p-0">
+  <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark">
+    리뷰 쓰기
+  </a>
+</div>
+
+
+{% for review in reviews %}
+<a href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}1111111111111111<br></a>
+{% endfor %}
+
+
 
 {% endblock body %}
 
