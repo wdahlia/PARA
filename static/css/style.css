@@ -185,16 +185,13 @@ width: 170px;
   color: rgb(114, 108, 175);
 }
 
-
-input[type="checkbox"] {
+button.openBtn {
   height: 50px;
   width: 50px;
-  appearance: none;
-  -webkit-appearance: none;
   box-shadow:
-  -10px -10px 15px rgba(255,255,255,0.5),
-  10px 10px 15px rgba(70,70,70,0.12);
-  border-radius: 50%;
+  -5px -5px 10px rgba(255,255,255,0.5),
+  5px 5px 10px rgba(103, 98, 98, 0.539);
+  border-radius: 20%;
   border: 8px solid #ececec;
   outline: none;
   display: flex;
@@ -203,18 +200,43 @@ input[type="checkbox"] {
   background-color: #ececec;
 }
 
-input[type="checkbox"]:after {
-  font-family: FontAwesome;
-  content: '\f075';
-  color: #7a7a7a;
+
+button.openBtn > i.fa-solid {
+  color: #3768bca5;
   font-size: 20px;
 }
 
-input[type="checkbox"]:checked:after {
-  color: rgb(171, 171, 232)
+
+button.openBtn > i.fa-solid:hover {
+  color: rgb(184, 184, 251);
 }
 
-.vr {
-  background-color: black !important;
-  opacity: 1;
+button.openBtn > i.fa-solid:active {
+  color: rgb(184, 184, 251);
+}
+
+
+/* 채팅 팝업 */
+
+.popup {
+  position: absolute;
+	bottom: 20%;
+  right: 5%;
+  width: 410px;
+  height: 400px;
+	padding: 5px;
+	border: 3px solid black;
+	background-color: white;
+	overflow: auto;	
+  box-shadow:
+  6px 8px 30px rgba(99, 95, 95, 0.209);
+}
+
+.greeting-box {
+  background: rgba(0, 0, 0, 0.898);
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.064);
+  border: 3px solid rgba(0, 0, 0, 0.102);
+  padding: 10px;
+  letter-spacing: -1px;
+  font: white;
 }

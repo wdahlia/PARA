@@ -5,24 +5,37 @@
   <!-- viewpoint 제일 작은 사이즈 -->
   <div class="d-flex flex-column align-items-center d-sm-none">
     {% if user.profile_image %}
-      <img src="{{ user.profile_image.url }}" style="width: 200px; height: 200px;" class="" alt="{{ user.profile_image }}">
+      <img src="{{ user.profile_image.url }}" style="width: 200px; height: 200px;" class="mb-3" alt="{{ user.profile_image }}">
     {% else %}
-      <img src="{% static 'images/profiledetail.png' %}" style="width: 100px; height: 100px;" class="me-5" alt="images/profiledetail.png">
+      <img src="{% static 'images/profiledetail.png' %}" style="width: 100px; height: 100px;" class="mb-3" alt="images/profiledetail.png">
     {% endif %}
     <h1 class="mb-0" style="letter-spacing: -2px;">{{ user.username }}</h1>
-    <p class="mb-4 fw-lighter">{{ user.email }}</p>
-    {% if content != "" %}
-      <p>{{ user.content }}</p>
+    <div class="d-flex fw-lighter align-items-center mt-1">
+      <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" trigger="hover" colors="primary:#121331" state="hover" style="width:20px;height:20px" class="me-1"></lord-icon>
+      <p class="mb-0 fw-normal font-space">{{ user.email }}</p>
+    </div>
+    {% if user.content != "" %}
+      <div class="mt-2 d-flex">
+        <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" style="width:20px;height:20px" class="me-1"></lord-icon>
+        <p class="font-space">{{ user.content }}</p>
+      </div>
+    {% else %}
+      <div class="mt-2"></div>
     {% endif %}
     {% if request.user == user %}
       <div>
         <a class="btn btn-outline-dark rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
       </div>
     {% else %}
-      <form action="" method="POST">
-        <input type="submit" class="btn btn-outline-primary rounded-0" value="팔로우">
-        <input type="submit" class="btn btn-outline-danger rounded-0" value="팔로우 취소">
-      </form>
+      <div class="btn-list d-flex align-items-center">
+        <form action="" method="POST">
+          <input type="submit" class="btn btn-outline-primary rounded-0" value="팔로우">
+          <input type="submit" class="btn btn-outline-danger rounded-0" value="팔로우 취소">
+        </form>
+        <button type="button" class="openBtn text-decoration-none">
+          <i class="fa-solid fa-comment"></i>
+        </button>
+      </div>
     {% endif %}
 
   </div>
@@ -39,42 +52,73 @@
     </div>
     <div class="col-5 text-start">
       <h1 class="mb-0" style="letter-spacing: -2px;">{{ user.username }}</h1>
-      <p class="fw-lighter">
-        {{ user.email }}</p>
-      {% if content != "" %}
-        <p class="font-space">{{ user.content }}</p>
-      {% endif %}
-      {% if request.user == user %}
-        <div>
-          <a class="btn btn-outline-dark rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
+      <div class="d-flex fw-lighter align-items-center mt-1">
+        <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" trigger="hover" colors="primary:#121331" state="hover" style="width:20px;height:20px" class="me-1"></lord-icon>
+        <p class="mb-0 fw-normal font-space">{{ user.email }}</p>
+      </div>
+      {% if user.content != "" %}
+        <div class="mt-2 d-flex">
+          <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" style="width:20px;height:20px" class="me-1"></lord-icon>
+          <p class="font-space">{{ user.content }}</p>
         </div>
       {% else %}
-        <form action="" method="POST">
-          <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-          <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-        </form>
+        <div class="mt-2"></div>
+      {% endif %}
+      {% if request.user == user %}
+        <a class="btn btn-outline-dark rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
+      {% else %}
+        <div class="btn-list d-flex align-items-center">
+          <form action="" method="POST" class="me-3">
+            <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
+            <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
+          </form>
+          <button type="button" class="openBtn text-decoration-none">
+            <i class="fa-solid fa-comment"></i>
+          </button>
+        </div>
+
       {% endif %}
     </div>
     <div class="col-1"></div>
   </div>
 
   <div class="d-flex justify-content-center mt-5 p-3">
-    <div class="d-flex flex-column text-center">
+    <div class="d-flex flex-column text-center mx-3">
       <h6 class="font-space px-3 py-2 bg-dark text-white">팔로워</h6>
       <p class="font-space mb-0 fw-bold">1</p>
     </div>
-    <div class="d-flex flex-column text-center">
+    <div class="d-flex flex-column text-center mx-3">
       <h6 class="font-space px-3 py-2 bg-dark text-white">팔로잉</h6>
       <p class="font-space mb-0 fw-bold">3</p>
     </div>
-    <div class="d-flex flex-column text-center">
+    <div class="d-flex flex-column text-center mx-3">
       <h6 class="font-space px-3 py-2 bg-dark text-white">{{ user.username }}'s PICK</h6>
       <p class="font-space mb-0 fw-bold">3</p>
     </div>
-    <div class="d-flex flex-column text-center">
-      <h6 class="font-space px-3 py-2 bg-dark text-white">DM</h6>
-      <input type="checkbox">
+  </div>
+
+  <!-- 채팅 팝업 -->
+  <div id="userchat" class="popup" style="display: none;">
+    <div class="popup-inner">
+      <div class="text-end"><i class="bi bi-x-square-fill closeBtn"></i></div>
+      <div class="greeting-box text-center align-bottom text-white">{{ request.user }}님 안녕하세요.</div>
     </div>
   </div>
 
 {% endblock body %}
+
+{% block script %}
+  <script>
+    let target = document.querySelectorAll(".openBtn");
+    
+    for (let i=0; i < target.length; i++) {
+      target[i].addEventListener('click', function() {
+        popUp = document.querySelector("#userchat")
+        popUp.style.display='block';
+      });
+    }
+
+    
+    
+  </script>
+{% endblock script %}
