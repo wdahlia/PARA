@@ -3,6 +3,7 @@
 /* 전체적인 부분 css */
 body {
   font-family: 'Gothic A1', sans-serif;
+  background-color: rgba(255, 255, 249, 0.677);
 }
 
 .container-css {
@@ -107,10 +108,6 @@ width: 170px;
   letter-spacing: -1px;
 }
 
-.clothe_font-size {
-  font-size: 14px;
-  color: rgb(60, 57, 57);
-}
 
 /* .index-card-image {
   box-shadow: 2px 3px 15px rgba(181, 189, 193, 0.52);
@@ -125,3 +122,54 @@ width: 170px;
 .nav-margin {
   margin-top: 5rem;
 }
+
+.image-card {
+  overflow: hidden;
+}
+
+
+.image-card img {
+  transition-duration: 2s;
+  -webkit-transition-duration: 2s;
+}
+
+.image-card:hover img {
+  transform: scale(1.18);
+	-webkit-transform: scale(1.18);
+	-ms-transform: scale(1.18);
+}
+
+.index-card-image {
+  object-fit: cover;
+}
+
+.img-back {
+  position: relative;
+}
+
+.img-back image-card {
+  width: 100%;
+  height: 100%;
+}
+
+.img-back figcaption {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.325);
+  font-size: 0.7;
+  color: white;
+  font-weight: 500;
+  text-align: right;
+  line-height: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  letter-spacing: -2px;
+}
+
+.img-back figcaption:hover {
+  opacity: 1;
+}
+
+/* absolute의 기준은 원래 body */

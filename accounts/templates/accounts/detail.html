@@ -1,16 +1,38 @@
 {% extends 'base.html' %}
-{% load django_bootstrap5 %}
+{% load static %}
 
 {% block body %}
-<div class="row mt-5 text-center justify-content-center">
-  <h1 class="my-5">{{ user.username }}님의 프로필</h1>
-  <p class="mb-4">이메일 :
-    {{ user.email }}</p>
+<div class="d-flex flex-column align-items-center d-sm-none">
+  <img src="{% static 'images/profiledetail.png' %}" style="width: 100px; height: 100px;" alt="images/profiledetail.png">
+  <h1 class="my-5 font-space">{{ user.username }}</h1>
+    <p class="mb-4">이메일 : {{ user.email }}</p>
   {% if request.user == user %}
   <div>
     <a class="btn btn-primary me-3" href="{% url 'accounts:update' %}">수정하기</a>
   </div>
   {% endif %}
+</div>
+<div class="d-none d-sm-flex row mt-5 text-center justify-content-center align-items-center">
+  <div class="col-1"></div>
+  <!-- 프로필 이미지 들어가는 곳 -->
+  <div class="col-5 text-end">
+    {% if user.profile_image %}
+    <img src="{{ user.profile_image.url }}" style="width: 200px; height: 200px;" class="me-5" alt="{{ user.profile_image }}">
+    {% else %}
+    <img src="{% static 'images/profiledetail.png' %}" style="width: 100px; height: 100px;" class="me-5" alt="images/profiledetail.png">
+    {% endif %}
+  </div>
+  <div class="col-4 text-start">
+    <h1 class="my-5">{{ user.username }}</h1>
+    <p class="mb-4">
+      {{ user.email }}</p>
+    {% if request.user == user %}
+    <div>
+      <a class="btn btn-primary me-3" href="{% url 'accounts:update' %}">수정하기</a>
+    </div>
+    {% endif %}
+  </div>
+  <div class="col-2"></div>
 </div>
 
 {% endblock body %}
