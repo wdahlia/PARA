@@ -6,7 +6,7 @@
 
 <div class='d-sm-flex justify-content-center'>
   <div class='d-flex flex-column'>
-    <div style="width: 45.4rem; height:63rem;">
+    <div style="width: 45.4rem; height:63rem; overflow:scroll;">
       {% for image in images %}
 
       <img style='width: 45.4rem; height: 63rem;' class="detail-image" src="{{ image.product_image }}" alt="">
@@ -14,17 +14,18 @@
       {% endfor %}
     </div>
   </div>
-  <div class="px-5">
-    <span>
+  <!-- viewpoint lg에서 보여짐 -->
+  <div class="d-none d-lg-block px-3" style="border: 3px solid black; position: sticky; top: 0;">
+    <div class="my-3 text-end">
       <form action="{% url 'products:like' products.pk %}" method='POST'>
         {% csrf_token %}
         {% if user in products.like_users.all %}
-        <input type="submit" value='찜하기 취소'>
+        <input type="submit" class="" value='찜하기 취소'>
         {% else %}
         <input type="submit" value='찜하기'>
         {% endif %}
       </form>
-    </span>
+    </div>
     <p>{{ products.name }}</p>
 
     {% with products.content|split:"." as cons %}
@@ -77,13 +78,21 @@
       {% endif %}
       <a href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
       {% endfor %}
-
-
-
-
     </div>
   </div>
+</div>
 
+<div>
+  <div class='d-flex my-1'>
+    {% for review in reviews %}
+    {% if review.user.profile_image %}
+    <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
+    {% endif %}
+    <p href="">{{ review.user.username }}</p>
+  </div>
+  <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
+  <a href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
+  {% endfor %}
 </div>
 
 {% endblock body %}
