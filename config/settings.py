@@ -92,6 +92,9 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "django.template.context_processors.request",
             ],
+            "libraries": {  # <----- add this
+                "filter_tags": "config.filters"  # switch with your app name
+            },
         },
     },
 ]

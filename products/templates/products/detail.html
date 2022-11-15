@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load filter_tags %}
+
 {% block body %}
 
 <div class='d-sm-flex justify-content-center'>
@@ -25,16 +27,57 @@
       </form>
     </div>
     <p>{{ products.name }}</p>
-    <pre>{{ products.content }}</pre>
+
+    {% with products.content|split:"." as cons %}
+      {% for con in cons %}
+      <p>{{ con }}</p>
+      {% endfor %}
+    {% endwith %}
+    
     <p>{{ products.color }}</p>
     <p>{{ products.price }}</p>
-    <p>views:{{ products.hits }}</p>
-    <p>score:{{ review_ave }}</p>
+    <p>조회수:{{ products.hits }}</p>
+    {% if star == 0.5 %}
+    <div><img src="{% static 'images/star_0.5.jpg' %}" alt=""></div>
+    {% elif star == 1.0 %}
+    <div><img src="{% static 'images/star_1.0.jpg' %}" alt=""></div>
+    {% elif star == 1.5 %}
+    <div><img src="{% static 'images/star_1.5.jpg' %}" alt=""></div>
+    {% elif star == 2.0 %}
+    <div><img src="{% static 'images/star_2.0.jpg' %}" alt=""></div>
+    {% elif star == 2.5 %}
+    <div><img src="{% static 'images/star_2.5.jpg' %}" alt=""></div>
+    {% elif star == 3.0 %}
+    <div><img src="{% static 'images/star_3.0.jpg' %}" alt=""></div>
+    {% elif star == 3.5 %}
+    <div><img src="{% static 'images/star_3.5.jpg' %}" alt=""></div>
+    {% elif star == 4.0 %}
+    <div><img src="{% static 'images/star_4.0.jpg' %}" alt=""></div>
+    {% elif star == 4.5 %}
+    <div><img src="{% static 'images/star_4.5.jpg' %}" alt=""></div>
+    {% elif star == 5.0 %}
+    <div><img src="{% static 'images/star_5.0.jpg' %}" alt=""></div>
+    {% endif %}
+    <p>평균평점:{{ review_ave }}</p>
     <button>장바구니</button>
-    <div class="col-5 p-0">
-      <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark rounded-0 w-100">
-        리뷰 쓰기
-      </a>
+    <div>
+      <div class="col-5 p-0">
+        <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark">
+          리뷰 쓰기
+        </a>
+      </div>
+      <div class='d-flex my-1'>
+        {% for review in reviews %}
+        {% if review.user.profile_image %}
+        <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
+        {% endif %}
+        <p href="">{{ review.user.username }}</p>
+      </div>
+      {% if review.review_image %}
+      <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
+      {% endif %}
+      <a href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
+      {% endfor %}
     </div>
   </div>
 </div>
