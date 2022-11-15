@@ -68,57 +68,56 @@
 
   <body>
     <!-- navbar -->
-    {% if messages %}
-    <nav class="navbar nav-margin bg-none fixed-top position-absolute">
-    {% else %}
-      <nav class="navbar bg-none fixed-top position-absolute">
-      {% endif %}
-      <div class="container-fluid justify-content-between">
-        <!-- 토글 아이콘과 로고 이미지 -->
-        <div class="d-flex align-items-start col-7">
-          <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
-            <i class="bi bi-list fs-3 text-black"></i>
-          </button>
-          <a class="navbar-brand me-0" href="#"><img src="{% static 'images/navlogo.png' %}" alt="" class="ms-0" style="width: 40%; height: 70%;"></a>
-        </div>
-        <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
-        <div class="offcanvas bg-white offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
-          <div class="offcanvas-header bg-none align-items-start">
-            <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
-              <i class="bi bi-x-lg"></i>
-            </button>
-            <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel">
-              <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
+      {% if messages %}
+        <nav class="navbar nav-margin bg-none fixed-top">
+        {% else %}
+          <nav class="navbar bg-none fixed-top">
+          {% endif %}
+          <div class="container-fluid justify-content-between">
+            <!-- 토글 아이콘과 로고 이미지 -->
+            <div class="d-flex align-items-start col-7">
+              <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+                <i class="bi bi-list fs-3 text-black"></i>
+              </button>
+              <a class="navbar-brand me-0" href="{% url 'products:index' %}"><img src="{% static 'images/navlogo.png' %}" alt="" class="ms-0" style="width: 40%; height: 70%;"></a>
             </div>
-          </div>
-          <div class="offcanvas-body bg-white">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
-              <li class="nav-item">
-                <a class="nav-link active text-black pb-0" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active text-black pt-0" aria-current="page" href="#">Best Sellers</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
-              </li>
-              <li class="nav-item p-0">
-                <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active text-black p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-      </nav>
+            <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDarkNavbar">
+              <div class="offcanvas-header align-items-start" style="background-color: rgba(255, 255, 249, 0.677);">
+                <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+                <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel">
+                  <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
+                </div>
+              </div>
+              <div class="offcanvas-body" style="background-color: rgba(255, 255, 249, 0.677);">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
+                  <li class="nav-item">
+                    <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)"aria-current="page" href="{% url 'products:index' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black pt-0" aria-current="page" href="#">Best Sellers</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
+                  </li>
+                  <li class="nav-item p-0">
+                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
 
     <!-- Swiper -->
     <div class="swiper mySwiper swiper-initialized swiper-vertical swiper-pointer-events swiper-backface-hidden position-relative">
