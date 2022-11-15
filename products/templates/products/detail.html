@@ -43,7 +43,9 @@
         {% endif %}
         <p href="">{{ review.user.username }}</p>
       </div>
+      {% if review.review_image %}
       <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
+      {% endif %}
       <a href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
       {% endfor %}
 
