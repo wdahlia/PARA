@@ -25,6 +25,10 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="product_category"
     )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True
+    )
+
 
 
 class Image(models.Model):
@@ -37,3 +41,4 @@ class Image(models.Model):
 class Search(models.Model):
     keyword = models.TextField(max_length=30)
     count = models.IntegerField(default=1)
+

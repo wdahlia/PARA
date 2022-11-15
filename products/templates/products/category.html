@@ -10,18 +10,16 @@
   </div>
 </div>
 
-<div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4">
-  {% for product in products %}
-  <a href="{% url 'products:detail' product.pk %}">
-    <p>{{ product.name }}</p>
-  </a>
-  {% for k, v in img_dict.items %}
-  {% if k == product.id %}
-  {% for img_obj in v %}
-  <img src="{{ img_obj.product_image }}" alt="">
-  {% endfor %}
-  {% endif %}
-  {% endfor %}
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-md-3 row-cols-lg-4">
+    {% for product in products %}
+      <a href="{% url 'products:detail' product.pk %}">
+        <p>{{ product.name }}</p>
+      </a>
+      {% for k, v in img_dict.items %}
+        {% if k == product.id %}
+            <img src="{{ v.product_image }}" alt="">
+        {% endif %}
+      {% endfor %}
 
   {% endfor %}
 </div>

@@ -14,15 +14,16 @@
   <img src="" alt="">
   {% endif %}
   {% if review.grade == 1 %}
-  <p>평점: ⭐</p>
+  <div><img src="{% static 'images/star_1.0.jpg' %}" alt=""></div>
+
   {% elif review.grade == 2 %}
-  <p>평점: ⭐⭐</p>
+  <div><img src="{% static 'images/star_2.0.jpg' %}" alt=""></div>
   {% elif review.grade == 3 %}
-  <p>평점: ⭐⭐⭐</p>
+  <div><img src="{% static 'images/star_3.0.jpg' %}" alt=""></div>
   {% elif review.grade == 4 %}
-  <p>평점: ⭐⭐⭐⭐</p>
+  <div><img src="{% static 'images/star_4.0.jpg' %}" alt=""></div>
   {% elif review.grade == 5 %}
-  <p>평점: ⭐⭐⭐⭐⭐</p>
+  <div><img src="{% static 'images/star_5.0.jpg' %}" alt=""></div>
   {% endif %}
   <p>리뷰: {{ review.content }}</p>
 
