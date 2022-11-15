@@ -29,7 +29,6 @@
   <div class="container d-flex flex-column" style="z-index: 2;">
     <form id='comment-form' data-detail-id="{{ review.pk }}">
       {% csrf_token %}
-      <p>댓글 작성</p>
       {% bootstrap_form comment_form %}
       <button class="btn btn-primary w-100">작성</button>
     </form>
@@ -56,6 +55,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
+  
     const product_pk = document.querySelector('#product_pk').dataset.infoId
     //console.log(product_pk)
     const commentForm = document.querySelector('#comment-form')
@@ -80,12 +80,12 @@
             const comments = document.querySelector('#comments')
             comments.insertAdjacentHTML('beforeend',
             `
-            <div >
+            <div id ='com${response.data.comment_pk}' class='comments_set'>
             <div class="d-flex align-items-center">
               <span class='me-auto'>
 
                 <span class='text-muted'>작성자: ${response.data.userName}</span> - ${response.data.content}</span>
-                <form action="http://127.0.0.1:8000/reviews/${product_pk}/${response.data.review_pk}/review_detail/comments/${response.data.comment_pk}/comment_delete/" method="POST">
+                <form data-product-id='${product_pk}' data-review-id='${response.data.review_pk}' data-comment-id='${response.data.comment_pk}' action="http://127.0.0.1:8000/reviews/${product_pk}/${response.data.review_pk}/review_detail/comments/${response.data.comment_pk}/comment_delete/" method="POST">
        
                   {% csrf_token %}
                   <input class="btn btn-outline-danger" type="submit" value="삭제">
@@ -97,6 +97,25 @@
           <br>
         </div>`
             );
+            result = document.querySelector(`#com${response.data.comment_pk}`)
+            console.log(result)
+            result.addEventListener('submit', event => {
+              event.preventDefault()
+        //console.log(event.target.dataset)
+        const product_pk = event.target.dataset.productId
+        const review_pk = event.target.dataset.reviewId
+        const comment_pk = event.target.dataset.commentId
+        axios({
+          method:'post',
+          url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
+          headers: {'X-CSRFToken': csrftoken},
+        })
+        .then(response => {
+          const deldiv = document.getElementById(`com${comment_pk}`)
+          console.log(deldiv)
+          deldiv.remove();
+        })
+            })
             commentForm.reset()
           })
           .catch(error => {
@@ -126,8 +145,12 @@
         })
         .then(response => {
           const deldiv = document.getElementById(`com${comment_pk}`)
+          console.log(deldiv)
           deldiv.remove();
           
+        })
+        .catch(error => {
+          console.log(deldiv)
         })
       })
     })
