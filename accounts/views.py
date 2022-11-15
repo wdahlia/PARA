@@ -116,7 +116,7 @@ def activate(request, uidb64, token):
             request,
             "Thank you for your email confirmation. Now you can login your account.",
         )
-        auth_login(request, user)
+        auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect("accounts:index")
     else:
         messages.error(request, "Activation link is invalid!")
