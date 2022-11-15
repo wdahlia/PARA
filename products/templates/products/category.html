@@ -17,11 +17,9 @@
       </a>
       {% for k, v in img_dict.items %}
         {% if k == product.id %}
-          {% for img_obj in v %}
-            <img src="{{ img_obj.product_image }}" alt="">
-          {% endfor %}
+            <img src="{{ v.product_image }}" alt="">
         {% endif %}
-      {% endfor %}
+      {% endfor %} 
 
     {% endfor %}
   </div>
