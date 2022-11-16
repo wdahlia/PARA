@@ -49,14 +49,15 @@
               <div class="offcanvas-body" style="background-color: rgba(255, 255, 249, 0.677);">
                 {% if request.user.is_authenticated %}
                   <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
-                    {% if request.user.profile_image %}
-                      <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
+                    <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
+                      {% if request.user.profile_image %}
                         <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
                         <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
-                      </a>
-                    {% else %}
-                      <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
-                    {% endif %}
+                      {% else %}
+                        <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
+                        <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
+                      {% endif %}
+                    </a>
                   </div>
                   <div class="text-end">
                     <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
@@ -128,7 +129,6 @@
                   <!-- 프로필 이미지 들어갈 곳 -->
                   {% if request.user.is_authenticated %}
                     <div class="d-flex justify-content-center align-items-center">
-
                       <a href="{% url 'accounts:detail' request.user.pk %}" class="text-center text-decoration-none text-black">
                         {% if request.user.profile_image %}
                           <img src="{{ request.user.profile_image.url }}" style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
@@ -174,7 +174,7 @@
                   <h1 class="modal-title fs-5" id="exampleModalLabel">ZARA 매장 위치</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                 <div class="modal-body d-flex">
+                <div class="modal-body d-flex">
 
                   <div class="map_wrap mx-auto" style="overflow:hidden;">
                     <div id="map" style="width: 600px; height:500px; position: relative"></div>

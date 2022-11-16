@@ -135,8 +135,8 @@ width: 170px;
 
 .image-card:hover img {
   transform: scale(1.18);
-	-webkit-transform: scale(1.18);
-	-ms-transform: scale(1.18);
+	-webkit-transform: scale(1.18) translateZ(0);
+	-ms-transform: scale(1.18) translateZ(0);
 }
 
 .index-card-image {
@@ -284,4 +284,16 @@ div.btn-outline-hover > a.btn-outline-light:hover {
 /* sm이하의 뷰포인트일때 네브바에 보여지는 프로필 이미지 */
 .user-profile-nametag {
   box-shadow: rgba(0, 0, 0, 0.185) 0px 2px 4px, rgba(0, 0, 0, 0.077) 0px 7px 13px -3px, rgba(0, 0, 0, 0.075) 0px -3px 0px inset;
+}
+
+
+/* 검색 바 버튼 */
+.search-btn-outline {
+  background-color: rgba(39, 41, 38, 0.212);
+}
+
+.search-btn-outline:hover {
+  background-color: rgb(158, 246, 189);
+  transition-duration: .5s;
+  -webkit-transition-duration: .5s;
 }
