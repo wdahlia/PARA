@@ -3,7 +3,7 @@
 {% block body %}
 
   {% regroup images by product.name as product_list %}
-  <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4">
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4">
     {% for clothe in product_list %}
       <a href="{% url 'products:detail' clothe.list.0.product.pk %}" class="text-decoration-none px-0 img-back">
         <figure class="d-flex flex-column image-card mb-0">

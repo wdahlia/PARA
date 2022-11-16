@@ -1,5 +1,6 @@
 from django import forms
 from .models import Review, Comment
+from django.forms import TextInput, PasswordInput, EmailInput, FileInput, Select
 
 
 class ReviewForm(forms.ModelForm):
@@ -16,6 +17,26 @@ class ReviewForm(forms.ModelForm):
             "review_image": "이미지",
         }
 
+        widgets = {
+            "content": TextInput(
+                attrs={
+                    "class": "border-0 border-bottom border-1 border-dark rounded-0 mx-1",
+                    "style": "background: transparent;",
+                    "placeholder": "리뷰를 입력해주세요",
+                }
+            ),
+            "grade": Select(
+                attrs={
+                    "style": "background: transparent;",
+                }
+            ),
+            "review_image": FileInput(
+                attrs={
+                    "style": "background: transparent;",
+                }
+            ),
+        }
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -23,9 +44,20 @@ class CommentForm(forms.ModelForm):
         fields = [
             "content",
         ]
+        
+
         widgets = {
-            "content": forms.Textarea(attrs={"class": "from-control", "rows": 1})
+
+            "content": forms.Textarea(
+                attrs={
+                    "rows": 2, 
+                    "style": "background: transparent;",
+                    "class": "border border-2 border-dark bg-white rounded-1 text-dark p-3 font-space shadow-sm scroll-none",
+                }
+            ),
+
         }
+
         labels = {
-            "content": "댓글",
+            "content": "",
         }

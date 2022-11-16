@@ -3,13 +3,14 @@
 {% load static %}
 
 {% block body %}
-<div class='container'>
-  <div class="row justify-content-center padding-page">
-    <h1>글 수정</h1>
-    <form action="" method='POST' enctype="multipart/form-data">
+  <div class="container">
+    <h1 class="text-start fs-5 mb-4 fw-bold font-space">글 수정</h1>
+    <form action="" method="POST" class="my-3 font-space fw-semibold" style="font-size: 15px;" enctype="multipart/form-data">
       {% csrf_token %}
-      {% bootstrap_form review_form %}
-      {% bootstrap_button 'ok' %}
+      <div class="font-space">
+        {% bootstrap_form review_form %}
+      </div>
+      {% bootstrap_button button_type="submit" button_class="btn btn-dark text-white w-100 rounded-0" content="리뷰 수정" %}
     </form>
   </div>
-  {% endblock body %}
+{% endblock body %}

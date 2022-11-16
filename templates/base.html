@@ -46,7 +46,7 @@
                   <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
                 </div>
               </div>
-              <div class="offcanvas-body" style="background-color: rgba(255, 255, 249, 0.677);">
+              <div class="offcanvas-body pt-0" style="background-color: rgba(255, 255, 249, 0.677);">
                 {% if request.user.is_authenticated %}
                   <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
                     <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
@@ -61,46 +61,46 @@
                   </div>
                   <div class="text-end">
                     <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
-                      LOGOUT
+                      Logout
                     </a>
                   </div>
                 {% else %}
                   <div class="d-flex justify-content-end">
                     <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
-                      LOGIN
+                      Login
                     </a>
                     <a href="{% url 'accounts:signup' %}" class="font-space text-black">
-                      SIGNUP
+                      Sign 
                     </a>
                   </div>
                 {% endif %}
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
                   <li class="nav-item">
                     <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">
-                      <lord-icon src="https://cdn.lordicon.com/osuxyevn.json" trigger="hover" style="width:32px;height:32px"></lord-icon>
+                      <lord-icon src="https://cdn.lordicon.com/slduhdil.json" trigger="hover" style="width:32px;height:32px"></lord-icon>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="d-flex justify-content-end align-items-center nav-link fs-5 font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="#">
+                    <a class="d-flex justify-content-end align-items-center nav-link font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="#">
                       <lord-icon src="https://cdn.lordicon.com/medpcfcy.json" trigger="hover" class="me-2 align-middle" style="width:25px;height:25px"></lord-icon>
                       Best Sellers
 
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
                   </li>
                   <li class="nav-item p-0">
-                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
                   </li>
                 </ul>
               </div>
