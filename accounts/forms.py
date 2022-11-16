@@ -72,7 +72,7 @@ class CustomUserChangeForm(UserChangeForm):
         labels = {
             "email": "이메일",
             "profile_image": "프로필이미지",
-            "content": "프로필 컨텐츠",
+            "content": "프로필 소개",
         }
 
         widgets = {
