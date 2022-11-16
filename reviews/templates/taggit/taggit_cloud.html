@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block body %}
+<h1>REVIEW TAG</h1>
+<br>
+<div>
+  {% load taggit_templatetags2_tags %}
+  {% get_tagcloud as tags %}
+  {% for tag in tags %}
+  <span class="tag-{{tag.weight|floatformat:0}}">
+    <a href="{% url 'reviews:tagged_object_list' tag.name %}">{{tag.name}}{{tag.num_times}}</a>
+  </span>
+  {% endfor %}
+</div>
+{% endblock body %}

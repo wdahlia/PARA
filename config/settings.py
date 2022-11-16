@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "products",
     "reviews",
     "imagekit",
+    "taggit.apps.TaggitAppConfig",
+    "taggit_templatetags2",
     "django_extensions",
     "django_bootstrap5",
     "django.contrib.admin",
@@ -59,6 +61,9 @@ INSTALLED_APPS = [
     # 카카오
     "allauth.socialaccount.providers.kakao",
 ]
+
+TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_LIMIT = 50
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

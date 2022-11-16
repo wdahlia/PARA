@@ -10,17 +10,23 @@ from django.db.models import Avg
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_safe
+from django.views.generic import ListView, TemplateView, DetailView
 
 
 @login_required
 def review_create(request, product_pk):
     product = Product.objects.get(pk=product_pk)
     if request.method == "POST":
+        tags = request.POST.get("tag", "").split(",")
         review_form = ReviewForm(request.POST, request.FILES)
         if review_form.is_valid():
             review = review_form.save(commit=False)
             review.product = product
             review.user = request.user
+            for tag in tags:
+                tag = tag.strip()
+                if tag != "":
+                    review.tags.add(tag)
             review.save()
             return redirect("products:detail", product.pk)
     else:
@@ -101,14 +107,27 @@ def comment_create(request, review_pk):
 
 @login_required
 def comment_delete(request, product_pk, review_pk, comment_pk):
-    review_rpk = get_object_or_404(Review, pk=review_pk)
-    product_ppk = get_object_or_404(Product, pk=review_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
-    is_del = False
     if request.user == comment.user:
         if request.method == "POST":
-            is_del = True
             comment.delete()
 
     data = {}
     return JsonResponse(data)
+
+
+class TagCloudTV(TemplateView):
+    template_name = "taggit/taggit_cloud.html"
+
+
+class TaggedObjectLV(ListView):
+    template_name = "taggit/taggit_post_list.html"
+    model = Review
+
+    def get_queryset(self):
+        return Review.objects.filter(tags__name=self.kwargs.get("tag"))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tagname"] = self.kwargs["tag"]
+        return context
