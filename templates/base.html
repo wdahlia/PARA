@@ -17,8 +17,7 @@
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/8b9825c831.js" crossorigin="anonymous"></script>
     <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
-    {% block style %}
-    {% endblock %}
+    {% block style %}{% endblock %}
   </head>
 
   <body>
@@ -48,27 +47,59 @@
                 </div>
               </div>
               <div class="offcanvas-body" style="background-color: rgba(255, 255, 249, 0.677);">
+                {% if request.user.is_authenticated %}
+                  <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
+                    {% if request.user.profile_image %}
+                      <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
+                        <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
+                        <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
+                      </a>
+                    {% else %}
+                      <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
+                    {% endif %}
+                  </div>
+                  <div class="text-end">
+                    <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
+                      LOGOUT
+                    </a>
+                  </div>
+                {% else %}
+                  <div class="d-flex justify-content-end">
+                    <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
+                      LOGIN
+                    </a>
+                    <a href="{% url 'accounts:signup' %}" class="font-space text-black">
+                      SIGNUP
+                    </a>
+                  </div>
+                {% endif %}
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
                   <li class="nav-item">
-                    <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">Home</a>
+                    <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">
+                      <lord-icon src="https://cdn.lordicon.com/osuxyevn.json" trigger="hover" style="width:32px;height:32px"></lord-icon>
+                    </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black pt-0" aria-current="page" href="#">Best Sellers</a>
+                    <a class="d-flex justify-content-end align-items-center nav-link fs-5 font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="#">
+                      <lord-icon src="https://cdn.lordicon.com/medpcfcy.json" trigger="hover" class="me-2 align-middle" style="width:25px;height:25px"></lord-icon>
+                      Best Sellers
+
+                    </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
+                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
                   </li>
                   <li class="nav-item p-0">
-                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
+                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
+                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
+                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active text-black fs-3 fw-bolder font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
+                    <a class="nav-link active text-black fs-5 font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
                   </li>
                 </ul>
               </div>
@@ -76,12 +107,12 @@
             <div class="d-flex d-none d-md-block col-5">
               <div class="d-flex justify-content-end align-items-center" style="width: 100%">
                 <div class="me-auto" style="width: 5rem;">
-                   <a class="text-dark text-decoration-none" href="{% url 'search' %}">
+                  <a class="text-dark text-decoration-none" href="{% url 'search' %}">
                     <span>
                       <span class='me-2'>검색</span>
                       <i class="bi bi-search"></i>
-                    </span> 
-                    <hr class="mt-0 bg-black border border-dark border-1 opacity-75"> 
+                    </span>
+                    <hr class="mt-0 bg-black border border-dark border-1 opacity-75">
                   </a>
                 </div>
                 <div class="d-flex align-items-center">
@@ -102,7 +133,7 @@
                         {% if request.user.profile_image %}
                           <img src="{{ request.user.profile_image.url }}" style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
                         {% else %}
-                          <img src="{% static 'images/userimage.png' %}" style="width: 50px; height: 50px;" alt="images/userimage.png">
+                          <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:50px;height:50px"></lord-icon>
                         {% endif %}
                         <!-- 프로필 닉네임 들어갈 곳-->
                         <p class="font-space mb-0 fw-lighter">{{ request.user.username }}</p>
