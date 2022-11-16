@@ -8,9 +8,7 @@
   <div class='d-flex flex-column'>
     <div style="width: 45.4rem; height:63rem; overflow:scroll;">
       {% for image in images %}
-
       <img style='width: 45.4rem; height: 63rem;' class="detail-image" src="{{ image.product_image }}" alt="">
-
       {% endfor %}
     </div>
   </div>
@@ -71,8 +69,9 @@
 </div>
 </div>
 
-<div>
-  <div class='d-flex my-1 flex-column'>
+<h3 class='text-center my-4'>Review List</h3>
+<div class='d-flex justify-content-center'>
+  <div class='d-flex my-1 flex-column' style="width: 1050px;">
     {% for review in reviews %}
     <div class="card my-2">
       <div class="card-header">
@@ -83,7 +82,6 @@
       <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
       <span href=""> {{ review.user.username }}</span>
       {% endif %}
-
     </div>
     <div class='d-flex'>
       <div>
@@ -94,12 +92,12 @@
         {% endif %}
       </div>
       <div class='p-3'>
-       <a class="align-top" href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
+        <p> 평점: {{review.grade}} </p>
+       <a class="align-top text-decoration-none text-dark" href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
       </div>  
     </div>
   </div>
     {% endfor %}
-
   </div>
 </div>
 

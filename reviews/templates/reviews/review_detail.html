@@ -27,15 +27,14 @@
   {% endif %}
   <p>리뷰: {{ review.content }}</p>
 
-
+{% if request.user == review.user %}
   <form action="{% url 'reviews:review_delete' product.pk review.pk %}" method="POST">
     {% csrf_token %}
     <a href="{% url 'reviews:review_update' product.pk review.pk %}" class="btn btn-outline-primary"
       method="POST">수정</a>
     <input class="btn btn-outline-danger" type="submit" value="삭제">
   </form>
-
-  <a href=""></a>
+  {% endif %}
 
   <div class="container d-flex flex-column" style="z-index: 2;">
     <form id='comment-form' data-detail-id="{{ review.pk }}">
