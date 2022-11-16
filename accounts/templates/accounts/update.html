@@ -4,13 +4,15 @@
 
 {% block body %}
 
+<div class="container">
   <h1 class="text-start fs-5 mb-4 fw-bold font-space">프로필 수정</h1>
   <form action="" method="POST" class="my-3 font-space fw-semibold" style="font-size: 15px;" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="font-space">
       {% bootstrap_form form %}
     </div>
-    {% bootstrap_button button_type="submit" button_class="btn btn-dark text-white w-100 rounded-0" content="변경완료" %}
+    {% bootstrap_button button_type="submit" button_class="btn btn-dark text-white w-100 rounded-0" content="수정하기" %}
   </form>
+</div>
 
 {% endblock body %}

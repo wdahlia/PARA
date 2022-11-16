@@ -17,6 +17,8 @@
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/8b9825c831.js" crossorigin="anonymous"></script>
     <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+    {% block style %}
+    {% endblock %}
   </head>
 
   <body>
@@ -78,7 +80,7 @@
                   <a href="" class="text-decoration-none text-black ms-2" style="width: 4rem; mix-blend-mode: color;" data-bs-toggle="modal" data-bs-target="#exampleModal">매장찾기</a>
                   <!-- 장바구니 버튼 추가 -->
                   <div class="mx-3">
-                    <i class="bi bi-basket3 fs-4"></i>
+                    <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#000000" style="width:35px;height:35px"></lord-icon>
                   </div>
                 </div>
                 <!-- div 누르면 프로필 디테일 페이지로 이동 -->
@@ -134,8 +136,8 @@
                 </div>
                 <div class="modal-body d-flex">
 
-                  <div class="map_wrap mx-auto">
-                    <div id="map" style="width: 600px; height:500px; position:relative; overflow:hidden;"></div>
+                  <div class="map_wrap mx-auto" style="overflow:hidden;">
+                    <div id="map" style="width: 600px; height:500px; position: relative"></div>
 
                     <div id="menu_wrap" class="bg_white">
                       <div class="option">
