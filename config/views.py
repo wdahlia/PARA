@@ -14,8 +14,9 @@ def main(request):
 def search(request):
     search = Product.objects.all().order_by("-pk")
     q = request.POST.get("q", "")
-    if q:
-        name = search.filter(name__icontains=q)
+    name = search.filter(name__icontains=q)
+    if q and len(name) != 0:
+        # print(len(name))
         dicts={}
         for n in name:
             image = Image.objects.filter(product_id = n.id)[0]
