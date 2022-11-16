@@ -12,7 +12,7 @@ class User(AbstractUser):
         upload_to="images/",
         blank=True,
         null=True,
-        processors=[ResizeToFill(100, 100)],
+        processors=[ResizeToFill(200, 200)],
         format="JPEG",
         options={"quality": 80},
     )
