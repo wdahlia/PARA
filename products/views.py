@@ -37,25 +37,25 @@ def detail(request, pk):
     else:
         review_ave = round((review_ave / cnt), 2)
     if review_ave != "평가없음":
-        if review_ave > 4.5:
+        if review_ave > 4.8:
             star = 5.0
-        elif 4.5 >= review_ave > 4:
+        elif 4.8 >= review_ave > 4.3:
             star = 4.5
-        elif 4 >= review_ave > 3.5:
+        elif 4.3 >= review_ave > 3.8:
             star = 4.0
-        elif 3.5 >= review_ave > 3:
+        elif 3.8 >= review_ave > 3.3:
             star = 3.5
-        elif 3 >= review_ave > 2.5:
+        elif 3.3 >= review_ave > 2.8:
             star = 3.0
-        elif 2.5 >= review_ave > 2:
+        elif 2.8 >= review_ave > 2.3:
             star = 2.5
-        elif 2 >= review_ave > 1.5:
+        elif 2.3 >= review_ave > 1.8:
             star = 2
-        elif 1.5 >= review_ave > 1:
+        elif 1.8 >= review_ave > 1.3:
             star = 1.5
-        elif 1 >= review_ave > 0.5:
+        elif 1.3 >= review_ave > 0.8:
             star = 1.0
-        elif 0.5 >= review_ave > 0:
+        elif 0.8 >= review_ave > 0:
             star = 0.5
     context = {
         "products": products,
