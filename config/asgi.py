@@ -1,29 +1,15 @@
-"""
-ASGI config for config project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
-"""
-
-# 서버: django / channels
-# 요청: HTTP / websocket
-# 주소: url / routing
-# 처리: view / consumer
-
 import os
+from django.core.asgi import get_asgi_application
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ChatApp.settings")
 
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
-from django.core.asgi import get_asgi_application
-import chat.routing
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+from chat import routing
 
 application = ProtocolTypeRouter(
     {
         "http": get_asgi_application(),
-        "websocket": AuthMiddlewareStack(URLRouter(chat.routing.websocket_urlpatterns)),
+        "websocket": AuthMiddlewareStack(URLRouter(routing.websocket_urlpatterns)),
     }
 )
