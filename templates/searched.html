@@ -28,14 +28,15 @@
     <hr>
     <div class="mt-5 row row-cols-1 row-cols-md-3 g-4">
  {% for k,v in dicts.items %}
-      <div class="col">
-        <div class="card h-100">
-          <a href="{% url 'products:detail' k.pk %}" class=" d-flex align-items-center"style="text-decoration: none; color: black;">
-            <img class="card-img " src="{{v.product_image}}" alt="" style="width:100%; ">
-            <div class="card-footer">
-            <h5 class="card-title">{{ k.name }}</h5>
+      <div class="col ">
+        <div class="card bg-light h-100">
+          <a href="{% url 'products:detail' k.pk %}" style="text-decoration: none; color: black;">
+            <div class="image-card">
+              <img class="card-img-top " src="{{v.product_image}}" alt="" style="width:100%; ">
+            </div>
+              <div class="card-footer  ">{{ k.name }}
+              </div>
           </a>
-          </div>
       </div>
     </div>
     {% endfor %}
@@ -44,17 +45,20 @@
   
   <div class="mt-5 row row-cols-1 row-cols-md-3 g-4">
  {% for k,v in dicts.items %}
+ <a href="{% url 'products:detail' k.pk %}" style="text-decoration: none; color: black;">
       <div class="col">
-        <div class="card h-100">
-          <a href="{% url 'products:detail' k.pk %}" class=" d-flex align-items-center"style="text-decoration: none; color: black;">
+        <div class="card  h-100">
+            <div class="image-card">
             <img class="card-img " src="{{v.product_image}}" alt="" style="width:100%; ">
+            </div>
             <div class="card-footer">
-            <h5 class="card-title">{{ k.name }}</h5>
-          </a>
+            {{ k.name }}
+            </div>
           </div>
-      </div>
+        </div>
+      </a>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
     
   </div>
