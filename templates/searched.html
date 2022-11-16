@@ -1,69 +1,69 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% block body %}
-<form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="post">
+<form class="container form-inline my-2 my-lg-0" action="{% url 'search' %}" method="post">
   {% csrf_token %}
   
-  {% comment %} new btn {% endcomment %}
+  <!-- new btn -->
   <div class='d-flex justify-content-center'>
     <div class="input-group mb-3 " style='width: 1050px;'>
-      <input type="search" class="form-control mr-sm-2" placeholder="검색을 위해 입력해주세요" aria-label="Search" aria-describedby="button-addon2" name="q" value="{{q}}">
-      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit" style='min-width: 4rem;' ><div><i class="bi bi-search"></i></div></button>
+      <input type="search" class="form-control mr-sm-2 border border-end-0" style="background-color: inherit;" placeholder="검색을 위해 입력해주세요" aria-label="Search" aria-describedby="button-addon2" name="q" value="{{q}}">
+      <button class="btn search-btn-outline my-0 my-sm-0 h-100" type="submit" style="min-width: 4rem;"><lord-icon
+        src="https://cdn.lordicon.com/rlizirgt.json"
+        trigger="hover"
+        class="align-middle"
+        colors="primary:#ffffff"
+        style="width:25px;height:25px"
+    </lord-icon></button>
     </div>
   </div>
-  {% if name %}
-  <div class='d-flex justify-content-center'>
-    <div  style='width: 1050px;'>
-      <p class='text-muted'>&nbsp;&nbsp;결과 {{dicts_len}}개</p>
-    </div>
-  </div>
-  {% endif %}
 </form>
 
 <div class="container">
   {% if name %}
- 
-  <div class="mt-5 row row-cols-1 row-cols-md-3 g-4">
-    {% for k,v in dicts.items %}
-    <a href="{% url 'products:detail' k.pk %}" style="text-decoration: none; color: black;">
-         <div class="col">
-           <div class="card  h-100">
-               <div class="image-card">
-               <img class="card-img " src="{{v.product_image}}" alt="" style="width:100%; ">
-               </div>
-                <div class="card-footer">
-               {{ k.name }}
-               </div>
-             </div>
-           </div>
-         </a>
-         {% endfor %}
-       </div>
-     </div>
-       
-     </div>
-  {% else %}
-  
-
-  <p class="mt-3 text-black-50 fs-5">검색 없음</p>
-  <div class='mt-5 '>
-    <h5> 추천 아이템</h5>
-    <hr>
-    <div class="mt-5 row row-cols-1 row-cols-md-3 g-4">
- {% for k,v in dicts.items %}
-      <div class="col ">
-        <div class="card bg-light h-100">
-          <a href="{% url 'products:detail' k.pk %}" style="text-decoration: none; color: black;">
-            <div class="image-card">
-              <img class="card-img-top " src="{{v.product_image}}" alt="" style="width:100%; ">
-            </div>
-               <div class="card-footer  ">{{ k.name }}
-              </div>
-          </a>
+    <div class="mt-5">
+      <div style="width: 1050px;">
+        <p class="text-muted">&nbsp;&nbsp;결과 {{dicts_len}}개</p>
       </div>
     </div>
-    {% endfor %}
-  </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-4">
+      {% for k,v in dicts.items %}
+        <div class="col">
+          <a href="{% url 'products:detail' k.pk %}" class="mb-0" style="text-decoration: none; color: black;">
+            <div class="card h-100" style="box-shadow: rgba(0, 0, 0, 0.0) 0px 2px 4px, rgba(0, 0, 0, 0.0) 0px 7px 13px -3px, rgba(0, 0, 0, 0.1) 0px -3px 0px inset;">
+              <div class="image-card">
+                <img class="card-img-top" src="{{ v.product_image }}" alt="" style="width:100%;">
+              </div>
+              <div class="card-body d-flex align-items-center justify-content-end">
+                <pre class="card-text font-space">{{ k.name }}</pre>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+    <p class="my-3 text-black-50 fs-5 font-space text-center">검색 없음</p>
+    <div class="mt-5">
+      <h5 class="font-space">추천 아이템</h5>
+      <hr>
+      <div class="mt-2 row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-4">
+      {% for k,v in dicts.items %}
+        <div class="col">
+          <a href="{% url 'products:detail' k.pk %}" style="text-decoration: none; color: black;">
+            <div class="card h-100" style="box-shadow: rgba(0, 0, 0, 0.0) 0px 2px 4px, rgba(0, 0, 0, 0.0) 0px 7px 13px -3px, rgba(0, 0, 0, 0.1) 0px -3px 0px inset;">
+              <div class="image-card">
+                <img class="card-img-top" src="{{ v.product_image }}" alt="" style="width:100%;">
+              </div>
+              <div class="card-body d-flex align-items-center justify-content-end">
+                <pre class="card-text font-space">{{ k.name }}</pre>
+              </div>
+            </div>
+          </a>
+        </div>         
+      {% endfor %}
+    </div>
   {% endif %}
 </div>
 
