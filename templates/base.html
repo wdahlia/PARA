@@ -73,6 +73,15 @@
             </div>
             <div class="d-flex d-none d-md-block col-5">
               <div class="d-flex justify-content-end align-items-center" style="width: 100%">
+                <div class="me-auto" style=' width: 5rem;' >
+                   <a class="text-dark text-decoration-none" href="{% url 'search' %}">
+                    <span>
+                      <span class='me-2'>검색</span>
+                      <i class="bi bi-search"></i>
+                    </span> 
+                    <hr class="mt-0 bg-black border border-dark border-1 opacity-75"> 
+                  </a>
+                </div>
                 <div class="d-flex align-items-center">
                   <!-- 매장 찾기 accounts앱의 매장 지도가 모달 창으로 뜨게 됨 (내 위치 기반 주변 매장 찾기)-->
                   <a href="" class="text-decoration-none text-black ms-2" style="width: 4rem; mix-blend-mode: color;" data-bs-toggle="modal" data-bs-target="#exampleModal">매장찾기</a>
