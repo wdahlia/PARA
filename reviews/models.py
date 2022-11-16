@@ -4,6 +4,8 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
+from taggit.managers import TaggableManager
+from django.urls import reverse
 
 # Create your models here.
 
@@ -29,6 +31,7 @@ class Review(models.Model):
         options={"quality": 90},
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    tags = TaggableManager(blank=True)
 
 
 class Comment(models.Model):

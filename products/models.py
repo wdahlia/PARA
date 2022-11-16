@@ -17,7 +17,7 @@ class Product(models.Model):
     color = models.TextField()
     price = models.TextField()
     size = models.TextField()
-    hits = models.PositiveIntegerField(default=0, verbose_name="조회수")
+    hits = models.PositiveIntegerField(default=1, verbose_name="조회수")
     like_users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="like_restaurants"
     )
@@ -30,7 +30,6 @@ class Product(models.Model):
     )
 
 
-
 class Image(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="product"
@@ -41,4 +40,3 @@ class Image(models.Model):
 class Search(models.Model):
     keyword = models.TextField(max_length=30)
     count = models.IntegerField(default=1)
-

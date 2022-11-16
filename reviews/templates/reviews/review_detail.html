@@ -6,6 +6,7 @@
 <div id='product_pk' data-info-id='{{ product.pk }}' class="row justify-content-center padding-page">
   <p>구매목록: {{ product.name }}</p>
   <p>작성자:{{ review.user.username }}</p>
+
   {% if review.review_image %}
   <div>
     <img src="{{ review.review_image.url }}" width='600px;' alt="{{review.review_image}}">
@@ -63,6 +64,8 @@
       {% endfor %}
     </div>
   </div>
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
