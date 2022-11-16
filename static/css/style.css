@@ -4,6 +4,7 @@
 body {
   font-family: 'Gothic A1', sans-serif;
   background-color: rgba(255, 255, 249, 0.677);
+  padding-top: 20rem;
 }
 
 .container-css {
@@ -16,16 +17,34 @@ body {
   .container-css {
     padding-inline: 32px;
   }
+  .img-back figcaption {
+    line-height: 336px;
+    font-size: 0.8rem;   
+  }
 }
 
 @media (min-width: 768px) {
   .container-css {
     padding-inline: 48px;
   }
+  .img-back figcaption {
+    line-height: 336px;
+    font-size: 0.9rem;   
+  }
 }
 
-.padding-page {
-  margin-top: 10rem;
+@media (min-width: 1280px) {
+  .img-back figcaption {
+    line-height: 450px;
+    font-size: 1rem;   
+  }
+}
+
+@media (min-width: 2148px) {
+  .img-back figcaption {
+    line-height: 610px;
+    font-size: 1.5rem;   
+  }
 }
 
 .font-space {
@@ -156,11 +175,9 @@ width: 170px;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.325);
-  font-size: 0.7;
   color: white;
   font-weight: 500;
   text-align: right;
-  line-height: 20;
   position: absolute;
   top: 0;
   left: 0;
@@ -296,4 +313,38 @@ div.btn-outline-hover > a.btn-outline-light:hover {
   background-color: rgb(158, 246, 189);
   transition-duration: .5s;
   -webkit-transition-duration: .5s;
+}
+
+.scroll-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-none::-webkit-scrollbar {
+  display: none;
+}
+
+
+.review-delete-btn {
+  background-color: none;
+  border: 1px solid rgb(218, 128, 107);
+  color: rgb(218, 128, 107);
+}
+
+.review-delete-btn:hover {
+  background-color: rgba(232, 129, 92, 0.181);
+  border: 1px solid rgba(49, 1, 1, 0.387);
+  color: rgb(209, 30, 30);
+}
+
+.review-update-btn {
+  background-color: none;
+  border: 1px solid rgb(97, 172, 63);
+  color: rgb(97, 172, 63);
+}
+
+.review-update-btn:hover {
+  background-color: rgba(104, 236, 148, 0.181);
+  border: 1px solid rgba(1, 40, 1, 0.387);
+  color: rgb(81, 128, 68);
 }
