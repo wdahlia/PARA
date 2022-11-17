@@ -126,11 +126,16 @@ def comment_create(request, review_pk):
                     comment.parent_id = result
                     # 저장
                     comment.save()
+                    image = 0
+                    if request.user.profile_image:
+                        image = request.user.profile_image.url
+                        
                     context = {
                         "review_pk": review_pk,
                         "comment_pk": comment.pk,
                         "content": comment.content,
                         "userName": comment.user.username,
+                        'image':image,
                     }
                     return JsonResponse(context)
         else:

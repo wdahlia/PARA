@@ -144,7 +144,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 LANGUAGE_CODE = "ko-kr"
 
-TIME_ZONE = "asia/seoul"
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
