@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "channels",
     "daphne",
     "chat",
+    "django_private_chat2.apps.DjangoPrivateChat2Config",
     "accounts",
     "products",
     "reviews",
@@ -143,7 +144,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 LANGUAGE_CODE = "ko-kr"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "asia/seoul"
 
 USE_I18N = True
 
@@ -159,6 +160,8 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+ADMIN_MEDIA_PREFIX = "/static/admin/"
 
 MEDIA_ROOT = BASE_DIR / "images"
 MEDIA_URL = "/media/"
@@ -186,7 +189,7 @@ EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT = 14400  # 인증용 메일 만료 시간(초) (4시간)
 
 # Channels
-ASGI_APPLICATION = "config.asgi.application"
+ASGI_APPLICATION = "config.example.routing.application"
 
 CHANNEL_LAYERS = {
     "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"},
@@ -199,3 +202,19 @@ PRICES = (
     ("vi", "₫"),
     ("en", "$"),
 )
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django.db.backends": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+        }
+    },
+}
