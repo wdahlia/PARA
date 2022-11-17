@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "products",
     "reviews",
     "imagekit",
+    "cart",
     "taggit.apps.TaggitAppConfig",
     "taggit_templatetags2",
     "django_extensions",
@@ -97,7 +98,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
             ],
             "libraries": {  # <----- add this
-                "filter_tags": "config.filters"  # switch with your app name
+                "filter_tags": "config.filters",  # switch with your app name
+                "custom_tags": "config.templatetags.custom_tags",
             },
         },
     },
@@ -189,3 +191,11 @@ ASGI_APPLICATION = "config.asgi.application"
 CHANNEL_LAYERS = {
     "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"},
 }
+
+CART_SESSION_ID = "cart_item"
+ACCOUNT_SESSION_REMEMBER = True
+
+PRICES = (
+    ("vi", "₫"),
+    ("en", "$"),
+)
