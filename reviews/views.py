@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+import json
 # Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ReviewForm, CommentForm
@@ -38,6 +38,7 @@ def review_create(request, product_pk):
 
 
 def review_detail(request, product_pk, review_pk):
+    
     review = get_object_or_404(Review, pk=review_pk)
     product = Product.objects.get(pk=product_pk)
     context = {
@@ -80,25 +81,52 @@ def review_update(request, product_pk, review_pk):
         messages.warning(request, "작성자만 수정할 수 있습니다.")
         return redirect("products:detail", product_pk)
 
-
+# 분기처리는 result 0이면 댓글 아니면 대댓글
+#  if result:
+#         print(request.POST['parent'])
+# elif  result == 0 : print(0)
 def comment_create(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            comment_form = CommentForm(request.POST)
-            if comment_form.is_valid():
-                comment = comment_form.save(commit=False)
-                comment.review = review
-                comment.user = request.user
-                comment.save()
-                context = {
-                    "review_pk": review_pk,
-                    "comment_pk": comment.pk,
-                    "content": comment.content,
-                    "userName": comment.user.username,
-                }
+    result = request.POST['parent']
 
-                return JsonResponse(context)
+    if request.method == "POST": # POST요청이고
+        if request.user.is_authenticated: # 로그인된 상태면
+                # 댓글일 때
+            if  int(result) == 0 :
+                comment_form = CommentForm(request.POST) # POST으로 요청온 정보를 받아서
+                if comment_form.is_valid(): # 유효성 검사하고
+                    comment = comment_form.save(commit=False) # 저장 멈춰
+                    # 외래키 입력
+                    comment.review = review 
+                    comment.user = request.user
+                    # 저장
+                    comment.save()
+                    
+                    context = {
+                        "review_pk": review_pk,
+                        "comment_pk": comment.pk,
+                        "content": comment.content,
+                        "userName": comment.user.username,
+                    }
+                    return JsonResponse(context)
+                
+            elif int(result) > 0 :
+                comment_form = CommentForm(request.POST) # POST으로 요청온 정보를 받아서
+                if comment_form.is_valid(): # 유효성 검사하고
+                    comment = comment_form.save(commit=False) # 저장 멈춰
+                    # 외래키 입력
+                    comment.review = review 
+                    comment.user = request.user
+                    comment.parent_id = result
+                    # 저장
+                    comment.save()
+                    context = {
+                        "review_pk": review_pk,
+                        "comment_pk": comment.pk,
+                        "content": comment.content,
+                        "userName": comment.user.username,
+                    }
+                    return JsonResponse(context)
         else:
             return HttpResponse(status=403)
     else:
