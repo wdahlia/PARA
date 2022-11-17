@@ -52,11 +52,12 @@
           <!-- tag -->
           {% if review.tags.all %}
           {% for tag in review.tags.all %}
-          <a style="text-decoration: none" href="{% url 'reviews:tagged_object_list' tag.name %}">
-            <span class="badge rounded-pill bg-primary">
-              #{{ tag.name }}
-            </span>
-          </a>
+          <h4><a style="text-decoration: none" href="{% url 'reviews:tagged_object_list' tag.name %}">
+              <span class="badge rounded-pill bg-primary">
+                #{{ tag.name }}
+              </span>
+            </a>
+          </h4>
           {% endfor %}
           <a style="text-decoration: none" href="{% url 'reviews:tag_cloud' %}">태그 모아보기<i class="bi bi-tag"></i></a>
           {% endif %}

@@ -3,15 +3,17 @@
 {% load static %}
 
 {% block body %}
-<h1>REVIEW TAG</h1>
+<h1><i class="bi bi-tag"></i>태그모음</h1>
 <br>
 <div>
   {% load taggit_templatetags2_tags %}
   {% get_tagcloud as tags %}
   {% for tag in tags %}
-  <span class="tag-{{tag.weight|floatformat:0}}">
-    <a href="{% url 'reviews:tagged_object_list' tag.name %}">{{tag.name}}{{tag.num_times}}</a>
-  </span>
+  <h3><span class="tag-{{tag.weight|floatformat:0}}">
+      <a class="badge rounded-pill bg-primary text-decoration-none"
+        href="{% url 'reviews:tagged_object_list' tag.name %}">#{{tag.name}} {{tag.num_times}}</a>
+    </span>
+  </h3>
   {% endfor %}
 </div>
 {% endblock body %}

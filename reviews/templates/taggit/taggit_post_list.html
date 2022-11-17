@@ -4,11 +4,43 @@
 
 {% block body %}
 
-<h1><i class="bi bi-tag"></i>#{{ tagname }}</h1>
+<h1><span class="badge rounded-pill bg-primary">#{{ tagname }}</span></h1>
 <br>
+<div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+        Review List
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+      aria-labelledby="panelsStayOpen-headingOne">
+      <div class="accordion-body">
+        {% for review in object_list %}
+        <p><a class="align-top text-decoration-none text-dark"
+            href="{% url 'reviews:review_detail' review.product_id review.id  %}">{{ review.content }}</a></p>
+        <p><a class="align-top text-decoration-none text-dark" href="{% url 'products:detail' review.product_id  %}"><i
+              class="bi bi-bag-check"></i> {{ review.product.name }} </a>
+        </p>
+        <div class="my-3">
+          {% if review.grade == "1" %}
+          <img src="{% static 'images/star_1.0.jpg' %}" alt="">
+          {% elif review.grade == "2" %}
+          <img src="{% static 'images/star_2.0.jpg' %}" alt="">
+          {% elif review.grade == "3" %}
+          <img src="{% static 'images/star_3.0.jpg' %}" alt="">
+          {% elif review.grade == "4" %}
+          <img src="{% static 'images/star_4.0.jpg' %}" alt="">
+          {% elif review.grade == "5" %}
+          <img src="{% static 'images/star_5.0.jpg' %}" alt="">
+          {% endif %}
+        </div>
+        <hr>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 
-{% for review in object_list %}
-<h2><a href="{% url 'reviews:review_detail' review.product_id review.id  %}">{{ review.content }}</a></h2>
-{{ review.created_at|date:"N d, Y" }}
-{% endfor %}
 {% endblock body %}
