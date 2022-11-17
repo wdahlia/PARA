@@ -131,7 +131,10 @@ class TaggedObjectLV(ListView):
     model = Review
 
     def get_queryset(self):
-        return Review.objects.filter(tags__name=self.kwargs.get("tag"))
+        response = Review.objects.filter(tags__name=self.kwargs.get("tag")).select_related(
+            "product"
+        )
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
