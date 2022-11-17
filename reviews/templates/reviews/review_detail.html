@@ -2,62 +2,78 @@
 {% load django_bootstrap5 %}
 {% load static %}
 {% block style %}
-  <style></style>
+<style></style>
 {% endblock style %}
 
 {% block body %}
-  <div id='product_pk' data-info-id='{{ product.pk }}' class="row justify-content-center padding-page">
-    <div class="shadow-lg bg-white p-5">
-      <div class="row my-2">
-        <div class="col-12 col-lg-6">
-          <div class="sticky-lg-top top-50 bg-white p-5 rounded-5 shadow-lg">
-            <div class="mb-3 d-flex justify-content-between align-items-center">
-              <h1 class="text-start fs-5 mb-0 fw-bold font-space">{{ product.name }}</h1>
-              <div class="d-flex align-items-center">
-                {% if review.user.profile_image %}
-                  <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px" height="25px">
-                {% else %}
-                  <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
-                {% endif %}
-                <p class="mb-0 ms-2 font-space">{{ review.user.username }}</p>
-              </div>
-            </div>
-
-            {% if review.review_image %}
-              <div class="d-flex justify-content-center">
-                <img src="{{ review.review_image.url }}" alt="{{ review.review_image }}" class="container px-0">
-              </div>
-            {% else %}
-              <div class="d-flex justify-content-center">
-                <img src="" alt="">
-              </div>
-            {% endif %}
-            <div class="my-3 text-end">
-              {% if review.grade == "1" %}
-                <img src="{% static 'images/star_1.0.jpg' %}" alt="">
-              {% elif review.grade == "2" %}
-                <img src="{% static 'images/star_2.0.jpg' %}" alt="">
-              {% elif review.grade == "3" %}
-                <img src="{% static 'images/star_3.0.jpg' %}" alt="">
-              {% elif review.grade == "4" %}
-                <img src="{% static 'images/star_4.0.jpg' %}" alt="">
-              {% elif review.grade == "5" %}
-                <img src="{% static 'images/star_5.0.jpg' %}" alt="">
+<div id='product_pk' data-info-id='{{ product.pk }}' class="row justify-content-center padding-page">
+  <div class="shadow-lg bg-white p-5">
+    <div class="row my-2">
+      <div class="col-12 col-lg-6">
+        <div class="sticky-lg-top top-50 bg-white p-5 rounded-5 shadow-lg">
+          <div class="mb-3 d-flex justify-content-between align-items-center">
+            <h1 class="text-start fs-5 mb-0 fw-bold font-space">{{ product.name }}</h1>
+            <div class="d-flex align-items-center">
+              {% if review.user.profile_image %}
+              <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px"
+                height="25px">
+              {% else %}
+              <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px">
+              </lord-icon>
               {% endif %}
+              <p class="mb-0 ms-2 font-space">{{ review.user.username }}</p>
             </div>
-            <pre class="fs-6 font-space">{{ review.content }}</pre>
+          </div>
 
-            {% if request.user == review.user %}
-              <form action="{% url 'reviews:review_delete' product.pk review.pk %}" method="POST">
-                {% csrf_token %}
-                <div class="text-end">
-                  <a href="{% url 'reviews:review_update' product.pk review.pk %}" class="btn review-update-btn rounded-0" method="POST">수정</a>
-                  <input class="btn review-delete-btn rounded-0" type="submit" value="삭제">
-                </div>
-              </form>
+          {% if review.review_image %}
+          <div class="d-flex justify-content-center">
+            <img src="{{ review.review_image.url }}" alt="{{ review.review_image }}" class="container px-0">
+          </div>
+          {% else %}
+          <div class="d-flex justify-content-center">
+            <img src="" alt="">
+          </div>
+          {% endif %}
+          <div class="my-3 text-end">
+            {% if review.grade == "1" %}
+            <img src="{% static 'images/star_1.0.jpg' %}" alt="">
+            {% elif review.grade == "2" %}
+            <img src="{% static 'images/star_2.0.jpg' %}" alt="">
+            {% elif review.grade == "3" %}
+            <img src="{% static 'images/star_3.0.jpg' %}" alt="">
+            {% elif review.grade == "4" %}
+            <img src="{% static 'images/star_4.0.jpg' %}" alt="">
+            {% elif review.grade == "5" %}
+            <img src="{% static 'images/star_5.0.jpg' %}" alt="">
             {% endif %}
           </div>
+          <pre class="fs-6 font-space">{{ review.content }}</pre>
+
+          <!-- tag -->
+          {% if review.tags.all %}
+          {% for tag in review.tags.all %}
+          <h4><a style="text-decoration: none" href="{% url 'reviews:tagged_object_list' tag.name %}">
+              <span class="badge rounded-pill bg-primary">
+                #{{ tag.name }}
+              </span>
+            </a>
+          </h4>
+          {% endfor %}
+          <a style="text-decoration: none" href="{% url 'reviews:tag_cloud' %}">태그 모아보기<i class="bi bi-tag"></i></a>
+          {% endif %}
+
+          {% if request.user == review.user %}
+          <form action="{% url 'reviews:review_delete' product.pk review.pk %}" method="POST">
+            {% csrf_token %}
+            <div class="text-end">
+              <a href="{% url 'reviews:review_update' product.pk review.pk %}" class="btn review-update-btn rounded-0"
+                method="POST">수정</a>
+              <input class="btn review-delete-btn rounded-0" type="submit" value="삭제">
+            </div>
+          </form>
+          {% endif %}
         </div>
+
         {% comment %} 댓글 작성 {% endcomment %}
         <div class="col-12 col-lg-6 p-5">
           <div class="d-flex flex-column justify-content-start mt-3" style="z-index: 2;">
@@ -125,11 +141,13 @@
                 </div>
                 {% endif %}
               {% endfor %}
-            </div>
+
           </div>
         </div>
       </div>
     </div>
+  </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
@@ -160,6 +178,7 @@
               const comments = document.querySelector('#comments')
               comments.insertAdjacentHTML('beforeend', `<div class=" container" id="com${response.data.comment_pk}">
                 <div  class="">
+
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                       {% if review.user.profile_image %}
@@ -182,6 +201,7 @@
                 <br>
               </div>
             </div>`);
+
 
               result = document.querySelector(`#com${response.data.comment_pk}`)
               //console.log(result)
@@ -206,17 +226,18 @@
                     console.log(deldiv)
                     deldiv.remove();
                   })
-              })
-              commentForm.reset()
+
             })
-            .catch(error => {
-              console.log(error.response)
-              if (error.response.status === 403) {
-                alert("로그인을 먼저 해주세요!")
-                window.location.href = '{% url "accounts:login" %}';
-              }
-            })
+            commentForm.reset()
           })
+          .catch(error => {
+            console.log(error.response)
+            if (error.response.status === 403) {
+              alert("로그인을 먼저 해주세요!")
+              window.location.href = '{% url "accounts:login" %}';
+            }
+          })
+      })
 
       //삭제를 해보자아
       const commentDel = document.querySelectorAll('.comments_set')
@@ -295,5 +316,6 @@
 
     </script>
   </div>
+
 
 {% endblock body %}

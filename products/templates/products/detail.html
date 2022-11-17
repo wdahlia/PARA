@@ -57,16 +57,26 @@
     <div><img src="{% static 'images/star_5.0.jpg' %}" alt=""></div>
     {% endif %}
     <p>평균평점:{{ review_ave }}</p>
-    <button>장바구니</button>
+
+    <form action="{% url 'cart:cart_add' products.id %}" method="POST">
+      <input type="number" name="quantity" value="1" require="require" id="id_quantity" style="display: none;">
+      <input type="hidden" name="is_update" value="False" require="require" id="id_is_quantity">
+      {% csrf_token %}
+      <div class="d-flex justify-content-center">
+        <input class="btn text-center" type="submit" value="장바구니 담기"
+          style="background-color: none; color: #33c4f0; font-weight: 700;">
+      </div>
+    </form>
+
     <div>
       <div class="col-5 p-0">
         <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark">
           리뷰 쓰기
         </a>
       </div>
-      
+
+    </div>
   </div>
-</div>
 </div>
 <br>
 <hr>
@@ -76,31 +86,45 @@
     {% for review in reviews %}
     <div class="card my-2">
       <div class="card-header">
-    {% if review.user.profile_image %}
-      <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
-      <span href=""> {{ review.user.username }}</span>
-      {% else %}
-      <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
-      <span href=""> {{ review.user.username }}</span>
-      {% endif %}
-    </div>
-    <div class='d-flex'>
-      <div>
-        {% if review.review_image %}
-        <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
+        {% if review.user.profile_image %}
+        <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
+        <span href=""> {{ review.user.username }}</span>
         {% else %}
-        <img src="{% static 'images/noimg.png' %}" alt="" style="width:144px; height:144px;">
+        <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
+        <span href=""> {{ review.user.username }}</span>
         {% endif %}
       </div>
-      <div class='p-3'>
-        <p> 평점: {{review.grade}} </p>
-       <a class="align-top text-decoration-none text-dark" href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
-      </div>  
+      <div class='d-flex'>
+        <div>
+          {% if review.review_image %}
+          <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
+          {% else %}
+          <img src="{% static 'images/noimg.png' %}" alt="" style="width:144px; height:144px;">
+          {% endif %}
+        </div>
+        <div class='p-3'>
+          <div class="my-3">
+            {% if review.grade == "1" %}
+            <img src="{% static 'images/star_1.0.jpg' %}" alt="">
+            {% elif review.grade == "2" %}
+            <img src="{% static 'images/star_2.0.jpg' %}" alt="">
+            {% elif review.grade == "3" %}
+            <img src="{% static 'images/star_3.0.jpg' %}" alt="">
+            {% elif review.grade == "4" %}
+            <img src="{% static 'images/star_4.0.jpg' %}" alt="">
+            {% elif review.grade == "5" %}
+            <img src="{% static 'images/star_5.0.jpg' %}" alt="">
+            {% endif %}
+          </div>
+          <a class="align-top text-decoration-none text-dark"
+            href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
+        </div>
+      </div>
     </div>
-  </div>
     {% endfor %}
   </div>
 </div>
+
 
 {% endblock body %}
 {% block script %}{% endblock script %}
