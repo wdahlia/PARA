@@ -4,13 +4,11 @@
 
 {% block body %}
 
-<h1>Review for tag - {{ tagname }}</h1>
+<h1><i class="bi bi-tag"></i>#{{ tagname }}</h1>
 <br>
 
 {% for review in object_list %}
 <h2><a href="{% url 'reviews:review_detail' review.product_id review.id  %}">{{ review.content }}</a></h2>
 {{ review.created_at|date:"N d, Y" }}
-<p>{{ review.grade }}</p>
-{{ review.product_id }}
 {% endfor %}
 {% endblock body %}

@@ -10,24 +10,24 @@ from django.db.models import Avg
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_safe
-from django.views.generic import ListView, TemplateView, DetailView
+from django.views.generic import ListView, TemplateView
 
 
 @login_required
 def review_create(request, product_pk):
     product = Product.objects.get(pk=product_pk)
     if request.method == "POST":
-        tags = request.POST.get("tag", "").split(",")
+        tags = request.POST.get("tags", "").split(",")
         review_form = ReviewForm(request.POST, request.FILES)
         if review_form.is_valid():
             review = review_form.save(commit=False)
             review.product = product
             review.user = request.user
+            review.save()
             for tag in tags:
                 tag = tag.strip()
                 if tag != "":
                     review.tags.add(tag)
-            review.save()
             return redirect("products:detail", product.pk)
     else:
         review_form = ReviewForm()
@@ -64,11 +64,17 @@ def review_update(request, product_pk, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     if request.user == review.user:
         if request.method == "POST":
+            tags = request.POST.get("tags", "").split(",")
+            review.tags.clear()
             review_form = ReviewForm(request.POST, request.FILES, instance=review)
             if review_form.is_valid():
                 form = review_form.save(commit=False)
                 form.user = request.user
                 form.save()
+                for tag in tags:
+                    tag = tag.strip()
+                    if tag != "":
+                        review.tags.add(tag)
                 return redirect("reviews:review_detail", product_pk, review_pk)
         else:
             review_form = ReviewForm(instance=review)

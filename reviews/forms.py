@@ -10,11 +10,13 @@ class ReviewForm(forms.ModelForm):
             "content",
             "grade",
             "review_image",
+            "tags",
         ]
         labels = {
             "content": "리뷰 내용",
             "grade": "평점",
             "review_image": "이미지",
+            "tags": "해시태그",
         }
 
         widgets = {
@@ -44,18 +46,15 @@ class CommentForm(forms.ModelForm):
         fields = [
             "content",
         ]
-        
 
         widgets = {
-
             "content": forms.Textarea(
                 attrs={
-                    "rows": 2, 
+                    "rows": 2,
                     "style": "background: transparent;",
                     "class": "border border-2 border-dark bg-white rounded-1 text-dark p-3 font-space shadow-sm scroll-none",
                 }
             ),
-
         }
 
         labels = {
