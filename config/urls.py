@@ -57,13 +57,13 @@ class UsersListView(LoginRequiredMixin, ListView):
 urlpatterns = [
     path("chat/", include("chat.urls")),
     ################## chat ######################
-    # path("", include("django_private_chat2.urls")),
-    # path("users/", UsersListView.as_view(), name="users_list"),
-    # path(
-    #     "",
-    #     login_required(TemplateView.as_view(template_name="chat2base.html")),
-    #     name="home",
-    # ),
+    path("", include("django_private_chat2.urls")),
+    path("users/", UsersListView.as_view(), name="users_list"),
+    path(
+        "chat2/",
+        login_required(TemplateView.as_view(template_name="chat2base.html")),
+        name="home",
+    ),
     ##############################################
     path("accounts/", include("accounts.urls")),
     path("products/", include("products.urls")),
