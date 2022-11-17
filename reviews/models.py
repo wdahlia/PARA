@@ -40,3 +40,6 @@ class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE,null=True) # 대댓글
+    
+
