@@ -10,7 +10,7 @@
   <div class="shadow-lg bg-white p-5">
     <div class="row my-2">
       <div class="col-12 col-lg-6 ">
-        <div class=" top-50 bg-white p-5 rounded-5 shadow-lg">
+        <div class="sticky-lg-top top-50 bg-white p-5 rounded-5 shadow-lg">
           <div class="mb-3 d-flex justify-content-between align-items-center">
             <h1 class="text-start fs-5 mb-0 fw-bold font-space">{{ product.name }}</h1>
             <div class="d-flex align-items-center">
@@ -73,7 +73,7 @@
           </form>
           {% endif %}
         </div>
-
+      </div>
         {% comment %} 댓글 작성 {% endcomment %}
         <div class="col-12 col-lg-6 p-5">
           <div class="d-flex flex-column justify-content-start mt-3" style="z-index: 2;">
@@ -92,7 +92,7 @@
               {% if comment.parent_id == None %}
                 <div class="container " id='com{{ comment.pk }}'>
                   <div class=''>
-                    <div class="d-flex justify-content-between align-items-center mb-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
                       <div class="d-flex align-items-center">
                         {% if review.user.profile_image %}
                           <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px" height="25px">
@@ -111,18 +111,26 @@
                         {% endif %}
                       </div>
                     </div>
+                    <div class='d-flex align-items-center'>
+                      <hr  class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
+                      <a href="" class='text-decoration-none text-dark'><span>답글 보기</span></a>
+                    </div>
 
    {% comment %} 대댓글이 작성되는곳 {% endcomment %}
-                    
+                    <div id='recom_set{{comment.id}}' class='py-2 px-4'>
                     {% for recom in comments %}
                     {% if comment.id == recom.parent_id %}
+                    <div>
                     {% if recom.user.profile_image %}
-                    <img src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
+                    <img id='imageurl' data-sate-id='yes' data-url-id={{recom.user.profile_image.url}} src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
+                    {% else %}
+                    <img id='imageurl' data-sate-id='no' data-url-id='noimage' src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
                     {% endif %}
                    <p> <span class='text-muted'> {{recom.user}}</span>  {{recom.content}}</p>
-                    
+                  </div>
                    {% endif %}
                     {% endfor %}
+                  </div>
                    {% if comment.user != request.user %}
                     <a href="" data-comment-id={{ comment.id }} class='recomment_btn text-decoration-none text-dark text-muted'>[답글]</a>
                     <div id='recom{{ comment.id }}' style='display:none;'>
@@ -267,9 +275,12 @@
           })
       })
 
+
       // 대댓..가즈아~
       const parentForm = document.querySelectorAll('.parentForm')
-    
+      const imageState = document.querySelector('#imageurl').dataset.sateId
+      const imageurl = document.querySelector('#imageurl').dataset.urlId
+
       parentForm.forEach(form => {
         form.addEventListener('submit', event => {
           event.preventDefault();
@@ -278,7 +289,7 @@
           const comment_pk = event.target.dataset.commentId
           //console.log(review_pk)
           //console.log(comment_pk)
-          //console.log(form)
+          //console.log(event.target.dataset)
           axios({
             method: 'post',
             url: `/reviews/${review_pk}/review_detail/comments/`,
@@ -288,14 +299,40 @@
             data: new FormData(form)
           })
           .then(response => {
+            const recomSet = document.querySelector(`#recom_set${comment_pk}`)
+            const data = response.data
+            const div = document.createElement('div')
+            if (data.image) {
+                const img = document.createElement('img')
+                img.src = data.image
+                img.style = 'border-radius: 50%; heigth: 32px; width: 32px;'
+                div.appendChild(img)
+            }
+            else {
+                const img = document.createElement('img')
+                img.src = '{% static 'images/profiledetail.png' %}'
+                img.style = 'border-radius: 50%; height: 32px; width: 32px;'
+                div.appendChild(img)
+            }
+            
+            const p = document.createElement('p')
+            const div2 = document.createElement('div')
+            const span = document.createElement('span')
+            console.log(data.userName)
+            span.className ='text-muted'
+            span.innerText = data.userName
+            p.innerText = data.content
+            p.className = 'mx-1'
+            div2.appendChild(span)
+            div2.appendChild(p)
+            div2.className = 'd-flex'
+            div.appendChild(div2)
+            recomSet.appendChild(div)
+
             form.reset()
           })
         })
       })
-      
-      
-      
-      
       //답글 누르면 폼나오게
       //console.log(document.getElementById('recom4').style.diplay="block;") // 아이디로 접근
       const recomment_btn = document.querySelectorAll('.recomment_btn')
