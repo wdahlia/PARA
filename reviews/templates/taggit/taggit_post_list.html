@@ -5,6 +5,11 @@
 {% block body %}
 
 <h1><span class="badge rounded-pill bg-primary">#{{ tagname }}</span></h1>
+
+<div class="text-end">
+  <h4><a style="text-decoration: none " href="{% url 'reviews:tag_cloud' %}">태그 모아보기<i class="bi bi-tag"></i></a></h4>
+</div>
+
 <br>
 <div class="accordion" id="accordionPanelsStayOpenExample">
   <div class="accordion-item">
@@ -18,12 +23,27 @@
       aria-labelledby="panelsStayOpen-headingOne">
       <div class="accordion-body">
         {% for review in object_list %}
-        <p><a class="align-top text-decoration-none text-dark"
-            href="{% url 'reviews:review_detail' review.product_id review.id  %}">{{ review.content }}</a></p>
-        <p><a class="align-top text-decoration-none text-dark" href="{% url 'products:detail' review.product_id  %}"><i
-              class="bi bi-bag-check"></i> {{ review.product.name }} </a>
-        </p>
-        <div class="my-3">
+        <div class="card-header my-2">
+          {% if review.user.profile_image %}
+          <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px; border-radius: 15px;">
+          <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+              {{ review.user.username }}</a></span>
+          {% else %}
+          <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
+          <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+              {{ review.user.username }}</a></span>
+          {% endif %}
+        </div>
+        <div class="m-2">
+          <p><a class="align-top text-decoration-none text-dark"
+              href="{% url 'reviews:review_detail' review.product_id review.id  %}">{{ review.content }}</a></p>
+        </div>
+        <div class="m-2">
+          <p><a class="align-top text-decoration-none text-dark"
+              href="{% url 'products:detail' review.product_id  %}"><i class="bi bi-bag-check"></i>
+              {{ review.product.name }} </a></p>
+        </div>
+        <div class="m-2">
           {% if review.grade == "1" %}
           <img src="{% static 'images/star_1.0.jpg' %}" alt="">
           {% elif review.grade == "2" %}
