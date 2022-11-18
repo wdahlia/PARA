@@ -15,14 +15,13 @@
   <!-- viewpoint lg에서 보여짐 -->
   <div class="d-none d-lg-block px-3" style="border: 3px solid black; position: sticky; top: 0;">
     <div class="my-3 text-end">
-      <form action="{% url 'products:like' products.pk %}" method='POST'>
-        {% csrf_token %}
-        {% if user in products.like_users.all %}
-        <input type="submit" class="" value='찜하기 취소'>
+      {% if request.user.is_authenticated %}
+        {% if request.user in product.like_users.all %}
+          <i id="like-btn" data-product-id="{{ products.pk }}" class="text-danger bi bi-bookmark-fill"></i>
         {% else %}
-        <input type="submit" value='찜하기'>
+          <i id="like-btn" data-product-id="{{ products.pk }}" class="text-danger bi bi-bookmark"></i>
         {% endif %}
-      </form>
+      {% endif %}
     </div>
     <p>{{ products.name }}</p>
 
@@ -210,4 +209,36 @@
 </div>
 
 {% endblock body %}
-{% block script %}{% endblock script %}
+{% block script %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const likeBtn = document.querySelector('#like-btn')
+  likeBtn.addEventListener('click', function (event) {
+    console.log(event.target.dataset)
+    axios({method: 'get', url: `/products/${event.target.dataset.productId}/like/`}).then(response => {
+      if (response.data.is_liked === true) {
+        event
+          .target
+          .classList
+          .add('bi-bookmark-fill')
+        event
+          .target
+          .classList
+          .remove('bi-bookmark')
+      } else {
+        event
+          .target
+          .classList
+          .add('bi-bookmark')
+        event
+          .target
+          .classList
+          .remove('bi-bookmark-fill')
+      }
+      const likeCount = document.querySelector('#like-count')
+      likeCount.innerText = response.data.likeCount
+    })
+  })
+</script>
+{% endblock script %}
