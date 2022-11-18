@@ -348,3 +348,8 @@ div.btn-outline-hover > a.btn-outline-light:hover {
   border: 1px solid rgba(1, 40, 1, 0.387);
   color: rgb(81, 128, 68);
 }
+
+
+.cart_button-hover:hover {
+  background-color: rgba(42, 79, 79, 0.737);
+}

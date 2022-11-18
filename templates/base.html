@@ -70,7 +70,7 @@
                       Login
                     </a>
                     <a href="{% url 'accounts:signup' %}" class="font-space text-black">
-                      Sign 
+                      Sign
                     </a>
                   </div>
                 {% endif %}
@@ -121,7 +121,9 @@
                   <a href="" class="text-decoration-none text-black ms-2" style="width: 4rem; mix-blend-mode: color;" data-bs-toggle="modal" data-bs-target="#exampleModal">매장찾기</a>
                   <!-- 장바구니 버튼 추가 -->
                   <div class="mx-3">
-                    <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#000000" style="width:35px;height:35px"></lord-icon>
+                    <a href="{% url 'cart:cart_detail' %}" class="text-decoration-none">
+                      <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#000000" style="width:35px;height:35px"></lord-icon>
+                    </a>
                   </div>
                 </div>
                 <!-- div 누르면 프로필 디테일 페이지로 이동 -->
