@@ -358,6 +358,10 @@ div.btn-outline-hover>a.btn-outline-light:hover {
   color: rgb(81, 128, 68);
 }
 
+
+.cart_button-hover:hover {
+  background-color: rgba(42, 79, 79, 0.737);
+
 .test11 {
   background-color: black;
 }
@@ -368,4 +372,5 @@ div.btn-outline-hover>a.btn-outline-light:hover {
 
 .detail-scroll::-webkit-scrollbar {
   display: none;
+
 }

@@ -58,9 +58,20 @@
                   alt="{{ request.user.profile_image }}">
                 <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
                 {% else %}
+
+                  <div class="d-flex justify-content-end">
+                    <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
+                      Login
+                    </a>
+                    <a href="{% url 'accounts:signup' %}" class="font-space text-black">
+                      Signup
+                    </a>
+                  </div>
+
                 <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px">
                 </lord-icon>
                 <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
+
                 {% endif %}
               </a>
             </div>
@@ -140,29 +151,51 @@
                   style="width:35px;height:35px"></lord-icon>
               </div>
             </div>
-            <!-- div 누르면 프로필 디테일 페이지로 이동 -->
-            <div class="d-flex flex-column">
-              <!-- 프로필 이미지 들어갈 곳 -->
-              {% if request.user.is_authenticated %}
-              <div class="d-flex justify-content-center align-items-center">
-                <a href="{% url 'accounts:detail' request.user.pk %}"
-                  class="text-center text-decoration-none text-black">
-                  {% if request.user.profile_image %}
-                  <img src="{{ request.user.profile_image.url }}"
-                    style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
-                  {% else %}
-                  <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover"
-                    style="width:50px;height:50px"></lord-icon>
-                  {% endif %}
-                  <!-- 프로필 닉네임 들어갈 곳-->
-                  <p class="font-space mb-0 fw-lighter">{{ request.user.username }}</p>
-                </a>
 
-                <a href="{% url 'accounts:logout' %}" class="ms-3 text-black">Logout</a>
-                {% else %}
-                <div class="d-flex">
-                  <a href="{% url 'accounts:login' %}" class="ms-3 text-black">Login</a>
-                  <a href="{% url 'accounts:signup' %}" class="ms-1 text-black">SignUp</a>
+            <div class="d-flex d-none d-md-block col-5">
+              <div class="d-flex justify-content-end align-items-center" style="width: 100%">
+                <div class="me-auto" style="width: 5rem;">
+                  <a class="text-dark text-decoration-none" href="{% url 'search' %}">
+                    <span>
+                      <span class='me-2'>검색</span>
+                      <i class="bi bi-search"></i>
+                    </span>
+                    <hr class="mt-0 bg-black border border-dark border-1 opacity-75">
+                  </a>
+                </div>
+                <div class="d-flex align-items-center">
+                  <!-- 매장 찾기 accounts앱의 매장 지도가 모달 창으로 뜨게 됨 (내 위치 기반 주변 매장 찾기)-->
+                  <a href="" class="text-decoration-none text-black ms-2" style="width: 4rem; mix-blend-mode: color;" data-bs-toggle="modal" data-bs-target="#exampleModal">매장찾기</a>
+                  <!-- 장바구니 버튼 추가 -->
+                  <div class="mx-3">
+                    <a href="{% url 'cart:cart_detail' %}" class="text-decoration-none">
+                      <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#000000" style="width:35px;height:35px"></lord-icon>
+                    </a>
+                  </div>
+                </div>
+                <!-- div 누르면 프로필 디테일 페이지로 이동 -->
+                <div class="d-flex flex-column">
+                  <!-- 프로필 이미지 들어갈 곳 -->
+                  {% if request.user.is_authenticated %}
+                    <div class="d-flex justify-content-center align-items-center">
+                      <a href="{% url 'accounts:detail' request.user.pk %}" class="text-center text-decoration-none text-black">
+                        {% if request.user.profile_image %}
+                          <img src="{{ request.user.profile_image.url }}" style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
+                        {% else %}
+                          <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:50px;height:50px"></lord-icon>
+                        {% endif %}
+                        <!-- 프로필 닉네임 들어갈 곳-->
+                        <p class="font-space mb-0 fw-lighter">{{ request.user.username }}</p>
+                      </a>
+
+                      <a href="{% url 'accounts:logout' %}" class="ms-3 text-black">Logout</a>
+                    {% else %}
+                      <div class="d-flex">
+                        <a href="{% url 'accounts:login' %}" class="ms-3 text-black">Login</a>
+                        <a href="{% url 'accounts:signup' %}" class="ms-1 text-black">SignUp</a>
+                      </div>
+                    {% endif %}
+                  </div>
                 </div>
                 {% endif %}
               </div>
