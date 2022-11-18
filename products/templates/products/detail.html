@@ -26,7 +26,7 @@
       </div>
       <p>{{ products.name }}</p>
 
-      {% with products.content | split : "." as cons %}
+      {% with products.content|split: "." as cons %}
       {% for con in cons %}
         <p>{{ con }}</p>
       {% endfor %}
