@@ -4,127 +4,166 @@
 
 {% block body %}
 
-<div class='d-sm-flex justify-content-center'>
-  <div class='d-flex flex-column'>
-    <div style="width: 45.4rem; height:63rem; overflow:scroll;">
-      {% for image in images %}
-      <img style='width: 45.4rem; height: 63rem;' class="detail-image" src="{{ image.product_image }}" alt="">
+  <div class='d-sm-flex justify-content-center'>
+    <div class='d-flex flex-column'>
+      <div style="width: 45.4rem; height:63rem; overflow:scroll;">
+        {% for image in images %}
+          <img style='width: 45.4rem; height: 63rem;' class="detail-image" src="{{ image.product_image }}" alt="">
+        {% endfor %}
+      </div>
+    </div>
+    <!-- viewpoint lg에서 보여짐 -->
+    <div class="d-none d-lg-block px-3" style="border: 3px solid black; position: sticky; top: 0;">
+      <div class="my-3 text-end">
+        <form action="{% url 'products:like' products.pk %}" method='POST'>
+          {% csrf_token %}
+          {% if user in products.like_users.all %}
+            <input type="submit" class="" value='찜하기 취소'>
+          {% else %}
+            <input type="submit" value='찜하기'>
+          {% endif %}
+        </form>
+      </div>
+      <p>{{ products.name }}</p>
+
+      {% with products.content | split : "." as cons %}
+      {% for con in cons %}
+        <p>{{ con }}</p>
+      {% endfor %}
+      {% endwith %}
+
+      <p>{{ products.color }}</p>
+      <p>{{ products.price }}</p>
+      <p>조회수:{{ products.hits }}</p>
+      {% if star == 0.5 %}
+        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+      {% elif star == 1.0 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+      {% elif star == 1.5 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+      {% elif star == 2.0 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+      {% elif star == 2.5 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+      {% elif star == 3.0 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+      {% elif star == 3.5 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+      {% elif star == 4.0 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-regular fa-star text-warning"></i>
+      {% elif star == 4.5 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+      {% elif star == 5.0 %}
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+        <i class="fa-solid fa-star text-warning"></i>
+      {% endif %}
+      <p>평균평점:{{ review_ave }}</p>
+
+      <form action="{% url 'cart:cart_add' products.id %}" method="POST">
+        <input type="number" name="quantity" value="1" require="require" id="id_quantity" style="display: none;">
+        <input type="hidden" name="is_update" value="False" require="require" id="id_is_quantity">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center">
+          <input class="btn text-center" type="submit" value="장바구니 담기" style="background-color: none; color: #33c4f0; font-weight: 700;">
+        </div>
+      </form>
+
+      <div>
+        <div class="col-5 p-0">
+          <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark">
+            리뷰 쓰기
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <br>
+  <hr>
+  <h3 class='text-center my-4'>Review List</h3>
+  <div class='d-flex justify-content-center'>
+    <div class='d-flex my-1 flex-column' style="width: 1050px;">
+      {% for review in reviews %}
+        <div class="card my-2">
+          <div class="card-header">
+            {% if review.user.profile_image %}
+              <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
+              <span href="">
+                {{ review.user.username }}</span>
+            {% else %}
+              <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
+              <span href="">
+                {{ review.user.username }}</span>
+            {% endif %}
+          </div>
+          <div class='d-flex'>
+            <div>
+              {% if review.review_image %}
+                <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
+              {% else %}
+                <img src="{% static 'images/noimg.png' %}" alt="" style="width:144px; height:144px;">
+              {% endif %}
+            </div>
+            <div class='p-3'>
+              <div class="my-3">
+                {% if review.grade == "1" %}
+                  <img src="{% static 'images/star_1.0.jpg' %}" alt="">
+                {% elif review.grade == "2" %}
+                  <img src="{% static 'images/star_2.0.jpg' %}" alt="">
+                {% elif review.grade == "3" %}
+                  <img src="{% static 'images/star_3.0.jpg' %}" alt="">
+                {% elif review.grade == "4" %}
+                  <img src="{% static 'images/star_4.0.jpg' %}" alt="">
+                {% elif review.grade == "5" %}
+                  <img src="{% static 'images/star_5.0.jpg' %}" alt="">
+                {% endif %}
+              </div>
+              <a class="align-top text-decoration-none text-dark" href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
+            </div>
+          </div>
+        </div>
       {% endfor %}
     </div>
   </div>
-  <!-- viewpoint lg에서 보여짐 -->
-  <div class="d-none d-lg-block px-3" style="border: 3px solid black; position: sticky; top: 0;">
-    <div class="my-3 text-end">
-      <form action="{% url 'products:like' products.pk %}" method='POST'>
-        {% csrf_token %}
-        {% if user in products.like_users.all %}
-        <input type="submit" class="" value='찜하기 취소'>
-        {% else %}
-        <input type="submit" value='찜하기'>
-        {% endif %}
-      </form>
-    </div>
-    <p>{{ products.name }}</p>
-
-    {% with products.content|split:"." as cons %}
-    {% for con in cons %}
-    <p>{{ con }}</p>
-    {% endfor %}
-    {% endwith %}
-
-    <p>{{ products.color }}</p>
-    <p>{{ products.price }}</p>
-    <p>조회수:{{ products.hits }}</p>
-    {% if star == 0.5 %}
-    <div><img src="{% static 'images/star_0.5.jpg' %}" alt=""></div>
-    {% elif star == 1.0 %}
-    <div><img src="{% static 'images/star_1.0.jpg' %}" alt=""></div>
-    {% elif star == 1.5 %}
-    <div><img src="{% static 'images/star_1.5.jpg' %}" alt=""></div>
-    {% elif star == 2.0 %}
-    <div><img src="{% static 'images/star_2.0.jpg' %}" alt=""></div>
-    {% elif star == 2.5 %}
-    <div><img src="{% static 'images/star_2.5.jpg' %}" alt=""></div>
-    {% elif star == 3.0 %}
-    <div><img src="{% static 'images/star_3.0.jpg' %}" alt=""></div>
-    {% elif star == 3.5 %}
-    <div><img src="{% static 'images/star_3.5.jpg' %}" alt=""></div>
-    {% elif star == 4.0 %}
-    <div><img src="{% static 'images/star_4.0.jpg' %}" alt=""></div>
-    {% elif star == 4.5 %}
-    <div><img src="{% static 'images/star_4.5.jpg' %}" alt=""></div>
-    {% elif star == 5.0 %}
-    <div><img src="{% static 'images/star_5.0.jpg' %}" alt=""></div>
-    {% endif %}
-    <p>평균평점:{{ review_ave }}</p>
-
-    <form action="{% url 'cart:cart_add' products.id %}" method="POST">
-      <input type="number" name="quantity" value="1" require="require" id="id_quantity" style="display: none;">
-      <input type="hidden" name="is_update" value="False" require="require" id="id_is_quantity">
-      {% csrf_token %}
-      <div class="d-flex justify-content-center">
-        <input class="btn text-center" type="submit" value="장바구니 담기"
-          style="background-color: none; color: #33c4f0; font-weight: 700;">
-      </div>
-    </form>
-
-    <div>
-      <div class="col-5 p-0">
-        <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark">
-          리뷰 쓰기
-        </a>
-      </div>
-
-    </div>
-  </div>
-</div>
-<br>
-<hr>
-<h3 class='text-center my-4'>Review List</h3>
-<div class='d-flex justify-content-center'>
-  <div class='d-flex my-1 flex-column' style="width: 1050px;">
-    {% for review in reviews %}
-    <div class="card my-2">
-      <div class="card-header">
-        {% if review.user.profile_image %}
-        <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
-        <span href=""> {{ review.user.username }}</span>
-        {% else %}
-        <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
-        <span href=""> {{ review.user.username }}</span>
-        {% endif %}
-      </div>
-      <div class='d-flex'>
-        <div>
-          {% if review.review_image %}
-          <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
-          {% else %}
-          <img src="{% static 'images/noimg.png' %}" alt="" style="width:144px; height:144px;">
-          {% endif %}
-        </div>
-        <div class='p-3'>
-          <div class="my-3">
-            {% if review.grade == "1" %}
-            <img src="{% static 'images/star_1.0.jpg' %}" alt="">
-            {% elif review.grade == "2" %}
-            <img src="{% static 'images/star_2.0.jpg' %}" alt="">
-            {% elif review.grade == "3" %}
-            <img src="{% static 'images/star_3.0.jpg' %}" alt="">
-            {% elif review.grade == "4" %}
-            <img src="{% static 'images/star_4.0.jpg' %}" alt="">
-            {% elif review.grade == "5" %}
-            <img src="{% static 'images/star_5.0.jpg' %}" alt="">
-            {% endif %}
-          </div>
-          <a class="align-top text-decoration-none text-dark"
-            href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
-
 
 {% endblock body %}
 {% block script %}{% endblock script %}
