@@ -25,7 +25,7 @@
         {% for review in object_list %}
         <div class="card-header my-2">
           {% if review.user.profile_image %}
-          <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px; border-radius: 15px;">
+          <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px; border-radius: 50%;">
           <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
               {{ review.user.username }}</a></span>
           {% else %}

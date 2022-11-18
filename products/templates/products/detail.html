@@ -87,11 +87,13 @@
     <div class="card my-2">
       <div class="card-header">
         {% if review.user.profile_image %}
-        <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px;">
-        <span href=""> {{ review.user.username }}</span>
+        <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px; border-radius: 50%;">
+        <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+            {{ review.user.username }}</a></span>
         {% else %}
         <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
-        <span href=""> {{ review.user.username }}</span>
+        <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+            {{ review.user.username }}</a></span>
         {% endif %}
       </div>
       <div class='d-flex'>
@@ -102,7 +104,24 @@
           <img src="{% static 'images/noimg.png' %}" alt="" style="width:144px; height:144px;">
           {% endif %}
         </div>
+
         <div class='p-3'>
+          <div class="">
+            {% if review.comment_set.count %}댓글개수:({{review.comment_set.count}})
+            {% endif %}
+
+
+            <!--
+            {% if review.comment_set.all %}
+            {% for i in review.comment_set.all %}
+            {% if i.parent_id == NULL %}
+            {{ forloop.counter }}
+            {{i.parent_id}}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+-->
+          </div>
           <div class="my-3">
             {% if review.grade == "1" %}
             <img src="{% static 'images/star_1.0.jpg' %}" alt="">
@@ -117,7 +136,8 @@
             {% endif %}
           </div>
           <a class="align-top text-decoration-none text-dark"
-            href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}<br></a>
+            href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}
+            <br></a>
         </div>
       </div>
     </div>
