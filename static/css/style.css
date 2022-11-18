@@ -17,9 +17,10 @@ body {
   .container-css {
     padding-inline: 32px;
   }
+
   .img-back figcaption {
     line-height: 336px;
-    font-size: 0.8rem;   
+    font-size: 0.8rem;
   }
 }
 
@@ -27,23 +28,24 @@ body {
   .container-css {
     padding-inline: 48px;
   }
+
   .img-back figcaption {
     line-height: 336px;
-    font-size: 0.9rem;   
+    font-size: 0.9rem;
   }
 }
 
 @media (min-width: 1280px) {
   .img-back figcaption {
     line-height: 450px;
-    font-size: 1rem;   
+    font-size: 1rem;
   }
 }
 
 @media (min-width: 2148px) {
   .img-back figcaption {
     line-height: 610px;
-    font-size: 1.5rem;   
+    font-size: 1.5rem;
   }
 }
 
@@ -63,7 +65,8 @@ body {
   border: 0 transparent;
 }
 
-.form-control:focus,.form-control:active {
+.form-control:focus,
+.form-control:active {
   outline: none !important;
   box-shadow: none !important;
 }
@@ -80,6 +83,7 @@ body {
   text-align: left;
   text-indent: -999em;
 }
+
 .gnb_search {
   width: 30%;
   box-sizing: border-box;
@@ -93,7 +97,7 @@ body {
   position: relative;
   padding-right: 38px;
   border-bottom: 1px solid #e6e6e6;
-width: 170px;
+  width: 170px;
 }
 
 .gnb_search input {
@@ -133,9 +137,10 @@ width: 170px;
 } */
 
 
-.detail-image:hover{
-    cursor: -webkit-zoom-in;
+.detail-image:hover {
+  cursor: -webkit-zoom-in;
 }
+
 /* image modal end */
 
 .nav-margin {
@@ -154,8 +159,8 @@ width: 170px;
 
 .image-card:hover img {
   transform: scale(1.18);
-	-webkit-transform: scale(1.18) translateZ(0);
-	-ms-transform: scale(1.18) translateZ(0);
+  -webkit-transform: scale(1.18) translateZ(0);
+  -ms-transform: scale(1.18) translateZ(0);
 }
 
 .index-card-image {
@@ -206,8 +211,8 @@ button.openBtn {
   height: 50px;
   width: 50px;
   box-shadow:
-  -5px -5px 10px rgba(255,255,255,0.5),
-  5px 5px 10px rgba(103, 98, 98, 0.539);
+    -5px -5px 10px rgba(255, 255, 255, 0.5),
+    5px 5px 10px rgba(103, 98, 98, 0.539);
   border-radius: 20%;
   border: 8px solid #ececec;
   outline: none;
@@ -218,17 +223,17 @@ button.openBtn {
 }
 
 
-button.openBtn > i.fa-solid {
+button.openBtn>i.fa-solid {
   color: #3768bca5;
   font-size: 20px;
 }
 
 
-button.openBtn > i.fa-solid:hover {
+button.openBtn>i.fa-solid:hover {
   color: rgb(184, 184, 251);
 }
 
-button.openBtn > i.fa-solid:active {
+button.openBtn>i.fa-solid:active {
   color: rgb(184, 184, 251);
 }
 
@@ -237,16 +242,16 @@ button.openBtn > i.fa-solid:active {
 
 .popup {
   position: absolute;
-	bottom: 20%;
+  bottom: 20%;
   right: 5%;
   width: 410px;
   height: 400px;
-	padding: 5px;
-	border: 3px solid black;
-	background-color: white;
-	overflow: auto;	
+  padding: 5px;
+  border: 3px solid black;
+  background-color: white;
+  overflow: auto;
   box-shadow:
-  6px 8px 30px rgba(99, 95, 95, 0.209);
+    6px 8px 30px rgba(99, 95, 95, 0.209);
 }
 
 .greeting-box {
@@ -275,7 +280,7 @@ button.openBtn > i.fa-solid:active {
   box-shadow: rgba(107, 101, 101, 0.17) 0px -23px 25px 0px inset, rgba(111, 107, 107, 0.15) 0px -36px 30px 0px inset, rgba(114, 110, 110, 0.1) 0px -79px 40px 0px inset, rgba(88, 82, 82, 0.06) 0px 2px 1px, rgba(103, 102, 102, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(106, 100, 100, 0.09) 0px 32px 16px;
 }
 
-div.btn-outline-hover > a.btn-outline-light:hover {
+div.btn-outline-hover>a.btn-outline-light:hover {
   background-color: black;
   border: 1px solid rgba(0, 0, 0, 0);
   color: white;
@@ -286,11 +291,15 @@ div.btn-outline-hover > a.btn-outline-light:hover {
 }
 
 .follow-dropdown-shadow {
-  border-radius: 6px 6px 0 0; 
+  border-radius: 6px 6px 0 0;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
-.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
   border-color: rgba(0, 0, 0, 0) !important;
 }
 
@@ -347,4 +356,16 @@ div.btn-outline-hover > a.btn-outline-light:hover {
   background-color: rgba(104, 236, 148, 0.181);
   border: 1px solid rgba(1, 40, 1, 0.387);
   color: rgb(81, 128, 68);
+}
+
+.test11 {
+  background-color: black;
+}
+
+.detail-scroll {
+  overflow: scroll;
+}
+
+.detail-scroll::-webkit-scrollbar {
+  display: none;
 }
