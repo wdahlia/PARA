@@ -5,6 +5,7 @@ from django.db.models import Avg
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+import random
 
 # Create your views here.
 def index(request):
@@ -78,9 +79,7 @@ def category(request, category_pk):
     img_dict = {}
     for product in products:
 
-        img = Image.objects.filter(product_id=product.id)[
-            0
-        ]  # 프로덕트 ID에 해당하는 0번째 이미지 객체 가져옴
+        img = Image.objects.filter(product_id=product.id)[0]  # 프로덕트 ID에 해당하는 0번째 이미지 객체 가져옴
 
         img_dict[product.id] = img
     # print(img_dict)
@@ -129,3 +128,18 @@ def like(request, pk):
         product.like_users.add(request.user)
         # 상세 페이지로 redirect
     return redirect("products:detail", pk)
+
+
+def bestsellers(request):
+    products = Product.objects.order_by("-hits")[:12]
+    products_list = []
+    for p in products:
+        products_list.append(p.pk)
+    result = products_list
+    dicts = {}
+    for i in result:
+        product = Product.objects.get(pk=i)
+        image = Image.objects.filter(product_id=i)[0]
+        dicts[product] = image
+    data = {"dicts": dicts}
+    return render(request, "products/bestsellers.html", data)
