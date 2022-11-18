@@ -4,26 +4,30 @@
 
 {% block body %}
   <div class="row justify-content-center padding-page">
-    <h1 class="text-center">회원목록</h1>
-    <a href="{% url 'accounts:login' %}">로그인</a>
-    <a href="{% url 'accounts:logout' %}">로그아웃</a>
-    <!-- Table -->
-    <table class="table table-hover mt-3">
-      <thead>
-        <tr>
-          <th scope="col">번호</th>
-          <th scope="col">닉네임</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in users %}
-          <tr>
-            <th scope="row">{{ forloop.counter }}</th>
-            <td>
-              <a href="{% url 'accounts:detail' user.pk %}">{{ user.username }}</a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <h6 class="mb-3 login_font-weight">회원 목록</h6>
+
+    {% for user in users %}
+      <div class="col flex-wrap g-4">
+        <div class="card rounded-3 h-100" style="background-color: transparent !important;">
+          <div class="card-body">
+            <a class="text-decoration-none font-space text-black d-flex flex-column align-items-center justify-content-center" href="{% url 'accounts:detail' user.pk %}">
+              {% if user.profile_image %}
+                <img src="{{ user.profile_image.url }}" width="40px" height="40px" class="rounded-5 mb-1" alt="">
+              {% else %}
+                <img src="{% static 'images/userimage.png' %}" width="40px" height="40px" class="rounded-5 mb-1" alt="">
+              {% endif %}{{ user.username }}
+            </a>
+          </div>
+          <div class="card-footer text-end">
+            <pre class="mb-0">D + {{ user.joined_string }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <td></td>
+    </tr>
+
+  {% endfor %}
+</tbody>
+</table>
 {% endblock body %}
