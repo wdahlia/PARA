@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block body %}
+  <div class="row justify-content-center padding-page">
+    <h6 class="mb-3 login_font-weight">회원 목록</h6>
+
+    {% for user in users %}
+      <div class="col flex-wrap g-4">
+        <div class="card rounded-3 h-100" style="background-color: transparent !important;">
+          <div class="card-body">
+            <a class="text-decoration-none font-space text-black d-flex flex-column align-items-center justify-content-center" href="{% url 'accounts:detail' user.pk %}">
+              {% if user.profile_image %}
+                <img src="{{ user.profile_image.url }}" width="40px" height="40px" class="rounded-5 mb-1" alt="">
+              {% else %}
+                <img src="{% static 'images/userimage.png' %}" width="40px" height="40px" class="rounded-5 mb-1" alt="">
+              {% endif %}{{ user.username }}
+            </a>
+          </div>
+          <div class="card-footer text-end">
+            <pre class="mb-0">D + {{ user.joined_string }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <td></td>
+    </tr>
+
+  {% endfor %}
+</tbody>
+</table>
+{% endblock body %}
