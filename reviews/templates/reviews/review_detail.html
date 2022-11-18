@@ -15,13 +15,15 @@
             <h1 class="text-start fs-5 mb-0 fw-bold font-space">{{ product.name }}</h1>
             <div class="d-flex align-items-center">
               {% if review.user.profile_image %}
-              <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px"
-                height="25px">
+              <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}"
+                style="width:25px;height:25px;border-radius: 50%;">
               {% else %}
               <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px">
               </lord-icon>
               {% endif %}
-              <p class="mb-0 ms-2 font-space">{{ review.user.username }}</p>
+              <p class="mb-0 ms-2 font-space"><a href="{% url 'accounts:detail' review.user.pk %}"
+                  class="text-decoration-none text-dark">
+                  {{ review.user.username }}</a></p>
             </div>
           </div>
 
@@ -94,81 +96,92 @@
           {% endif %}
         </div>
       </div>
-        {% comment %} 댓글 작성 {% endcomment %}
-        <div class="col-12 col-lg-6 p-5">
-          <div class="d-flex flex-column justify-content-start mt-3" style="z-index: 2;">
-            <form id='comment-form' data-detail-id="{{ review.pk }}">
-              {% csrf_token %}
-              {% bootstrap_form comment_form %}
-              <div class="text-end">
-                <button class="btn btn-dark rounded-0">작성</button>
-                <input type="hidden" name="parent" value=0>
-              </div>
-            </form>
-            <div id="comments" class="my-5">
+      {% comment %} 댓글 작성 {% endcomment %}
+      <div class="col-12 col-lg-6 p-5">
+        <div class="d-flex flex-column justify-content-start mt-3" style="z-index: 2;">
+          <form id='comment-form' data-detail-id="{{ review.pk }}">
+            {% csrf_token %}
+            {% bootstrap_form comment_form %}
+            <div class="text-end">
+              <button class="btn btn-dark rounded-0">작성</button>
+              <input type="hidden" name="parent" value=0>
+            </div>
+          </form>
+          <div id="comments" class="my-5">
 
-              <!-- 반복문으로 댓글 뽑음 -->
-              {% for comment in comments %}
-              {% if comment.parent_id == None %}
-                <div class="container " id='com{{ comment.pk }}'>
-                  <div class=''>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                      <div class="d-flex align-items-center">
-                        {% if review.user.profile_image %}
-                          <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px" height="25px">
-                        {% else %}
-                          <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
-                        {% endif %}
-                        <span class="text-muted ms-2">{{ comment.user }}</span>
-                      </div>
-                      <p class="mb-0 mx-3 text-truncate">{{ comment.content }}</p>
-                      <div class='comments_set'>
-                        {% if request.user == comment.user %}
-                          <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}' data-comment-id='{{ comment.pk }}' action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST">
-                            {% csrf_token %}
-                            <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
-                          </form>
-                        {% endif %}
-                      </div>
-                    </div>
-                    <div class='d-flex align-items-center'>
-                      <hr  class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
-                      <a href="" class='text-decoration-none text-dark'><span>답글 보기</span></a>
-                    </div>
-
-   {% comment %} 대댓글이 작성되는곳 {% endcomment %}
-                    <div id='recom_set{{comment.id}}' class='py-2 px-4'>
-                    {% for recom in comments %}
-                    {% if comment.id == recom.parent_id %}
-                    <div>
-                    {% if recom.user.profile_image %}
-                    <img id='imageurl' data-sate-id='yes' data-url-id={{recom.user.profile_image.url}} src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
+            <!-- 반복문으로 댓글 뽑음 -->
+            {% for comment in comments %}
+            {% if comment.parent_id == None %}
+            <div class="container " id='com{{ comment.pk }}'>
+              <div class=''>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="d-flex align-items-center">
+                    {% if comment.user.profile_image %}
+                    <img src="{{ comment.user.profile_image.url }}" alt="{{ comment.user.profile_image }}"
+                      style="width:25px;height:25px;border-radius: 50%;">
                     {% else %}
-                    <img id='imageurl' data-sate-id='no' data-url-id='noimage' src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
+                    <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover"
+                      style="width:33px;height:33px"></lord-icon>
                     {% endif %}
-                   <p> <span class='text-muted'> {{recom.user}}</span>  {{recom.content}}</p>
+                    <span class="text-muted ms-2"><a href="{% url 'accounts:detail' comment.user.pk %}"
+                        class="text-decoration-none text-dark">
+                        {{ comment.user }}</a></span>
                   </div>
-                   {% endif %}
-                    {% endfor %}
-                  </div>
-                   {% if comment.user != request.user %}
-                    <a href="" data-comment-id={{ comment.id }} class='recomment_btn text-decoration-none text-dark text-muted'>[답글]</a>
-                    <div id='recom{{ comment.id }}' style='display:none;'>
-                      <form  style='' class="parentForm" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.pk}}">
-                        {% csrf_token %}
-                        {% bootstrap_form comment_form %}
-                        <input  name='parent' type='hidden' value="{{ comment.pk }}">
-                        <input type="submit">
-                      </form>
-                    </div>
+                  <p class="mb-0 mx-3 text-truncate">{{ comment.content }}</p>
+                  <div class='comments_set'>
+                    {% if request.user == comment.user %}
+                    <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}'
+                      data-comment-id='{{ comment.pk }}'
+                      action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST">
+                      {% csrf_token %}
+                      <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
+                    </form>
                     {% endif %}
-                    <hr>
-                    
-                    <br>
                   </div>
                 </div>
+                <div class='d-flex align-items-center'>
+                  <hr class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
+                  <a href="" class='text-decoration-none text-dark'><span>답글 보기</span></a>
+                </div>
+
+                {% comment %} 대댓글이 작성되는곳 {% endcomment %}
+                <div id='recom_set{{comment.id}}' class='py-2 px-4'>
+                  {% for recom in comments %}
+                  {% if comment.id == recom.parent_id %}
+                  <div>
+                    {% if recom.user.profile_image %}
+                    <img id='imageurl' data-sate-id='yes' data-url-id={{recom.user.profile_image.url}}
+                      src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
+                    {% else %}
+                    <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover"
+                      style="width:33px;height:33px"></lord-icon>
+                    {% endif %}
+                    <p> <span class='text-muted'><a href="{% url 'accounts:detail' recom.user.pk %}"
+                          class="text-decoration-none text-dark">
+                          {{recom.user}}</a></span>{{recom.content}}</p>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                {% if comment.user != request.user %}
+                <a href="" data-comment-id={{ comment.id }}
+                  class='recomment_btn text-decoration-none text-dark text-muted'>[답글]</a>
+                <div id='recom{{ comment.id }}' style='display:none;'>
+                  <form class="parentForm" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.pk}}">
+                    {% csrf_token %}
+                    {% bootstrap_form comment_form %}
+                    <input name='parent' type='hidden' value="{{ comment.pk }}">
+                    <input type="submit">
+                  </form>
+                </div>
                 {% endif %}
-              {% endfor %}
+                <hr>
+
+                <br>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
 
           </div>
         </div>
@@ -177,34 +190,34 @@
   </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-      const product_pk = document
-        .querySelector('#product_pk')
-        .dataset
-        .infoId
-      const commentForm = document.querySelector('#comment-form')
-      //console.log(commentForm)
-      const csrftoken = document
-        .querySelector('[name=csrfmiddlewaretoken]')
-        .value
-        commentForm
-        .addEventListener('submit', function (event) {
-          event.preventDefault();
-          axios({
-            method: 'POST',
-            url: `/reviews/${event.target.dataset.detailId}/review_detail/comments/`,
-            headers: {
-              'X-CSRFToken': csrftoken
-            },
-            data: new FormData(commentForm)
-          })
-            .then(response => {
-              //console.log(data)
-              //console.log(response.data.review_pk)
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const product_pk = document
+      .querySelector('#product_pk')
+      .dataset
+      .infoId
+    const commentForm = document.querySelector('#comment-form')
+    //console.log(commentForm)
+    const csrftoken = document
+      .querySelector('[name=csrfmiddlewaretoken]')
+      .value
+    commentForm
+      .addEventListener('submit', function (event) {
+        event.preventDefault();
+        axios({
+          method: 'POST',
+          url: `/reviews/${event.target.dataset.detailId}/review_detail/comments/`,
+          headers: {
+            'X-CSRFToken': csrftoken
+          },
+          data: new FormData(commentForm)
+        })
+          .then(response => {
+            //console.log(data)
+            //console.log(response.data.review_pk)
 
-              const comments = document.querySelector('#comments')
-              comments.insertAdjacentHTML('beforeend', `<div class=" container" id="com${response.data.comment_pk}">
+            const comments = document.querySelector('#comments')
+            comments.insertAdjacentHTML('beforeend', `<div class=" container" id="com${response.data.comment_pk}">
                 <div  class="">
 
                   <div class="d-flex justify-content-between align-items-center">
@@ -231,29 +244,29 @@
             </div>`);
 
 
-              result = document.querySelector(`#com${response.data.comment_pk}`)
-              //console.log(result)
-              result.addEventListener('submit', event => {
-                event.preventDefault()
-                //console.log(event.target.dataset)
-                const product_pk = event.target.dataset.productId
-                const review_pk = event.target.dataset.reviewId
-                const comment_pk = event
-                  .target
-                  .dataset
-                  .commentId
-                  axios({
-                    method: 'post',
-                    url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
-                    headers: {
-                      'X-CSRFToken': csrftoken
-                    }
-                  })
-                  .then(response => {
-                    const deldiv = document.getElementById(`com${comment_pk}`)
-                    console.log(deldiv)
-                    deldiv.remove();
-                  })
+            result = document.querySelector(`#com${response.data.comment_pk}`)
+            //console.log(result)
+            result.addEventListener('submit', event => {
+              event.preventDefault()
+              //console.log(event.target.dataset)
+              const product_pk = event.target.dataset.productId
+              const review_pk = event.target.dataset.reviewId
+              const comment_pk = event
+                .target
+                .dataset
+                .commentId
+              axios({
+                method: 'post',
+                url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
+                headers: {
+                  'X-CSRFToken': csrftoken
+                }
+              })
+                .then(response => {
+                  const deldiv = document.getElementById(`com${comment_pk}`)
+                  console.log(deldiv)
+                  deldiv.remove();
+                })
 
             })
             commentForm.reset()
@@ -267,79 +280,79 @@
           })
       })
 
-      //삭제를 해보자아
-      const commentDel = document.querySelectorAll('.comments_set')
-      commentDel.forEach(form => {
-        form.addEventListener('submit', event => {
-          event.preventDefault()
-          //console.log(event.target.dataset)
-          const product_pk = event.target.dataset.productId
-          const review_pk = event.target.dataset.reviewId
-          const comment_pk = event.target.dataset.commentId
-            axios({
-              method: 'post',
-              url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
-              headers: {
-                'X-CSRFToken': csrftoken
-              }
-            })
-            .then(response => {
-              const deldiv = document.getElementById(`com${comment_pk}`)
-              //console.log(deldiv)
-              deldiv.remove();
+    //삭제를 해보자아
+    const commentDel = document.querySelectorAll('.comments_set')
+    commentDel.forEach(form => {
+      form.addEventListener('submit', event => {
+        event.preventDefault()
+        //console.log(event.target.dataset)
+        const product_pk = event.target.dataset.productId
+        const review_pk = event.target.dataset.reviewId
+        const comment_pk = event.target.dataset.commentId
+        axios({
+          method: 'post',
+          url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
+          headers: {
+            'X-CSRFToken': csrftoken
+          }
+        })
+          .then(response => {
+            const deldiv = document.getElementById(`com${comment_pk}`)
+            //console.log(deldiv)
+            deldiv.remove();
 
-            })
-            .catch(error => {
-              //console.log(deldiv)
-            })
+          })
+          .catch(error => {
+            //console.log(deldiv)
           })
       })
+    })
 
 
-      // 대댓..가즈아~
-      const parentForm = document.querySelectorAll('.parentForm')
-      const imageState = document.querySelector('#imageurl').dataset.sateId
-      const imageurl = document.querySelector('#imageurl').dataset.urlId
+    // 대댓..가즈아~
+    const parentForm = document.querySelectorAll('.parentForm')
+    const imageState = document.querySelector('#imageurl').dataset.sateId
+    const imageurl = document.querySelector('#imageurl').dataset.urlId
 
-      parentForm.forEach(form => {
-        form.addEventListener('submit', event => {
-          event.preventDefault();
-           
-          const review_pk = event.target.dataset.reviewId
-          const comment_pk = event.target.dataset.commentId
-          //console.log(review_pk)
-          //console.log(comment_pk)
-          //console.log(event.target.dataset)
-          axios({
-            method: 'post',
-            url: `/reviews/${review_pk}/review_detail/comments/`,
-            headers: {
-              'X-CSRFToken': csrftoken
-            },
-            data: new FormData(form)
-          })
+    parentForm.forEach(form => {
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const review_pk = event.target.dataset.reviewId
+        const comment_pk = event.target.dataset.commentId
+        //console.log(review_pk)
+        //console.log(comment_pk)
+        //console.log(event.target.dataset)
+        axios({
+          method: 'post',
+          url: `/reviews/${review_pk}/review_detail/comments/`,
+          headers: {
+            'X-CSRFToken': csrftoken
+          },
+          data: new FormData(form)
+        })
           .then(response => {
             const recomSet = document.querySelector(`#recom_set${comment_pk}`)
             const data = response.data
             const div = document.createElement('div')
             if (data.image) {
-                const img = document.createElement('img')
-                img.src = data.image
-                img.style = 'border-radius: 50%; heigth: 32px; width: 32px;'
-                div.appendChild(img)
+              const img = document.createElement('img')
+              img.src = data.image
+              img.style = 'border-radius: 50%; heigth: 32px; width: 32px;'
+              div.appendChild(img)
             }
             else {
-                const img = document.createElement('img')
-                img.src = '{% static 'images/profiledetail.png' %}'
-                img.style = 'border-radius: 50%; height: 32px; width: 32px;'
-                div.appendChild(img)
+              const img = document.createElement('img')
+              img.src = "{% static 'images/profiledetail.png' %}"
+              img.style = 'border-radius: 50%; height: 32px; width: 32px;'
+              div.appendChild(img)
             }
-            
+
             const p = document.createElement('p')
             const div2 = document.createElement('div')
             const span = document.createElement('span')
             console.log(data.userName)
-            span.className ='text-muted'
+            span.className = 'text-muted'
             span.innerText = data.userName
             p.innerText = data.content
             p.className = 'mx-1'
@@ -351,28 +364,28 @@
 
             form.reset()
           })
-        })
       })
-      //답글 누르면 폼나오게
-      //console.log(document.getElementById('recom4').style.diplay="block;") // 아이디로 접근
-      const recomment_btn = document.querySelectorAll('.recomment_btn')
-      recomment_btn.forEach(form => {
-        form.addEventListener('click', event => {
-          event.preventDefault();
-          if (document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText === "display: none;") {
-            document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText='block';
-            //console.log(document.getElementById(`recom${event.target.dataset.commentId}`).style)
-          } else {
-            console.log(document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText)
-            document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText='display: none;';
-          } 
-          
-        })
+    })
+    //답글 누르면 폼나오게
+    //console.log(document.getElementById('recom4').style.diplay="block;") // 아이디로 접근
+    const recomment_btn = document.querySelectorAll('.recomment_btn')
+    recomment_btn.forEach(form => {
+      form.addEventListener('click', event => {
+        event.preventDefault();
+        if (document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText === "display: none;") {
+          document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText = 'block';
+          //console.log(document.getElementById(`recom${event.target.dataset.commentId}`).style)
+        } else {
+          console.log(document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText)
+          document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText = 'display: none;';
+        }
+
       })
+    })
 
 
-    </script>
-  </div>
+  </script>
+</div>
 
 
 {% endblock body %}
