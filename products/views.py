@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Image, Product, Category
 from reviews.models import Review
 from django.db.models import Avg
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+import random
 
 # Create your views here.
 def index(request):
@@ -78,9 +79,7 @@ def category(request, category_pk):
     img_dict = {}
     for product in products:
 
-        img = Image.objects.filter(product_id=product.id)[
-            0
-        ]  # 프로덕트 ID에 해당하는 0번째 이미지 객체 가져옴
+        img = Image.objects.filter(product_id=product.id)[0]  # 프로덕트 ID에 해당하는 0번째 이미지 객체 가져옴
 
         img_dict[product.id] = img
     # print(img_dict)
@@ -118,14 +117,32 @@ def category(request, category_pk):
 #     return render(request, "products/category.html", context)
 @login_required
 def like(request, pk):
-    product = Product.objects.get(pk=pk)
-    # 만약에 로그인한 유저가 이 글을 좋아요를 눌렀다면,
-    # if product.like_users.filter(id=request.user.id).exists():
-    if request.user in product.like_users.all():
-        # 좋아요 삭제하고
-        product.like_users.remove(request.user)
-    else:
-        # 좋아요 추가하고
-        product.like_users.add(request.user)
-        # 상세 페이지로 redirect
-    return redirect("products:detail", pk)
+    if request.user.is_authenticated:
+        product = get_object_or_404(Product, pk=pk)
+        if product.like_users.filter(pk=request.user.pk).exists():
+            product.like_users.remove(request.user)
+            is_liked = False
+        else:
+            product.like_users.add(request.user)
+            is_liked = True
+        context = {
+            "is_liked": is_liked,
+            "likeCount": product.like_users.count(),
+        }
+        return JsonResponse(context)
+    return redirect("accounts:login")
+
+
+def bestsellers(request):
+    products = Product.objects.order_by("-hits")[:12]
+    products_list = []
+    for p in products:
+        products_list.append(p.pk)
+    result = products_list
+    dicts = {}
+    for i in result:
+        product = Product.objects.get(pk=i)
+        image = Image.objects.filter(product_id=i)[0]
+        dicts[product] = image
+    data = {"dicts": dicts}
+    return render(request, "products/bestsellers.html", data)

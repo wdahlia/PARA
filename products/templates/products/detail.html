@@ -3,6 +3,7 @@
 {% load filter_tags %}
 
 {% block body %}
+
   <div class="d-flex flex-column">
     <div class='d-sm-flex justify-content-center'>
       <div class='d-flex flex-column'>
@@ -12,7 +13,7 @@
           {% endfor %}
         </div>
       </div>
-        <!-- sticky 부분 끝 -->
+
     </div>
     <br>
     <hr>
@@ -65,18 +66,13 @@
       <!-- viewpoint lg에서 보여짐 -->
         <div class="p-5 bg-white rounded-3" style="border: 3px solid black; position: fixed; right: 2; top: 10;">
           <div class="my-3 text-end">
-            <form action="{% url 'products:like' products.pk %}" method='POST'>
-              {% csrf_token %}
-              {% if user in products.like_users.all %}
-                <button type="submit" class="btn btn-none">
-                  <i class="fa-regular fa-heart text-danger"></i>
-                </button>
+            {% if request.user.is_authenticated %}
+              {% if request.user in product.like_users.all %}
+                <i id="like-btn" data-product-id="{{ products.pk }}" class="text-danger bi bi-bookmark-fill"></i>
               {% else %}
-                <button type="submit" class="btn btn-none">
-                  <i class="fa-solid fa-heart text-danger"></i>
-                </button>
+                <i id="like-btn" data-product-id="{{ products.pk }}" class="text-danger bi bi-bookmark"></i>
               {% endif %}
-            </form>
+            {% endif %}
           </div>
           <p>{{ products.name }}</p>
 
@@ -171,8 +167,154 @@
                 </a>
               </div>
             </div>
-          </div>
+
+
+
+    <form action="{% url 'cart:cart_add' products.id %}" method="POST">
+      <input type="number" name="quantity" value="1" require="require" id="id_quantity" style="display: none;">
+      <input type="hidden" name="is_update" value="False" require="require" id="id_is_quantity">
+      {% csrf_token %}
+      <div class="d-flex justify-content-center">
+        <input class="btn text-center" type="submit" value="장바구니 담기"
+          style="background-color: none; color: #33c4f0; font-weight: 700;">
+      </div>
+    </form>
+
+    <div>
+      <div class="col-5 p-0">
+        <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-dark">
+          리뷰 쓰기
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+<br>
+<hr>
+<h3 class='text-center my-4'>Review List</h3>
+<div class='d-flex justify-content-center'>
+  <div class='d-flex my-1 flex-column' style="width: 1050px;">
+    {% for review in reviews %}
+    <div class="card my-2">
+      <div class="card-header">
+        {% if review.user.profile_image %}
+        <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px; border-radius: 50%;">
+        <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+            {{ review.user.username }}</a></span>
+        {% else %}
+        <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
+        <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+            {{ review.user.username }}</a></span>
+        {% endif %}
+      </div>
+      <div class='d-flex'>
+        <div>
+          {% if review.review_image %}
+          <img src="{{ review.review_image.url }}" alt="" style="width:144px; height:144px;">
+          {% else %}
+          <img src="{% static 'images/noimg.png' %}" alt="" style="width:144px; height:144px;">
+          {% endif %}
         </div>
 
-  {% endblock body %}
-  {% block script %}{% endblock script %}
+        <div class='p-3'>
+          <div class="">
+            {% if review.comment_set.count %}댓글개수:({{review.comment_set.count}})
+            {% endif %}
+
+
+            <!--대댓글을 재외한 '댓글'만 불러와보기
+            {% if review.comment_set.all %}
+            {% for i in review.comment_set.all %}
+            {% if i.parent_id == NULL %}
+            {{ forloop.counter }}
+            {{i.parent_id}}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            -->
+          </div>
+          <div class="my-3">
+            {% if review.grade == "1" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            {% elif review.grade == "2" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            {% elif review.grade == "3" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            {% elif review.grade == "4" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            {% elif review.grade == "5" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            {% endif %}
+
+          </div>
+          <a class="align-top text-decoration-none text-dark"
+            href="{% url 'reviews:review_detail' products.pk review.pk %}">{{review.content}}
+            <br></a>
+
+        </div>
+
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock body %}
+{% block script %}
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const likeBtn = document.querySelector('#like-btn')
+  likeBtn.addEventListener('click', function (event) {
+    console.log(event.target.dataset)
+    axios({method: 'get', url: `/products/${event.target.dataset.productId}/like/`}).then(response => {
+      if (response.data.is_liked === true) {
+        event
+          .target
+          .classList
+          .add('bi-bookmark-fill')
+        event
+          .target
+          .classList
+          .remove('bi-bookmark')
+      } else {
+        event
+          .target
+          .classList
+          .add('bi-bookmark')
+        event
+          .target
+          .classList
+          .remove('bi-bookmark-fill')
+      }
+      const likeCount = document.querySelector('#like-count')
+      likeCount.innerText = response.data.likeCount
+    })
+  })
+</script>
+{% endblock script %}
+

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block body %}
+
+<div>
+  <h5 class="font-space">Best Sellers</h5>
+  <hr>
+  <div class="mt-2 row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-4">
+    {% for k,v in dicts.items %}
+    <div class="col">
+      <a href="{% url 'products:detail' k.pk %}" style="text-decoration: none; color: black;">
+        <div class="card h-100"
+          style="box-shadow: rgba(0, 0, 0, 0.0) 0px 2px 4px, rgba(0, 0, 0, 0.0) 0px 7px 13px -3px, rgba(0, 0, 0, 0.1) 0px -3px 0px inset;">
+          <div class="image-card">
+            <img class="card-img-top" src="{{ v.product_image }}" alt="" style="width:100%;">
+          </div>
+          <div class="card-body d-flex align-items-center justify-content-end">
+            <pre class="card-text font-space">{{ k.name }}</pre>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% endblock body %}
