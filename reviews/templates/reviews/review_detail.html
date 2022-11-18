@@ -133,12 +133,12 @@
                     </div>
                     <div class='d-flex align-items-center'>
                       <hr  class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
-                      <a href="" class='text-decoration-none text-dark'><span>답글 보기</span></a>
+                      <a  href="" class='text-decoration-none text-dark recomBox'><span data-box-id={{comment.id}} class='text-muted'>답글 보기</span></a>
                     </div>
 
 {% comment %} 대댓글 출력 {% endcomment %}
 
-                    <div id='recom_set{{comment.id}}' class='py-2 px-4'>
+                    <div id='recom_set{{comment.id}}' style='display: none;' class='py-2 px-4'>
                     {% for recom in comments %}
                     {% if comment.id == recom.parent_id %}
                     <div id='com{{ recom.pk }}'>
@@ -404,6 +404,22 @@
         })
       })
 
+      const recomBox = document.querySelectorAll('.recomBox')
+      recomBox.forEach(form => {
+        form.addEventListener('click', event => {
+          event.preventDefault();
+          toggle_ = document.getElementById(`recom_set${event.target.dataset.boxId}`)
+          //console.log(toggle_.style.cssText)
+          if (toggle_.style.cssText === "display: none;") {
+            toggle_.style.cssText='block';
+            //console.log(toggle_.style)
+          } else {
+            console.log(toggle_.style.cssText)
+            toggle_.style.cssText='display: none;';
+          } 
+          //console.log(event.target.dataset.boxId)
+        })
+      })
 
     </script>
   </div>
