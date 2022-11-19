@@ -109,52 +109,65 @@
           </form>
           <div id="comments" class="my-5">
 
+            <!-- 반복문으로 댓글 뽑음 -->
+            {% for comment in comments %}
+            {% if comment.parent_id == None %}
+            <div class="container " id='com{{ comment.pk }}'>
+              <div class=''>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="d-flex align-items-center">
+                    {% if comment.user.profile_image %}
+                    <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px"
+                      height="25px">
+                    {% else %}
+                    <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover"
+                      style="width:33px;height:33px"></lord-icon>
+                    {% endif %}
+                    <span class="text-muted ms-2"><a href="{% url 'accounts:detail' comment.user.pk %}"
+                        class="text-decoration-none text-dark">
+                        {{ comment.user.username }}
+                      </a></span>
+                  </div>
+                  <p class="mb-0 mx-3 text-truncate">{{ comment.content }}</p>
+                  <div class='comments_set'>
+                    {% if request.user == comment.user %}
+                    <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}'
+                      data-comment-id='{{ comment.pk }}'
+                      action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST">
+                      {% csrf_token %}
+                      <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
+                    </form>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class='d-flex align-items-center'>
+                  <hr class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
+                  <a href="" class='text-decoration-none text-dark recomBox'><span data-box-id={{comment.id}}
+                      class='text-muted'>답글 보기</span></a>
+                </div>
 
-              <!-- 반복문으로 댓글 뽑음 -->
-              {% for comment in comments %}
-              {% if comment.parent_id == None %}
-                <div class="container" id='com{{ comment.pk }}'>
-    
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                      <div class="d-flex align-items-center">
-                        {% if review.user.profile_image %}
-                          <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="33px" height="33px" style="border-radius: 50%;">
-                        {% else %}
-                          <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
-                        {% endif %}
-                        <span class="text-muted ms-2">{{ comment.user }}</span>
-                      </div>
-                      <p class="mb-0 mx-3 text-truncate">{{ comment.content }}</p>
-                      <div class='comments_set'>
-                        {% if request.user == comment.user %}
-                          <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}' data-comment-id='{{ comment.pk }}' action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST">
-                            {% csrf_token %}
-                            <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
-                          </form>
-                        {% endif %}
-                      </div>
-                    </div>
-                    <div class='d-flex align-items-center'>
-                      <hr class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
-                      <a href="" class='text-decoration-none text-dark recomBox'><span data-box-id={{comment.id}} class='text-muted'>답글 보기</span></a>
-                    </div>
+
 
                     {% comment %} 대댓글 출력 {% endcomment %}
 
                   <div id='recom_set{{comment.id}}' style='display: none;' class='py-2'>
                   {% for recom in comments %}
-                    {% if comment.id == recom.parent_id %}
-                    <div id='com{{ recom.pk }}' class="border my-2 p-2">
-                      <div class="d-flex align-items-center">
-                        {% if recom.user.profile_image %}
-                        <img src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
-                        {% else %}
-                        <img src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
-                        {% endif %}
-                        <p class="mb-0 ms-2 me-auto text-muted">{{ recom.user }}</p>
-                      </div>
-                      <div class="p-3">{{ recom.content }}</div>
-                      <div class="comments_set text-end">
+
+                  {% if comment.id == recom.parent_id %}
+                  <div id='com{{ recom.pk }}'>
+                    {% if recom.user.profile_image %}
+                    <img src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
+                    {% else %}
+                    <img src="{% static 'images/profiledetail.png' %}"
+                      style="border-radius: 50%; height: 32px; width: 32px;">
+                    {% endif %}
+                    <div class="d-flex">
+                      <p class='me-auto'> <span class='text-muted'> <a href="{% url 'accounts:detail' recom.user.pk %}"
+                            class="text-decoration-none text-dark">
+                            {{ recom.user.username }}
+                          </a></span> {{recom.content}}</p>
+                      <div class="comments_set">
+
                         {% if recom.user == request.user %}
                         <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}' data-comment-id='{{ recom.id }}' action="{% url 'reviews:comment_delete' product.pk review.pk recom.pk %}" method="POST">
                           {% csrf_token %}
