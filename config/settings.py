@@ -31,6 +31,18 @@ SECRET_KEY = "django-insecure-4p3z#vs%7b1(39$$$qzdrpr%l_pfl-eo%3q*zj9lqj0hlympe-
 # DEBUG = True
 
 
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "para", # 코드 블럭 아래 이미지 참고하여 입력
+#         "USER": "postgres",
+#         "PASSWORD": "team8para!", # 데이터베이스 생성 시 작성한 패스워드
+#         "HOST": "team8-para.cqoyrdrg5ai0.ap-northeast-1.rds.amazonaws.com", # 코드 블럭 아래 이미지 참고하여 입력
+#         "PORT": "5432",
+#     }
+# }
 DEBUG = os.getenv("DEBUG") == "True"
 
 if DEBUG: 
@@ -58,13 +70,13 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("para"), # 코드 블럭 아래 이미지 참고하여 입력
+            "NAME": "para", # 코드 블럭 아래 이미지 참고하여 입력
             "USER": "postgres",
-            "PASSWORD": os.getenv("team8para!"), # 데이터베이스 생성 시 작성한 패스워드
-            "HOST": os.getenv("team8-para.cqoyrdrg5ai0.ap-northeast-1.rds.amazonaws.com"), # 코드 블럭 아래 이미지 참고하여 입력
+            "PASSWORD": "team8para!", # 데이터베이스 생성 시 작성한 패스워드
+            "HOST": "team8-para.cqoyrdrg5ai0.ap-northeast-1.rds.amazonaws.com", # 코드 블럭 아래 이미지 참고하여 입력
             "PORT": "5432",
-        }
     }
+}
 
 
 ALLOWED_HOSTS = [
@@ -164,16 +176,6 @@ TEMPLATES = [
 #     }
 # }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "para", # 코드 블럭 아래 이미지 참고하여 입력
-        "USER": "postgres",
-        "PASSWORD": "team8para!", # 데이터베이스 생성 시 작성한 패스워드
-        "HOST": "team8-para.cqoyrdrg5ai0.ap-northeast-1.rds.amazonaws.com", # 코드 블럭 아래 이미지 참고하여 입력
-        "PORT": "5432",
-    }
-}
 
 
 # Password validation
@@ -226,17 +228,17 @@ ADMIN_MEDIA_PREFIX = "/static/admin/"
 
 
 # 아래 코드 추가
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+# AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 
-AWS_REGION = "ap-northeast-2"
-AWS_S3_CUSTOM_DOMAIN = "%s.s3.%s.amazonaws.com" % (
-    AWS_STORAGE_BUCKET_NAME,
-    AWS_REGION,
-)
+# AWS_REGION = "ap-northeast-2"
+# AWS_S3_CUSTOM_DOMAIN = "%s.s3.%s.amazonaws.com" % (
+#     AWS_STORAGE_BUCKET_NAME,
+#     AWS_REGION,
+# )
 
 
 # Default primary key field type
