@@ -39,7 +39,7 @@ SECRET_KEY = "django-insecure-4p3z#vs%7b1(39$$$qzdrpr%l_pfl-eo%3q*zj9lqj0hlympe-
 #         "NAME": "para", # 코드 블럭 아래 이미지 참고하여 입력
 #         "USER": "postgres",
 #         "PASSWORD": "team8para!", # 데이터베이스 생성 시 작성한 패스워드
-#         "HOST": "team8-para.cqoyrdrg5ai0.ap-northeast-1.rds.amazonaws.com", # 코드 블럭 아래 이미지 참고하여 입력
+#         "HOST": "Para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com", # 코드 블럭 아래 이미지 참고하여 입력
 #         "PORT": "5432",
 #     }
 # }
