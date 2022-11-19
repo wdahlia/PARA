@@ -80,7 +80,7 @@ else:
 
 ALLOWED_HOSTS = [
 		# "Elastic Beanstalk URL",
-    "team8-para.cqoyrdrg5ai0.ap-northeast-1.rds.amazonaws.com", # 예시입니다. 본인 URL로 해주세요.
+    "Para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com", # 예시입니다. 본인 URL로 해주세요.
     "127.0.0.1",
     "localhost",
 ]
