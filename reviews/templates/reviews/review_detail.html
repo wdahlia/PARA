@@ -10,15 +10,14 @@
   <div class="shadow-lg bg-white p-5">
     <div class="row my-2">
       <div class="col-12 col-lg-6 ">
-        <div class="sticky-lg-top top-50 bg-white p-5 rounded-5 shadow-lg">
+        <div class="position-sticky bg-white p-5 rounded-5 shadow-lg" style="top: 10rem;">
           <div class="mb-3 d-flex justify-content-between align-items-center">
-            <h1 class="text-start fs-5 mb-0 fw-bold font-space">{{ product.name }}</h1>
+            <h1 class="text-start fs-6 mb-0 fw-bold font-space">{{ product.name }}</h1>
             <div class="d-flex align-items-center">
               {% if review.user.profile_image %}
-              <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px"
-                height="25px">
+              <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px" height="25px" style="border-radius: 50%;">
               {% else %}
-              <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px">
+              <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px; height:33px; border-radius: 50%;">
               </lord-icon>
               {% endif %}
               <p class="mb-0 ms-2 font-space">{{ review.user.username }}</p>
@@ -110,12 +109,12 @@
               <!-- 반복문으로 댓글 뽑음 -->
               {% for comment in comments %}
               {% if comment.parent_id == None %}
-                <div class="container " id='com{{ comment.pk }}'>
-                  <div class=''>
+                <div class="container" id='com{{ comment.pk }}'>
+    
                     <div class="d-flex justify-content-between align-items-center mb-3">
                       <div class="d-flex align-items-center">
                         {% if review.user.profile_image %}
-                          <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px" height="25px">
+                          <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="33px" height="33px" style="border-radius: 50%;">
                         {% else %}
                           <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
                         {% endif %}
@@ -132,54 +131,57 @@
                       </div>
                     </div>
                     <div class='d-flex align-items-center'>
-                      <hr  class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
-                      <a  href="" class='text-decoration-none text-dark recomBox'><span data-box-id={{comment.id}} class='text-muted'>답글 보기</span></a>
+                      <hr class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
+                      <a href="" class='text-decoration-none text-dark recomBox'><span data-box-id={{comment.id}} class='text-muted'>답글 보기</span></a>
                     </div>
 
-{% comment %} 대댓글 출력 {% endcomment %}
+                    {% comment %} 대댓글 출력 {% endcomment %}
 
-                    <div id='recom_set{{comment.id}}' style='display: none;' class='py-2 px-4'>
-                    {% for recom in comments %}
+                  <div id='recom_set{{comment.id}}' style='display: none;' class='py-2'>
+                  {% for recom in comments %}
                     {% if comment.id == recom.parent_id %}
-                    <div id='com{{ recom.pk }}'>
-                    {% if recom.user.profile_image %}
-                    <img src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
-                    {% else %}
-                    <img src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
-                    {% endif %}
-                      <div class="d-flex">
-                        <p class='me-auto'> <span class='text-muted'> {{recom.user}}</span>  {{recom.content}}</p>
-                        <div class="comments_set">
-                          {% if recom.user == request.user %}
-                          <form id='parentform'  data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}' data-comment-id='{{ recom.id }}' action="{% url 'reviews:comment_delete' product.pk review.pk recom.pk %}" method="POST">
-                            {% csrf_token %}
-                            <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
-                          </form>
-                          {% endif %} 
+                    <div id='com{{ recom.pk }}' class="border my-2 p-2">
+                      <div class="d-flex align-items-center">
+                        {% if recom.user.profile_image %}
+                        <img src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
+                        {% else %}
+                        <img src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
+                        {% endif %}
+                        <p class="mb-0 ms-2 me-auto text-muted">{{ recom.user }}</p>
+                      </div>
+                      <div class="p-3">{{ recom.content }}</div>
+                      <div class="comments_set text-end">
+                        {% if recom.user == request.user %}
+                        <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}' data-comment-id='{{ recom.id }}' action="{% url 'reviews:comment_delete' product.pk review.pk recom.pk %}" method="POST">
+                          {% csrf_token %}
+                          <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
+                        </form>
+                        {% endif %} 
                       </div>
                     </div>
-                  </div>
-                   {% endif %}
-                    {% endfor %}
+                    {% endif %}
+                  {% endfor %}
                   </div>
 
-   {% comment %} 대댓글이 작성되는곳 {% endcomment %}
+                  {% comment %} 대댓글이 작성되는곳 {% endcomment %}
 
                    {% if comment.user != request.user %}
                     <a href="" data-comment-id={{ comment.id }} class='recomment_btn text-decoration-none text-dark text-muted'>[답글]</a>
                     <div id='recom{{ comment.id }}' style='display:none;'>
-                      <form class="parentForm" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.id}}" data-product-id="{{ product.pk}}">
+                      <form class="parentForm my-2" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.id}}" data-product-id="{{ product.pk}}">
                         {% csrf_token %}
                         {% bootstrap_form comment_form %}
-                        <input  name='parent' type='hidden' value="{{ comment.pk }}">
-                        <input type="submit">
+                        <input name='parent' type='hidden' value="{{ comment.pk }}">
+                        <div class="text-end">
+                          <input type="submit" value="작성" class="btn btn-non btn-outline-dark rounded-0">
+                        </div>
                       </form>
                     </div>
                     {% endif %}
                     <hr>
                     
                     <br>
-                  </div>
+    
                 </div>
                 {% endif %}
               {% endfor %}
@@ -219,7 +221,7 @@
 
               const comments = document.querySelector('#comments')
               comments.insertAdjacentHTML('beforeend', `<div class=" container" id="com${response.data.comment_pk}">
-                <div  class="">
+                <div class="">
 
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
@@ -339,19 +341,26 @@
             const recomSet = document.querySelector(`#recom_set${comment_pk}`)
             const data = response.data
             recomSet.insertAdjacentHTML('beforeend',`
-            <div id='com${response.data.comment_pk}'>
-              <img src="${data.image}" style="border-radius: 50%; height: 32px; width: 32px;">
-              <div class='d-flex'>
-             <p class='me-auto'> <span class='text-muted'> ${response.data.userName}</span>  ${response.data.content}</p>
-             <div class="comments_set">
+            <div id='com${response.data.comment_pk}' class="border my-2 p-2">
+              <div class="d-flex align-items-center">
+                {% if recom.user.profile_image %}
+                <img src="${data.image}" style="border-radius: 50%; height: 32px; width: 32px;">
+                {% else %}
+                <img src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
+                {% endif %}
+                <p class="mb-0 ms-2 me-auto text-muted">${response.data.userName}</p>
+            </div>
+            <p class="p-3">${response.data.content}</p>
+            <div class="comments_set text-end">
               <form id='parentform' data-product-id='${product_pk}' data-review-id='${review_pk}' data-comment-id='${response.data.comment_pk}' action="http://127.0.0.1:8000/reviews/${product_pk}/${review_pk}/review_detail/comments/${response.data.comment_pk}/comment_delete/" method="POST">
                 {% csrf_token %}
                 <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
               </form>
             </div>
             </div>
-        </div>
             `)
+
+           
           result = document.querySelector(`#com${response.data.comment_pk}`) 
           result.addEventListener('submit', event => {
                 event.preventDefault()
