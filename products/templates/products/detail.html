@@ -91,7 +91,8 @@
                   {% endif %}
                 </div>
               </div>
-              <div class="align-top text-decoration-none text-dark text-truncate">{{ review.content }}
+              <div class="align-top text-decoration-none text-dark text-truncate">
+                <a class='text-text-decoration-none text-dark' href="{% url 'reviews:review_detail' products.pk review.pk %}">{{ review.content }}</a>
               </div>
             </div>
           </div>
