@@ -117,14 +117,17 @@
               <div class=''>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <div class="d-flex align-items-center">
-                    {% if review.user.profile_image %}
+                    {% if comment.user.profile_image %}
                     <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px"
                       height="25px">
                     {% else %}
                     <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover"
                       style="width:33px;height:33px"></lord-icon>
                     {% endif %}
-                    <span class="text-muted ms-2">{{ comment.user }}</span>
+                    <span class="text-muted ms-2"><a href="{% url 'accounts:detail' comment.user.pk %}"
+                        class="text-decoration-none text-dark">
+                        {{ comment.user.username }}
+                      </a></span>
                   </div>
                   <p class="mb-0 mx-3 text-truncate">{{ comment.content }}</p>
                   <div class='comments_set'>
@@ -157,7 +160,10 @@
                       style="border-radius: 50%; height: 32px; width: 32px;">
                     {% endif %}
                     <div class="d-flex">
-                      <p class='me-auto'> <span class='text-muted'> {{recom.user}}</span> {{recom.content}}</p>
+                      <p class='me-auto'> <span class='text-muted'> <a href="{% url 'accounts:detail' recom.user.pk %}"
+                            class="text-decoration-none text-dark">
+                            {{ recom.user.username }}
+                          </a></span> {{recom.content}}</p>
                       <div class="comments_set">
                         {% if recom.user == request.user %}
                         <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}'
