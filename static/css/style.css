@@ -377,7 +377,7 @@ div.btn-outline-hover>a.btn-outline-light:hover {
 
 
 .cart_button-hover:hover {
-  background-color: rgba(214, 212, 198, 0.168);
+  background-color: rgba(151, 196, 211, 0.168);
 }
 
 .test11 {
@@ -391,4 +391,8 @@ div.btn-outline-hover>a.btn-outline-light:hover {
 .detail-scroll::-webkit-scrollbar {
   display: none;
 
+}
+
+.animate__pulse {
+  --animate-duration: 1.1s;
 }
