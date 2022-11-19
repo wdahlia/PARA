@@ -7,7 +7,7 @@
     {% for clothe in product_list %}
       <a href="{% url 'products:detail' clothe.list.0.product.pk %}" class="text-decoration-none px-0 img-back">
         <figure class="d-flex flex-column image-card mb-0">
-          <img src="{{ clothe.list.0.product_image }}" alt="clothe.list.0.product_image" class="index-card-image">
+          <img loading="lazy" src="{{ clothe.list.0.product_image }}" alt="clothe.list.0.product_image" class="index-card-image">
           <figcaption class="pe-3 clothe_font-size">{{ clothe.grouper }}</figcaption>
         </figure>
       </a>
