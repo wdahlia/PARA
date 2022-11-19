@@ -4,270 +4,276 @@
 
 {% block body %}
 
-  <div class="d-flex flex-column">
-    <div class='d-sm-flex justify-content-center'>
-      <div class="d-flex flex-column">
-        <div class="container image-scroll-size scroll-none" style="overflow: scroll;">
-          {% for image in images %}
-            <img class="detail-image container" src="{{ image.product_image }}" alt="">
-          {% endfor %}
-        </div>
+<div class="d-flex flex-column">
+  <div class='d-sm-flex justify-content-center'>
+    <div class="d-flex flex-column">
+      <div class="container image-scroll-size scroll-none" style="overflow: scroll;">
+        {% for image in images %}
+        <img class="detail-image container" src="{{ image.product_image }}" alt="">
+        {% endfor %}
       </div>
     </div>
   </div>
-  <br>
-  <hr class="container">
-  <!-- 리뷰 리스트 -->
-  <h3 class="text-start font-space my-4 container">Review List</h3>
-  {% for review in reviews %}
-    <div class="container">
-      <a href="{% url 'reviews:review_detail' products.pk review.pk %}" class=" text-decoration-none">
-          <div class="d-flex align-items-center rounded-0 border border-dark align-middle">
-            {% if review.user.profile_image %}
-              <img src="{{ review.user.profile_image.url }}" alt="" 
-              style="width:32px; height:32px; border-radius: 50%;">
-            {% else %}
-              <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
-            {% endif %}
-            &nbsp;
-            <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
-              {{ review.user.username }}
-            </a>
-          </div>
-          <div class="card-body d-flex rounded-0 border border-top-0 border-dark">
-            <div>
-              {% if review.review_image %}
-                <img src="{{ review.review_image.url }}" alt="" style="width:184px; height:154px;">
-              {% else %}
-                <img src="{% static 'images/noimg.png' %}" alt="" style="width:184px; height:154px;">
-              {% endif %}
-            </div>
-
-            <div class="p-3 text-truncate">
-              {% if review.comment_set.count %}
-              <p class=" mb-0">댓글 {{review.comment_set.count}}</p>
-              {% endif %}
-
-              <!--대댓글을 재외한 '댓글'만 불러와보기 {% if review.comment_set.all %} {% for i in review.comment_set.all %} {% if i.parent_id == NULL %} {{ forloop.counter }} {{i.parent_id}} {% endif %} {% endfor %} {% endif %} -->
-
-              <div class="my-3">
-                <div class="d-flex">
-                  {% if review.grade == "1" %}
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-
-                  {% elif review.grade == "2" %}
-
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-
-                  {% elif review.grade == "3" %}
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-
-                  {% elif review.grade == "4" %}
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-regular fa-star text-warning"></i>
-
-                  {% elif review.grade == "5" %}
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    <i class="fa-solid fa-star text-warning"></i>
-                    
-                  {% endif %}
-                </div>
-              </div>
-              <div class="align-top text-decoration-none text-dark text-truncate">
-                <a class='text-text-decoration-none text-dark' href="{% url 'reviews:review_detail' products.pk review.pk %}">{{ review.content }}</a>
-              </div>
-            </div>
-          </div>
-        </div>
+</div>
+<br>
+<hr class="container">
+<!-- 리뷰 리스트 -->
+<h3 class="text-start font-space my-4 container">Review List</h3>
+{% for review in reviews %}
+<div class="container">
+  <a href="{% url 'reviews:review_detail' products.pk review.pk %}" class=" text-decoration-none">
+    <div class="d-flex align-items-center rounded-0 border border-dark align-middle">
+      {% if review.user.profile_image %}
+      <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px; border-radius: 50%;">
+      {% else %}
+      <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
+      {% endif %}
+      &nbsp;
+      <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+        {{ review.user.username }}
       </a>
     </div>
-  {% endfor %}
-
-  <!-- 토글 -->
-  <i id="detailToggle" class="fs-1 text-secondary bg-white rounded-5 fa-sharp shadow-sm fa-solid fa-circle-down" style="position: fixed; top: 10rem; right: 5rem; display: block;"></i>
-  <!-- 토글 누르면 열리는 부분 -->
-  <div id="productsDetail" class="px-5 pt-4 pb-5 rounded-3 bg-white" style="border: 3px solid black; position: fixed; top: 10rem; right: 3rem; display: none;">
-
-    <div class="text-center" id="productsDetailCancel">
-      <i class="pb-3 fs-4 fa-sharp fa-solid fa-chevron-up"></i>
-    </div>
-    <div class="d-flex justify-content-between mb-3">
-      <div class="badge text-bg-dark rounded-0 p-2 shadow-sm d-flex align-items-center">
-        <span class="fw-lighter">views</span>
-        &nbsp;<span class="fw-bolder">{{ products.hits }}</span></div>
-      <div class="">
-        {% if request.user.is_authenticated %}
-          {% if request.user in products.like_users.all %}
-            <i id="like-btn" data-product-id="{{ products.pk }}" class="text-danger bi bi-bookmark-fill fs-5 align-middle"></i>
-          {% else %}
-            <i id="like-btn" data-product-id="{{ products.pk }}" class="text-danger bi bi-bookmark fs-5 align-middle"></i>
-          {% endif %}
+    <div class="card-body d-flex rounded-0 border border-top-0 border-dark">
+      <div>
+        {% if review.review_image %}
+        <img src="{{ review.review_image.url }}" alt="" style="width:184px; height:154px;">
+        {% else %}
+        <img src="{% static 'images/noimg.png' %}" alt="" style="width:184px; height:154px;">
         {% endif %}
       </div>
-    </div>
-    <p class="fw-bolder font-space">{{ products.name }}</p>
 
-    {% with products.content|split:"." as cons %}
-    {% for con in cons %}
-      <p class="my-1 font-space">{{ con }}</p>
-    {% endfor %}
-    {% endwith %}
+      <div class="p-3 text-truncate">
+        {% if review.comment_set.count %}
+        <p class=" mb-0">댓글 {{review.comment_set.count}}</p>
+        {% endif %}
 
-    <!-- product 색깔 -->
-    <p class="mt-3 font-space fw-bold">{{ products.color }}</p>
-    <!-- product 가격 -->
-    <p class="font-space">{{ products.price }}</p>
-    <!-- 별점 -->
-    <div class="d-flex align-items-center">
-      {% if star == 0.5 %}
-        <i class="fa-solid fa-star-half-stroke text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-      {% elif star == 1.0 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-      {% elif star == 1.5 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star-half-stroke text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-      {% elif star == 2.0 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-      {% elif star == 2.5 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star-half-stroke text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-      {% elif star == 3.0 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-      {% elif star == 3.5 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star-half-stroke text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-      {% elif star == 4.0 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-regular fa-star text-warning"></i>
-      {% elif star == 4.5 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star-half-stroke text-warning"></i>
-      {% elif star == 5.0 %}
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-        <i class="fa-solid fa-star text-warning"></i>
-      {% endif %}
-      <p class="ms-2 mb-0">{{ review_ave }}</p>
-    </div>
+        <!--대댓글을 재외한 '댓글'만 불러와보기 {% if review.comment_set.all %} {% for i in review.comment_set.all %} {% if i.parent_id == NULL %} {{ forloop.counter }} {{i.parent_id}} {% endif %} {% endfor %} {% endif %} -->
 
-    <div class="d-flex flex-column">
-      <!-- 장바구니 담기 버튼 -->
-      <form action="{% url 'cart:cart_add' products.id %}" method="POST">
-        <input type="number" name="quantity" value="1" require="require" id="id_quantity" style="display: none;">
-        <input type="hidden" name="is_update" value="False" require="require" id="id_is_quantity">
-        {% csrf_token %}
-        <div class="d-flex justify-content-center my-3 border border-1 border-info cart_button-hover">
-          <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#9ce5f4" style="width:35px;height:35px"></lord-icon>
-          <input class="btn text-center fw-normal font-space" type="submit" value="장바구니 담기" style="color: #33c4f0; font-weight: 700;"></input>
+        <div class="my-3">
+          <div class="d-flex">
+            {% if review.grade == "1" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+
+            {% elif review.grade == "2" %}
+
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+
+            {% elif review.grade == "3" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+
+            {% elif review.grade == "4" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-regular fa-star text-warning"></i>
+
+            {% elif review.grade == "5" %}
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
+
+            {% endif %}
+          </div>
         </div>
-      </form>
-      <!-- 리뷰 쓰기 버튼 -->
-      <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-outline-dark rounded-0 w-100 font-space">
-        리뷰 쓰기
-      </a>
+        <div class="align-top text-decoration-none text-dark text-truncate">
+          <a class='text-decoration-none text-dark' href="{% url 'reviews:review_detail' products.pk review.pk %}">
+            {{ review.content }}</a>
+        </div>
+      </div>
+    </div>
+</div>
+</a>
+</div>
+{% endfor %}
+
+<!-- 토글 -->
+<i id="detailToggle" class="fs-1 text-secondary bg-white rounded-5 fa-sharp shadow-sm fa-solid fa-circle-down"
+  style="position: fixed; top: 10rem; right: 5rem; display: block;"></i>
+<!-- 토글 누르면 열리는 부분 -->
+<div id="productsDetail" class="px-5 pt-4 pb-5 rounded-3 bg-white"
+  style="border: 3px solid black; position: fixed; top: 10rem; right: 3rem; display: none;">
+
+  <div class="text-center" id="productsDetailCancel">
+    <i class="pb-3 fs-4 fa-sharp fa-solid fa-chevron-up"></i>
+  </div>
+  <div class="d-flex justify-content-between mb-3">
+    <div class="badge text-bg-dark rounded-0 p-2 shadow-sm d-flex align-items-center">
+      <span class="fw-lighter">views</span>
+      &nbsp;<span class="fw-bolder">{{ products.hits }}</span>
+    </div>
+    <div class="">
+      {% if request.user.is_authenticated %}
+      {% if request.user in products.like_users.all %}
+      <i id="like-btn" data-product-id="{{ products.pk }}"
+        class="text-danger bi bi-bookmark-fill fs-5 align-middle"></i>
+      {% else %}
+      <i id="like-btn" data-product-id="{{ products.pk }}" class="text-danger bi bi-bookmark fs-5 align-middle"></i>
+      {% endif %}
+      {% endif %}
     </div>
   </div>
+  <p class="fw-bolder font-space">{{ products.name }}</p>
+
+  {% with products.content|split:"." as cons %}
+  {% for con in cons %}
+  <p class="my-1 font-space">{{ con }}</p>
+  {% endfor %}
+  {% endwith %}
+
+  <!-- product 색깔 -->
+  <p class="mt-3 font-space fw-bold">{{ products.color }}</p>
+  <!-- product 가격 -->
+  <p class="font-space">{{ products.price }}</p>
+  <!-- 별점 -->
+  <div class="d-flex align-items-center">
+    {% if star == 0.5 %}
+    <i class="fa-solid fa-star-half-stroke text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    {% elif star == 1.0 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    {% elif star == 1.5 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star-half-stroke text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    {% elif star == 2.0 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    {% elif star == 2.5 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star-half-stroke text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    {% elif star == 3.0 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    {% elif star == 3.5 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star-half-stroke text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    {% elif star == 4.0 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-regular fa-star text-warning"></i>
+    {% elif star == 4.5 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star-half-stroke text-warning"></i>
+    {% elif star == 5.0 %}
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    <i class="fa-solid fa-star text-warning"></i>
+    {% endif %}
+    <p class="ms-2 mb-0">{{ review_ave }}</p>
+  </div>
+
+  <div class="d-flex flex-column">
+    <!-- 장바구니 담기 버튼 -->
+    <form action="{% url 'cart:cart_add' products.id %}" method="POST">
+      <input type="number" name="quantity" value="1" require="require" id="id_quantity" style="display: none;">
+      <input type="hidden" name="is_update" value="False" require="require" id="id_is_quantity">
+      {% csrf_token %}
+      <div class="d-flex justify-content-center my-3 border border-1 border-info cart_button-hover">
+        <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#9ce5f4"
+          style="width:35px;height:35px"></lord-icon>
+        <input class="btn text-center fw-normal font-space" type="submit" value="장바구니 담기"
+          style="color: #33c4f0; font-weight: 700;"></input>
+      </div>
+    </form>
+    <!-- 리뷰 쓰기 버튼 -->
+    <a href="{% url 'reviews:review_create' products.pk %}" class="btn btn-outline-dark rounded-0 w-100 font-space">
+      리뷰 쓰기
+    </a>
+  </div>
+</div>
 
 {% endblock body %}
 {% block script %}
 
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    const likeBtn = document.querySelector('#like-btn')
-    likeBtn.addEventListener('click', function (event) {
-      console.log(event.target.dataset)
-      axios({method: 'get', url: `/products/${event.target.dataset.productId}/like/`}).then(response => {
-        if (response.data.is_liked === true) {
-          event
-            .target
-            .classList
-            .add('bi-bookmark-fill')
-          event
-            .target
-            .classList
-            .remove('bi-bookmark')
-        } else {
-          event
-            .target
-            .classList
-            .add('bi-bookmark')
-          event
-            .target
-            .classList
-            .remove('bi-bookmark-fill')
-        }
-        const likeCount = document.querySelector('#like-count')
-        likeCount.innerText = response.data.likeCount
-      })
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const likeBtn = document.querySelector('#like-btn')
+  likeBtn.addEventListener('click', function (event) {
+    console.log(event.target.dataset)
+    axios({ method: 'get', url: `/products/${event.target.dataset.productId}/like/` }).then(response => {
+      if (response.data.is_liked === true) {
+        event
+          .target
+          .classList
+          .add('bi-bookmark-fill')
+        event
+          .target
+          .classList
+          .remove('bi-bookmark')
+      } else {
+        event
+          .target
+          .classList
+          .add('bi-bookmark')
+        event
+          .target
+          .classList
+          .remove('bi-bookmark-fill')
+      }
+      const likeCount = document.querySelector('#like-count')
+      likeCount.innerText = response.data.likeCount
     })
+  })
 
-    let detailBtn = document.querySelector('#detailToggle')
-    let toggleContent = document.querySelector('#productsDetail');
-    let toggleBtn = document.querySelector('#productsDetailCancel')
+  let detailBtn = document.querySelector('#detailToggle')
+  let toggleContent = document.querySelector('#productsDetail');
+  let toggleBtn = document.querySelector('#productsDetailCancel')
 
-    detailBtn.addEventListener('click', () => {
-      if (detailBtn.style.display === "block") {
-        detailBtn.style.display = "none";
-        toggleContent.style.display = "block";
-      }
-    });
+  detailBtn.addEventListener('click', () => {
+    if (detailBtn.style.display === "block") {
+      detailBtn.style.display = "none";
+      toggleContent.style.display = "block";
+    }
+  });
 
-    toggleBtn.addEventListener('click', () => {
-      if (toggleContent.style.display === "block") {
-        detailBtn.style.display = "block";
-        toggleContent.style.display = "none";
-      }
-    });
-  </script>
+  toggleBtn.addEventListener('click', () => {
+    if (toggleContent.style.display === "block") {
+      detailBtn.style.display = "block";
+      toggleContent.style.display = "none";
+    }
+  });
+</script>
 {% endblock script %}
