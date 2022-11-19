@@ -37,6 +37,12 @@ class ReviewForm(forms.ModelForm):
                     "style": "background: transparent;",
                 }
             ),
+            "tags": TextInput(
+                attrs={
+                    "class": "border-0 border-bottom border-1 border-dark rounded-0 mx-1",
+                    "style": "background: transparent;",
+                }
+            )
         }
 
 
