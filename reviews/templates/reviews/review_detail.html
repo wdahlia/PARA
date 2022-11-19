@@ -15,9 +15,11 @@
             <h1 class="text-start fs-6 mb-0 fw-bold font-space">{{ product.name }}</h1>
             <div class="d-flex align-items-center">
               {% if review.user.profile_image %}
-              <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px" height="25px" style="border-radius: 50%;">
+              <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px"
+                height="25px" style="border-radius: 50%;">
               {% else %}
-              <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px; height:33px; border-radius: 50%;">
+              <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover"
+                style="width:33px; height:33px; border-radius: 50%;">
               </lord-icon>
               {% endif %}
               <p class="mb-0 ms-2 font-space"><a href="{% url 'accounts:detail' review.user.pk %}"
@@ -148,9 +150,9 @@
 
 
 
-                    {% comment %} 대댓글 출력 {% endcomment %}
+                {% comment %} 대댓글 출력 {% endcomment %}
 
-                  <div id='recom_set{{comment.id}}' style='display: none;' class='py-2'>
+                <div id='recom_set{{comment.id}}' style='display: none;' class='py-2'>
                   {% for recom in comments %}
 
                   {% if comment.id == recom.parent_id %}
@@ -169,36 +171,40 @@
                       <div class="comments_set">
 
                         {% if recom.user == request.user %}
-                        <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}' data-comment-id='{{ recom.id }}' action="{% url 'reviews:comment_delete' product.pk review.pk recom.pk %}" method="POST">
+                        <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}'
+                          data-comment-id='{{ recom.id }}'
+                          action="{% url 'reviews:comment_delete' product.pk review.pk recom.pk %}" method="POST">
                           {% csrf_token %}
                           <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
                         </form>
-                        {% endif %} 
+                        {% endif %}
                       </div>
                     </div>
                     {% endif %}
-                  {% endfor %}
+                    {% endfor %}
                   </div>
 
                   {% comment %} 대댓글이 작성되는곳 {% endcomment %}
 
-                   {% if comment.user != request.user %}
-                    <a href="" data-comment-id={{ comment.id }} class='recomment_btn text-decoration-none text-dark text-muted'>[답글]</a>
-                    <div id='recom{{ comment.id }}' style='display:none;'>
-                      <form class="parentForm my-2" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.id}}" data-product-id="{{ product.pk}}">
-                        {% csrf_token %}
-                        {% bootstrap_form comment_form %}
-                        <input name='parent' type='hidden' value="{{ comment.pk }}">
-                        <div class="text-end">
-                          <input type="submit" value="작성" class="btn btn-non btn-outline-dark rounded-0">
-                        </div>
-                      </form>
-                    </div>
-                    {% endif %}
-                    <hr>
-                    
-                    <br>
-    
+                  {% if comment.user != request.user %}
+                  <a href="" data-comment-id={{ comment.id }}
+                    class='recomment_btn text-decoration-none text-dark text-muted'>[답글]</a>
+                  <div id='recom{{ comment.id }}' style='display:none;'>
+                    <form class="parentForm my-2" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.id}}"
+                      data-product-id="{{ product.pk}}">
+                      {% csrf_token %}
+                      {% bootstrap_form comment_form %}
+                      <input name='parent' type='hidden' value="{{ comment.pk }}">
+                      <div class="text-end">
+                        <input type="submit" value="작성" class="btn btn-non btn-outline-dark rounded-0">
+                      </div>
+                    </form>
+                  </div>
+                  {% endif %}
+                  <hr>
+
+                  <br>
+
 
                 </div>
                 {% endif %}
@@ -244,8 +250,8 @@
             //console.log(response.data.review_pk)
 
 
-              const comments = document.querySelector('#comments')
-              comments.insertAdjacentHTML('beforeend', `<div class=" container" id="com${response.data.comment_pk}">
+            const comments = document.querySelector('#comments')
+            comments.insertAdjacentHTML('beforeend', `<div class=" container" id="com${response.data.comment_pk}">
                 <div class="">
 
 
@@ -367,7 +373,7 @@
             const recomSet = document.querySelector(`#recom_set${comment_pk}`)
             const data = response.data
 
-            recomSet.insertAdjacentHTML('beforeend',`
+            recomSet.insertAdjacentHTML('beforeend', `
             <div id='com${response.data.comment_pk}' class="border my-2 p-2">
               <div class="d-flex align-items-center">
                 {% if recom.user.profile_image %}
@@ -390,29 +396,29 @@
             `)
 
 
-           
-          result = document.querySelector(`#com${response.data.comment_pk}`) 
-          result.addEventListener('submit', event => {
-                event.preventDefault()
-                //console.log(event.target.dataset)
-                const product_pk = event.target.dataset.productId
-                const review_pk = event.target.dataset.reviewId
-                const comment_pk = event
-                  .target
-                  .dataset
-                  .commentId
-                  axios({
-                    method: 'post',
-                    url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
-                    headers: {
-                      'X-CSRFToken': csrftoken
-                    }
-                  })
-                  .then(response => {
-                    const deldiv = document.getElementById(`com${comment_pk}`)
-                    console.log(deldiv)
-                    deldiv.remove();
-                  })
+
+            result = document.querySelector(`#com${response.data.comment_pk}`)
+            result.addEventListener('submit', event => {
+              event.preventDefault()
+              //console.log(event.target.dataset)
+              const product_pk = event.target.dataset.productId
+              const review_pk = event.target.dataset.reviewId
+              const comment_pk = event
+                .target
+                .dataset
+                .commentId
+              axios({
+                method: 'post',
+                url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
+                headers: {
+                  'X-CSRFToken': csrftoken
+                }
+              })
+                .then(response => {
+                  const deldiv = document.getElementById(`com${comment_pk}`)
+                  console.log(deldiv)
+                  deldiv.remove();
+                })
             })
             commentForm.reset()
           })
