@@ -53,10 +53,16 @@
             </div>
           {% else %}
             <div class="btn-list d-flex align-items-center">
-              <form action="" method="POST">
-                <input type="submit" class="btn btn-outline-primary rounded-0" value="팔로우">
-                <input type="submit" class="btn btn-outline-danger rounded-0" value="팔로우 취소">
-              </form>
+              {% if request.user != user %}
+                <form id="followForm" data-user-id="{{ user.pk }}">
+                  {% csrf_token %}
+                  {% if request.user in user.followers.all %}
+                    <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
+                  {% else %}
+                    <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
+                  {% endif %}
+                </form>
+              {% endif %}
               <button type="button" class="openBtn text-decoration-none ms-3">
                 <i class="fa-solid fa-comment"></i>
               </button>
@@ -140,10 +146,16 @@
                 </div>
               {% else %}
                 <div class="btn-list d-flex align-items-center">
-                  <form action="" method="POST" class="me-3">
-                    <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                    <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                  </form>
+                  {% if request.user != user %}
+                    <form id="followForm" data-user-id="{{ user.pk }}">
+                      {% csrf_token %}
+                      {% if request.user in user.followers.all %}
+                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
+                      {% else %}
+                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
+                      {% endif %}
+                    </form>
+                  {% endif %}
                   <button type="button" class="openBtn text-decoration-none ms-3">
                     <i class="fa-solid fa-comment"></i>
                   </button>
@@ -235,10 +247,16 @@
                 </div>
               {% else %}
                 <div class="btn-list d-flex align-items-center">
-                  <form action="" method="POST" class="me-3">
-                    <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                    <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                  </form>
+                  {% if request.user != user %}
+                    <form id="followForm" data-user-id="{{ user.pk }}">
+                      {% csrf_token %}
+                      {% if request.user in user.followers.all %}
+                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
+                      {% else %}
+                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
+                      {% endif %}
+                    </form>
+                  {% endif %}
                   <button type="button" class="openBtn text-decoration-none">
                     <i class="fa-solid fa-comment"></i>
                   </button>
@@ -326,10 +344,16 @@
             </div>
           {% else %}
             <div class="btn-list d-flex align-items-center">
-              <form action="" method="POST">
-                <input type="submit" class="btn btn-outline-primary rounded-0" value="팔로우">
-                <input type="submit" class="btn btn-outline-danger rounded-0" value="팔로우 취소">
-              </form>
+              {% if request.user != user %}
+                    <form id="followForm" data-user-id="{{ user.pk }}">
+                      {% csrf_token %}
+                      {% if request.user in user.followers.all %}
+                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
+                      {% else %}
+                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
+                      {% endif %}
+                    </form>
+                  {% endif %}
               <button type="button" class="openBtn text-decoration-none ms-3">
                 <i class="fa-solid fa-comment"></i>
               </button>
@@ -413,10 +437,16 @@
                 </div>
               {% else %}
                 <div class="btn-list d-flex align-items-center">
-                  <form action="" method="POST" class="me-3">
-                    <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                    <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                  </form>
+                  {% if request.user != user %}
+                    <form id="followForm" data-user-id="{{ user.pk }}">
+                      {% csrf_token %}
+                      {% if request.user in user.followers.all %}
+                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
+                      {% else %}
+                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
+                      {% endif %}
+                    </form>
+                  {% endif %}
                   <button type="button" class="openBtn text-decoration-none">
                     <i class="fa-solid fa-comment"></i>
                   </button>
@@ -508,10 +538,16 @@
                 </div>
               {% else %}
                 <div class="btn-list d-flex align-items-center">
-                  <form action="" method="POST" class="me-3">
-                    <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                    <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                  </form>
+                  {% if request.user != user %}
+                    <form id="followForm" data-user-id="{{ user.pk }}">
+                      {% csrf_token %}
+                      {% if request.user in user.followers.all %}
+                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
+                      {% else %}
+                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
+                      {% endif %}
+                    </form>
+                  {% endif %}
                   <button type="button" class="openBtn text-decoration-none">
                     <i class="fa-solid fa-comment"></i>
                   </button>
@@ -586,6 +622,7 @@
 
 {% endblock body %}
 {% block script %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
     let target = document.querySelectorAll(".openBtn");
 
@@ -595,5 +632,57 @@
         popUp.style.display = 'block';
       });
     }
+
+    // 팔로우 기능
+    let form = document.querySelectorAll('#followForm')
+    let csrftokens = document.querySelectorAll('[name=csrfmiddlewaretoken]')
+
+    for (let i=0; i < form.length; i++) {
+      form[i].addEventListener('submit', function (event) {
+        event.preventDefault()
+        let csrftoken = csrftokens[i].value
+        let userId = event.target.dataset.userId
+      });
+    }
+        console.log(csrftoken)
+        console.log(userId)
+        axios({
+          method: 'POST',
+          url: `accounts/${userId}/follow/`,
+          headers: {
+            'X-CSRFToken': csrftoken
+          }
+        }).then((response) => {
+            const isFollowed = response.data.is_followed
+            const followBtn = document.querySelector('#followForm > input[type=submit]')
+            if (isFollowed === true) {
+              followBtn.value = '팔로우 취소'
+              followBtn
+                .classList
+                .add('btn-outline-danger')
+              followBtn
+                .classList
+                .remove('btn-outline-info')
+            } else {
+              followBtn.value = '팔로우'
+              followBtn
+                .classList
+                .add('btn-outline-info')
+              followBtn
+                .classList
+                .remove('btn-outline-danger')
+            }
+            const followersCountTag = document.querySelector('#followers-count')
+            const followingsCountTag = document.querySelector('#followings-count')
+            const followersCount = response.data.followers_count
+            const followingsCount = response.data.followings_count
+            followersCountTag.innerText = followersCount
+            followingsCountTag.innerText = followingsCount
+          })
+          .catch((error) => {
+            console.log(error.response)
+          });
+
+        
   </script>
 {% endblock script %}
