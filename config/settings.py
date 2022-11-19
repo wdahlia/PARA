@@ -44,7 +44,6 @@ SECRET_KEY = "django-insecure-4p3z#vs%7b1(39$$$qzdrpr%l_pfl-eo%3q*zj9lqj0hlympe-
 #     }
 # }
 DEBUG = os.getenv("DEBUG") == "True"
-
 if DEBUG: 
     MEDIA_URL = "/media/"
     MEDIA_ROOT = BASE_DIR / "media"
