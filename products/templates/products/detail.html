@@ -24,7 +24,8 @@
       <a href="{% url 'reviews:review_detail' products.pk review.pk %}" class=" text-decoration-none">
           <div class="d-flex align-items-center rounded-0 border border-dark align-middle">
             {% if review.user.profile_image %}
-              <img src="{{ review.user.profile_image.url }}" class="alt="" style="width:32px; height:32px; border-radius: 50%;">
+              <img src="{{ review.user.profile_image.url }}" alt="" 
+              style="width:32px; height:32px; border-radius: 50%;">
             {% else %}
               <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
             {% endif %}
@@ -90,7 +91,7 @@
                   {% endif %}
                 </div>
               </div>
-              <div class="align-top text-decoration-none text-dark text-truncate">{{review.content}}
+              <div class="align-top text-decoration-none text-dark text-truncate">{{ review.content }}
               </div>
             </div>
           </div>
