@@ -7,72 +7,60 @@
 {% block body %}
     <div class="container">
         <div class="row" style="margin-top: 6%">
-        <h2>{% trans '장바구니' %}
-            <span class="">
-                {% with totail_items=cart|length %}
-                :{{ totail_items }}개
-                    {% if cart|length > 0 %}
-                        {% comment %} {% trans 'My Shopping Order:' %}
-                        <a href="{% url "cart:cart_detail" %}">
-                            {{ totail_items }} {% trans 'item' %} {{ totail_items|pluralize }}, {{ cart.get_total_price|price_view }}
-                        </a>
-                        {% else %}
-                        {% trans 'Your cart is empty.' %} {% endcomment %}
-                    {% endif %}
-                {% endwith %}
-            </span>
-        </h2>
-            <table class="table table-striped table-hover">
-                <thead class="bg-success p-2 text-dark bg-opacity-25">
-                    <tr>
-                        <th>{% trans '상품 이미지' %}</th>
-                        <th>{% trans '상품명' %}</th>
+        <h2 class="fs-5 fw-bolder font-space py-2 mb-5">{% trans '장바구니' %}</h2>
+       
+      
+            <table class="table table-striped table-hover align-middle">
+                <thead class="font-space bg-outline-dark border border-start-0 border-end-0 border-dark p-1 text-dark bg-opacity-25">
+                    <tr class="text-center align-middle" style="background-color: rgba(0, 0, 0, 0.05);">
+                        <th style="width: 87px;">{% trans '상품 이미지' %}</th>
+                        <th style="width: 240px;">{% trans '상품명' %}</th>
                         <th>{% trans '수량' %}</th>
-                        <th>{% trans '주문 관리' %}</th>
                         <th>{% trans '판매가' %}</th>
                         <th>{% trans '주문 금액' %}</th>
+                        <th style="width: 90px;">{% trans '삭제' %}</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="font-space text-decoration-none">
                 {% for item in cart %}
                     {% with product=item.product %}
-                        <tr>
+                        <tr class="text-end border border-0" style="background-color: rgba(255, 255, 249, 0.677) !important;">
                             {% for img in images %}
                             {% if img.product_id == product.id %}
-                            <td>
+                            <td class="text-center">
                                 <a href="{% url 'products:detail' product.id %}">
-                                    <img src="{{ img.product_image }}" style="height: 130px; width: auto"> 
+                                    <img src="{{ img.product_image }}" style="height: 130px; width: 87px;"> 
                                 </a>                  
                             </td>
                             {% endif %}
                             {% endfor %}
-                            <td>
-                                <a href="{% url 'products:detail' product.id %}" class="text-decoration-none">
+                            <td class="text-center">
+                                <a href="{% url 'products:detail' product.id %}" class="text-decoration-none text-dark">
                                     {{ product.name }}
                                 </a>
                             </td>
                             <td>
-                                <form action="{% url "cart:cart_add" product.id %}" method="post" class="form-inline">
+                                <form action="{% url "cart:cart_add" product.id %}" method="post" class="form-inline text-end">
                                     {% csrf_token %}
                                     {{ item.update_quantity_form.quantity }}
                                     {{ item.update_quantity_form.update }}
-                                    <input type="submit" value="수정" class="btn btn-success"></span>
+                                    <input type="submit" value="수정" class="my-1 btn btn-outline-success rounded-0 font-space"></span>
                                 </form>
                             </td>
-                            <td>
+                            <td>{{ item.price|price_view }} 원</td>
+                            <td>{{ item.total_price|price_view }} 원</td>
+                            <td class="text-center">
                                 <a href="{% url "cart:cart_remove" product.id %}">
-                                    <button class="btn btn-danger">삭제</button>
+                                    <button class="btn btn-none rounded-0 font-space fa-sharp fa-solid fa-trash"></button>
                                 </a>
                             </td>
-                            <td>{{ item.price|price_view }}</td>
-                            <td>{{ item.total_price|price_view }}</td>
                         </tr>
                     {% endwith %}
                 {% endfor %}
-                <tr class="bg-success p-2 text-dark bg-opacity-25">
-                    <td><b>{% trans '총 금액:' %}</b></td>
+                <tr class="bg-outline-dark border border-dark border-start-0 border-end-0 p-2 text-dark bg-opacity-25">
+                    <td><b>{% trans '총 금액' %}</b></td>
                     <td colspan="4"></td>
-                    <td colspan="num"><b>{{ cart.get_total_price|price_view }}</b></td>
+                    <td colspan="num" class="text-end"><b>{{ cart.get_total_price|price_view }} 원</b></td>
                 </tr>
                 </tbody>
             </table>

@@ -22,6 +22,15 @@ body {
     line-height: 336px;
     font-size: 0.8rem;
   }
+  .image-scroll-size {
+    height: 36rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .image-scroll-size {
+    height: 45rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -33,12 +42,20 @@ body {
     line-height: 336px;
     font-size: 0.9rem;
   }
+
+  .image-scroll-size {
+    height: 63rem;
+  }
 }
 
 @media (min-width: 1280px) {
   .img-back figcaption {
     line-height: 450px;
     font-size: 1rem;
+  }
+
+  .image-scroll-size {
+    height: 118rem;
   }
 }
 
@@ -360,7 +377,8 @@ div.btn-outline-hover>a.btn-outline-light:hover {
 
 
 .cart_button-hover:hover {
-  background-color: rgba(42, 79, 79, 0.737);
+  background-color: rgba(214, 212, 198, 0.168);
+}
 
 .test11 {
   background-color: black;
