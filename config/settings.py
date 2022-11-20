@@ -261,6 +261,7 @@ EMAIL_HOST_PASSWORD = "ybsdoqbipsazoaqn"  # google에서 발급받은, 이메일
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT = 14400  # 인증용 메일 만료 시간(초) (4시간)
+URL_FRONT = 'http://para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com/'
 
 # Channels
 ASGI_APPLICATION = "config.example.routing.application"
