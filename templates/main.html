@@ -72,161 +72,157 @@
   </head>
 
   <body>
-      <!-- navbar -->
-      {% if messages %}
-        <nav class="navbar nav-margin bg-none fixed-top">
-        {% else %}
-          <nav class="navbar bg-none fixed-top">
-          {% endif %}
-          <div class="container-fluid justify-content-between">
-            <!-- 토글 아이콘과 로고 이미지 -->
-            <div class="d-flex align-items-start col-7">
-              <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
-                <i class="bi bi-list fs-3 text-black"></i>
-              </button>
-              <a class="navbar-brand me-0" href="{% url 'products:index' %}"><img src="{% static 'images/navlogo.png' %}" alt="" class="ms-0" style="width: 40%; height: 70%;"></a>
-            </div>
-            <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDarkNavbar">
-              <div class="offcanvas-header align-items-start" style="background-color: rgba(255, 255, 249, 0.677);">
-                <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
-                  <i class="bi bi-x-lg"></i>
-                </button>
-                <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel">
-                  <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
-                </div>
-              </div>
-              <div class="offcanvas-body pt-0 fs-5" style="background-color: rgba(255, 255, 249, 0.677);">
-                {% if request.user.is_authenticated %}
-                  <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
-                    <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
-                      {% if request.user.profile_image %}
-                        <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
-                        <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
-                      {% else %}
-
-                        <div class="d-flex justify-content-end">
-                          <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
-                            Login
-                          </a>
-                          <a href="{% url 'accounts:signup' %}" class="font-space text-black">
-                            Signup
-                          </a>
-                        </div>
-
-                        <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
-                        <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
-
-                      {% endif %}
-                    </a>
-                  </div>
-                  <div class="text-end">
-                    <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
-                      Logout
-                    </a>
-                  </div>
-                {% else %}
-                  <div class="d-flex justify-content-end">
-                    <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
-                      Login
-                    </a>
-                    <a href="{% url 'accounts:signup' %}" class="font-space text-black">
-                      Signup
-                    </a>
-                  </div>
-                {% endif %}
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
-                  <li class="nav-item">
-                    <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">
-                      <lord-icon src="https://cdn.lordicon.com/slduhdil.json" trigger="hover" style="width:32px;height:32px"></lord-icon>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="d-flex justify-content-end align-items-center nav-link font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="{% url 'products:bestsellers' %}">
-                      <lord-icon src="https://cdn.lordicon.com/medpcfcy.json" trigger="hover" class="me-2 align-middle" style="width:25px;height:25px"></lord-icon>
-                      Best Sellers
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
-                  </li>
-                  <li class="nav-item p-0">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </nav>
-        
-        <!-- Swiper -->
-        <div class="swiper mySwiper swiper-initialized swiper-vertical swiper-pointer-events swiper-backface-hidden position-relative">
-          <div class="swiper-wrapper" id="swiper-wrapper-f47c109c9cbe3c141" aria-live="polite">
-            <div class="swiper-slide" role="group" aria-label="5 / 9" style="height: 703px; margin-bottom: 30px;">
-              <video width='100%;' autoplay="autoplay" loop="loop" muted="muted" src="{% static 'images/para_v.mp4' %}"></video>
-            </div>
-            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 9" style="height: 703px; margin-bottom: 30px;"><img src="https://static.zara.net/photos///contents/mkt/spots/aw22-north-man-new/subhome-xmedia-45-2//w/1921/IMAGE-landscape-fill-a3d2c733-8724-4eac-b5ab-44d29c1e0d9b-default_0.jpg?ts=1668412086238" alt=""></div>
-            <div id='video' class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 9" style="height: 703px; margin-bottom: 30px;"><img src="https://static.zara.net/photos///contents/mkt/spots/aw22-north-woman-lingerie/subhome-xmedia-45//w/1921/IMAGE-landscape-fill-5f40faa0-ea03-439e-87db-131f6d89641d-default_0.jpg?ts=1668166905699" alt=""></div>
-            <div class="swiper-slide" role="group" aria-label="6 / 9" style="height: 703px; margin-bottom: 30px;"><img src="https://static.zara.net/photos///contents/mkt/spots/aw22-north-woman-shoes-bags/subhome-xmedia-45-2//w/1920/IMAGE-landscape-fill-a4f9c169-be06-4827-9cd3-041d7d62c12d-default_0.jpg?ts=1668167950339" alt=""></div>
-            <div class="swiper-slide" role="group" aria-label="7 / 9" style="height: 703px; margin-bottom: 30px;">
-              <div class="text-center">
-                <div class="d-flex justify-content-center">
-                  <h1 class="text-center fw-lighter fs-1" style="letter-spacing: -1px;">PARA
-                    contributor
-                  </h1>
-                  {% comment %} <img src="{% static 'images/paralogo.002.png' %}" alt="images/paralogo.png" style="width: 270px; height: 150px;" class="mb-3"> {% endcomment %}
-                </div>
-                <a href="https://github.com/sunbongE/PARA/graphs/contributors">
-                  <img src="https://contrib.rocks/image?repo=sunbongE/PARA"/>
-                </a>
-                <a href="{% url 'products:index' %}" class="btn w-100 btn-outline-dark rounded-0 mt-3 font-space">Go Shopping&nbsp;&nbsp;<i class="bi bi-bag"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-vertical">
-            <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1" aria-current="true"></span>
-            <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
-            <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span>
-            <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span>
-            <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span>
-            <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 6"></span>
-            <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 7"></span>
-            <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 8"></span>
-            <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 9"></span></div>
-          <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+     
+    <nav class="navbar bg-none fixed-top">
+      <div class="container-fluid justify-content-between">
+        <!-- 토글 아이콘과 로고 이미지 -->
+        <div class="d-flex align-items-start col-7">
+          <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+            <i class="bi bi-list fs-3 text-black"></i>
+          </button>
+          <a class="navbar-brand me-0" href="{% url 'products:index' %}"><img src="{% static 'images/navlogo.png' %}" alt="" class="ms-0" style="width: 40%; height: 70%;"></a>
         </div>
+        <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDarkNavbar">
+          <div class="offcanvas-header align-items-start" style="background-color: rgba(255, 255, 249, 0.677);">
+            <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
+              <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel">
+              <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
+            </div>
+          </div>
+          <div class="offcanvas-body pt-0 fs-5" style="background-color: rgba(255, 255, 249, 0.677);">
+            {% if request.user.is_authenticated %}
+              <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
+                <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
+                  {% if request.user.profile_image %}
+                    <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
+                    <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
+                  {% else %}
 
-        <!-- Swiper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+                    <div class="d-flex justify-content-end">
+                      <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
+                        Login
+                      </a>
+                      <a href="{% url 'accounts:signup' %}" class="font-space text-black">
+                        Signup
+                      </a>
+                    </div>
 
-        <!-- Initialize Swiper -->
-        <script>
-          var swiper = new Swiper(".mySwiper", {
-            direction: "vertical",
-            slidesPerView: 1,
-            spaceBetween: 30,
-            mousewheel: true,
-            pagination: {
-              el: ".swiper-pagination",
-              clickable: true
-            }
-          });
-          var video = document.querySelector('#video');
-          video.muted = true; // #2 video.muted 값을 true로 설정
-        </script>
+                    <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
+                    <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+                  {% endif %}
+                </a>
+              </div>
+              <div class="text-end">
+                <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
+                  Logout
+                </a>
+              </div>
+            {% else %}
+              <div class="d-flex justify-content-end">
+                <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
+                  Login
+                </a>
+                <a href="{% url 'accounts:signup' %}" class="font-space text-black">
+                  Signup
+                </a>
+              </div>
+            {% endif %}
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
+              <li class="nav-item">
+                <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">
+                  <lord-icon src="https://cdn.lordicon.com/slduhdil.json" trigger="hover" style="width:32px;height:32px"></lord-icon>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="d-flex justify-content-end align-items-center nav-link font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="{% url 'products:bestsellers' %}">
+                  <lord-icon src="https://cdn.lordicon.com/medpcfcy.json" trigger="hover" class="me-2 align-middle" style="width:25px;height:25px"></lord-icon>
+                  Best Sellers
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
+              </li>
+              <li class="nav-item p-0">
+                <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Swiper -->
+    <div class="swiper mySwiper swiper-initialized swiper-vertical swiper-pointer-events swiper-backface-hidden position-relative">
+      <div class="swiper-wrapper" id="swiper-wrapper-f47c109c9cbe3c141" aria-live="polite">
+        <div class="swiper-slide" role="group" aria-label="5 / 9" style="height: 703px; margin-bottom: 30px;">
+          <video width='100%;' autoplay="autoplay" loop="loop" muted="muted" src="{% static 'images/para_v.mp4' %}"></video>
+        </div>
+        <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 9" style="height: 703px; margin-bottom: 30px;"><img src="https://static.zara.net/photos///contents/mkt/spots/aw22-north-man-new/subhome-xmedia-45-2//w/1921/IMAGE-landscape-fill-a3d2c733-8724-4eac-b5ab-44d29c1e0d9b-default_0.jpg?ts=1668412086238" alt=""></div>
+        <div id='video' class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 9" style="height: 703px; margin-bottom: 30px;"><img src="https://static.zara.net/photos///contents/mkt/spots/aw22-north-woman-lingerie/subhome-xmedia-45//w/1921/IMAGE-landscape-fill-5f40faa0-ea03-439e-87db-131f6d89641d-default_0.jpg?ts=1668166905699" alt=""></div>
+        <div class="swiper-slide" role="group" aria-label="6 / 9" style="height: 703px; margin-bottom: 30px;"><img src="https://static.zara.net/photos///contents/mkt/spots/aw22-north-woman-shoes-bags/subhome-xmedia-45-2//w/1920/IMAGE-landscape-fill-a4f9c169-be06-4827-9cd3-041d7d62c12d-default_0.jpg?ts=1668167950339" alt=""></div>
+        <div class="swiper-slide" role="group" aria-label="7 / 9" style="height: 703px; margin-bottom: 30px;">
+          <div class="text-center">
+            <div class="d-flex justify-content-center">
+              <h1 class="text-center fw-lighter fs-1" style="letter-spacing: -1px;">PARA
+                contributor
+              </h1>
+              {% comment %} <img src="{% static 'images/paralogo.002.png' %}" alt="images/paralogo.png" style="width: 270px; height: 150px;" class="mb-3"> {% endcomment %}
+            </div>
+            <a href="https://github.com/sunbongE/PARA/graphs/contributors">
+              <img src="https://contrib.rocks/image?repo=sunbongE/PARA"/>
+            </a>
+            <a href="{% url 'products:index' %}" class="btn w-100 btn-outline-dark rounded-0 mt-3 font-space">Go Shopping&nbsp;&nbsp;<i class="bi bi-bag"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-vertical">
+        <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1" aria-current="true"></span>
+        <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
+        <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span>
+        <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span>
+        <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span>
+        <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 6"></span>
+        <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 7"></span>
+        <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 8"></span>
+        <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 9"></span></div>
+      <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+    </div>
 
-      </body>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
-    </html>
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        direction: "vertical",
+        slidesPerView: 1,
+        spaceBetween: 30,
+        mousewheel: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true
+        }
+      });
+      var video = document.querySelector('#video');
+      video.muted = true; // #2 video.muted 값을 true로 설정
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+  </body>
+
+</html>

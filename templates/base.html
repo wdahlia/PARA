@@ -24,152 +24,144 @@
 
   <body>
     {% block nav %}
-      <!-- navbar -->
-      {% if messages %}
-        <nav class="navbar nav-margin bg-none fixed-top">
-        {% else %}
-          <nav class="navbar bg-none fixed-top">
-          {% endif %}
-          <div class="container-fluid justify-content-between">
-            <!-- 토글 아이콘과 로고 이미지 -->
-            <div class="d-flex align-items-start col-7">
-              <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
-                <i class="bi bi-list fs-3 text-black"></i>
+      <nav class="navbar bg-none fixed-top">
+        <div class="container-fluid justify-content-between">
+          <!-- 토글 아이콘과 로고 이미지 -->
+          <div class="d-flex align-items-start col-7">
+            <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+              <i class="bi bi-list fs-3 text-black"></i>
+            </button>
+            <a class="navbar-brand me-0" href="{% url 'products:index' %}"><img src="{% static 'images/navlogo.png' %}" alt="" class="ms-0" style="width: 40%; height: 70%;"></a>
+          </div>
+          <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDarkNavbar">
+            <div class="offcanvas-header align-items-start" style="background-color: rgba(255, 255, 249, 0.677);">
+              <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
+                <i class="bi bi-x-lg"></i>
               </button>
-              <a class="navbar-brand me-0" href="{% url 'products:index' %}"><img src="{% static 'images/navlogo.png' %}" alt="" class="ms-0" style="width: 40%; height: 70%;"></a>
-            </div>
-            <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDarkNavbar">
-              <div class="offcanvas-header align-items-start" style="background-color: rgba(255, 255, 249, 0.677);">
-                <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
-                  <i class="bi bi-x-lg"></i>
-                </button>
-                <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel">
-                  <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
-                </div>
-              </div>
-              <div class="offcanvas-body pt-0" style="background-color: rgba(255, 255, 249, 0.677);">
-                {% if request.user.is_authenticated %}
-                  <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
-                    <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
-                      {% if request.user.profile_image %}
-                        <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
-                        <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
-                      {% else %}
-
-                        <div class="d-flex justify-content-end">
-                          <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
-                            Login
-                          </a>
-                          <a href="{% url 'accounts:signup' %}" class="font-space text-black">
-                            Signup
-                          </a>
-                        </div>
-
-                        <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
-                        <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
-
-                      {% endif %}
-                    </a>
-                  </div>
-                  <div class="text-end">
-                    <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
-                      Logout
-                    </a>
-                  </div>
-                {% else %}
-                  <div class="d-flex justify-content-end">
-                    <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
-                      Login
-                    </a>
-                    <a href="{% url 'accounts:signup' %}" class="font-space text-black">
-                      Signup
-                    </a>
-                  </div>
-                {% endif %}
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
-                  <li class="nav-item">
-                    <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">
-                      <lord-icon src="https://cdn.lordicon.com/slduhdil.json" trigger="hover" style="width:32px;height:32px"></lord-icon>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="d-flex justify-content-end align-items-center nav-link font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="{% url 'products:bestsellers' %}">
-                      <lord-icon src="https://cdn.lordicon.com/medpcfcy.json" trigger="hover" class="me-2 align-middle" style="width:25px;height:25px"></lord-icon>
-                      Best Sellers
-
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
-                  </li>
-                  <li class="nav-item p-0">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
-                  </li>
-                </ul>
+              <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel">
+                <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
               </div>
             </div>
+            <div class="offcanvas-body pt-0" style="background-color: rgba(255, 255, 249, 0.677);">
+              {% if request.user.is_authenticated %}
+                <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
+                  <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
+                    {% if request.user.profile_image %}
+                      <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
+                      <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
+                    {% else %}
 
-            <div class="d-flex d-none d-md-block col-5">
-              <div class="d-flex justify-content-end align-items-center" style="width: 100%">
-                <div class="me-auto" style="width: 5rem;">
-                  <a class="text-dark text-decoration-none" href="{% url 'search' %}">
-                    <span>
-                      <span class='me-2'>검색</span>
-                      <i class="bi bi-search"></i>
-                    </span>
-                    <hr class="mt-0 bg-black border border-dark border-1 opacity-75">
+                      <div class="d-flex justify-content-end">
+                        <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
+                          Login
+                        </a>
+                        <a href="{% url 'accounts:signup' %}" class="font-space text-black">
+                          Signup
+                        </a>
+                      </div>
+
+                      <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
+                      <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
+
+                    {% endif %}
                   </a>
                 </div>
-                <div class="d-flex align-items-center">
-                  <!-- 매장 찾기 accounts앱의 매장 지도가 모달 창으로 뜨게 됨 (내 위치 기반 주변 매장 찾기)-->
-                  <a href="" class="text-decoration-none text-black ms-2" style="width: 4rem; mix-blend-mode: color;" data-bs-toggle="modal" data-bs-target="#exampleModal">매장찾기</a>
-                  <!-- 장바구니 버튼 추가 -->
-                  <div class="mx-3">
-                    <a href="{% url 'cart:cart_detail' %}" class="text-decoration-none">
-                      <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#000000" style="width:35px;height:35px"></lord-icon>
-                    </a>
-                  </div>
+                <div class="text-end">
+                  <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
+                    Logout
+                  </a>
                 </div>
-                <!-- div 누르면 프로필 디테일 페이지로 이동 -->
-                <div class="d-flex flex-column">
-                  <!-- 프로필 이미지 들어갈 곳 -->
-                  <div class="d-flex justify-content-center align-items-center">
-                    {% if request.user.is_authenticated %}
-                      <a href="{% url 'accounts:detail' request.user.pk %}" class="text-center text-decoration-none text-black">
-                        {% if request.user.profile_image %}
-                          <img src="{{ request.user.profile_image.url }}" style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
-                        {% else %}
-                          <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:50px;height:50px"></lord-icon>
-                        {% endif %}
-                        <!-- 프로필 닉네임 들어갈 곳-->
-                        <p class="font-space mb-0 fw-lighter">{{ request.user.username }}</p>
-                      </a>
-                      <a href="{% url 'accounts:logout' %}" class="ms-3 text-black">Logout</a>
-                    {% else %}
-                      <div class="d-flex">
-                        <a href="{% url 'accounts:login' %}" class="ms-3 text-black">Login</a>
-                        <a href="{% url 'accounts:signup' %}" class="ms-1 text-black">SignUp</a>
-                      </div>
-                    </div>
-                  {% endif %}
+              {% else %}
+                <div class="d-flex justify-content-end">
+                  <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
+                    Login
+                  </a>
+                  <a href="{% url 'accounts:signup' %}" class="font-space text-black">
+                    Signup
+                  </a>
                 </div>
+              {% endif %}
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
+                <li class="nav-item">
+                  <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">
+                    <lord-icon src="https://cdn.lordicon.com/slduhdil.json" trigger="hover" style="width:32px;height:32px"></lord-icon>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="d-flex justify-content-end align-items-center nav-link font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="{% url 'products:bestsellers' %}">
+                    <lord-icon src="https://cdn.lordicon.com/medpcfcy.json" trigger="hover" class="me-2 align-middle" style="width:25px;height:25px"></lord-icon>
+                    Best Sellers
 
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
+                </li>
+                <li class="nav-item p-0">
+                  <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="d-flex d-none d-md-block col-5">
+            <div class="d-flex justify-content-end align-items-center" style="width: 100%">
+              <div class="me-auto" style="width: 5rem;">
+                <a class="text-dark text-decoration-none" href="{% url 'search' %}">
+                  <span>
+                    <span class='me-2'>검색</span>
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <hr class="mt-0 bg-black border border-dark border-1 opacity-75">
+                </a>
+              </div>
+              <div class="d-flex align-items-center">
+                <!-- 매장 찾기 accounts앱의 매장 지도가 모달 창으로 뜨게 됨 (내 위치 기반 주변 매장 찾기)-->
+                <a href="" class="text-decoration-none text-black ms-2" style="width: 4rem; mix-blend-mode: color;" data-bs-toggle="modal" data-bs-target="#exampleModal">매장찾기</a>
+                <!-- 장바구니 버튼 추가 -->
+                <div class="mx-3">
+                  <a href="{% url 'cart:cart_detail' %}" class="text-decoration-none">
+                    <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#000000" style="width:35px;height:35px"></lord-icon>
+                  </a>
+                </div>
+              </div>
+              <!-- div 누르면 프로필 디테일 페이지로 이동 -->
+              <div class="d-flex flex-column">
+                <!-- 프로필 이미지 들어갈 곳 -->
+                <div class="d-flex justify-content-center align-items-center">
+                  {% if request.user.is_authenticated %}
+                    <a href="{% url 'accounts:detail' request.user.pk %}" class="text-center text-decoration-none text-black">
+                      {% if request.user.profile_image %}
+                        <img src="{{ request.user.profile_image.url }}" style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
+                      {% else %}
+                        <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:50px;height:50px"></lord-icon>
+                      {% endif %}
+                      <!-- 프로필 닉네임 들어갈 곳-->
+                      <p class="font-space mb-0 fw-lighter">{{ request.user.username }}</p>
+                    </a>
+                    <a href="{% url 'accounts:logout' %}" class="ms-3 text-black">Logout</a>
+                  {% else %}
+                    <div class="d-flex">
+                      <a href="{% url 'accounts:login' %}" class="ms-3 text-black">Login</a>
+                      <a href="{% url 'accounts:signup' %}" class="ms-1 text-black">SignUp</a>
+                    </div>
+                  </div>
+                {% endif %}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
 
   {% endblock nav %}
 
