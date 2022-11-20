@@ -292,9 +292,3 @@ PRICES = (
 #         }
 #     },
 # }
-
-CORS_ORIGIN_WHITELIST = [
-    "http://para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com",
-    "http://127.0.0.1:8000",
-    "http://localhost:8000",
-]
