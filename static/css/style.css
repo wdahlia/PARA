@@ -357,9 +357,9 @@ div.btn-outline-hover>a.btn-outline-light:hover {
   color: rgb(81, 128, 68);
 }
 
-
+/* 카트 버튼 호버 */
 .cart_button-hover:hover {
-  background-color: rgba(214, 212, 198, 0.168);
+  background-color: rgba(233, 245, 251, 0.168);
 }
 
 .test11 {

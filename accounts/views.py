@@ -84,14 +84,14 @@ def activateEmail(request, user, to_email):
     if email.send():
         messages.success(
             request,
-            f"Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
-            received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.",
+            f"<b>{user}</b>님, 고객님의 <b>{to_email}</b>로 가입 인증 링크를 전송 완료 했습니다. \
+            메일에 들어가셔서 인증을 완료해주세요. <b>Note:</b> 메일함에 메일이 도착하지 않았다면 스팸 메일함을 확인해주세요.",
         )
     else:
         # 에러 처리
         messages.error(
             request,
-            f"Problem sending confirmation email to {to_email}, check if you typed it correctly.",
+            f"{to_email}로 메일을 전송하는데 실패하였습니다. 정확하게 이메일을 작성하였는지 확인해주세요.",
         )
 
 
@@ -114,14 +114,14 @@ def activate(request, uidb64, token):
 
         messages.success(
             request,
-            "Thank you for your email confirmation. Now you can login your account.",
+            f"이메일 인증이 완료되었습니다. <b>{user}</b>님 PARA에 오신 것을 환영합니다!",
         )
         auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect("accounts:index")
     else:
-        messages.error(request, "Activation link is invalid!")
+        messages.error(request, "링크가 유효하지 않습니다.")
 
-    return redirect("accounts:index")
+    return redirect("accounts:main")
 
 
 def detail(request, pk):
