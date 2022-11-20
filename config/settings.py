@@ -119,7 +119,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.naver",
     # 카카오
     "allauth.socialaccount.providers.kakao",
-    "corsheaders",  # CORS
 ]
 
 TAGGIT_CASE_INSENSITIVE = True
@@ -139,7 +138,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",  # CORS
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -265,7 +263,7 @@ EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT = 14400  # 인증용 메일 만료 시간(초) (4시간)
 
 # Channels
-ASGI_APPLICATION = "config.asgi.application"
+ASGI_APPLICATION = "config.example.routing.application"
 
 CHANNEL_LAYERS = {
     "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"},
