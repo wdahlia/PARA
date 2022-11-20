@@ -119,6 +119,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.naver",
     # 카카오
     "allauth.socialaccount.providers.kakao",
+    "corsheaders",  # CORS
 ]
 
 TAGGIT_CASE_INSENSITIVE = True
@@ -138,6 +139,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",  # CORS
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -292,3 +294,5 @@ PRICES = (
 #         }
 #     },
 # }
+
+CORS_ORIGIN_WHITELIST = ["*"]
