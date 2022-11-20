@@ -26,7 +26,7 @@
     {% block nav %}
       <!-- navbar -->
       {% if messages %}
-        <nav class="navbar bg-none fixed-top">
+        <nav class="navbar nav-margin bg-none fixed-top">
         {% else %}
           <nav class="navbar bg-none fixed-top">
           {% endif %}
@@ -176,9 +176,9 @@
   <!-- 메일 전송 알림 -->
   {% autoescape off %}
     {% if messages %}
-      <ul class="messages ps-0 list-unstyled rounded-0 mb-4" style="list-style:none;">
+      <ul class="messages ps-0" style="list-style:none;">
         {% for message in messages %}
-          <li {% if message.tags %} class="rounded-0 mb-0 list-unstyled alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+          <li{% if message.tags %} class="mb-0 alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
         {% endfor %}
       </ul>
     {% endif %}
