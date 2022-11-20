@@ -263,7 +263,7 @@ EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT = 14400  # 인증용 메일 만료 시간(초) (4시간)
 
 # Channels
-ASGI_APPLICATION = "config.example.routing.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 CHANNEL_LAYERS = {
     "default": {"BACKEND": "channels.layers.InMemoryChannelLayer"},
