@@ -16,7 +16,6 @@ class CustomUserCreationForm(UserCreationForm):
             "username",
             "email",
             "profile_image",
-            "is_superuser",
         )
 
         labels = {
