@@ -51,68 +51,7 @@
             <div class="btn-outline-hover">
               <a class="btn btn-outline-light rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
             </div>
-          {% else %}
-            <div class="btn-list d-flex align-items-center">
-              {% if request.user != user %}
-                <form id="followForm" data-user-id="{{ user.pk }}">
-                  {% csrf_token %}
-                  {% if request.user in user.followers.all %}
-                    <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                  {% else %}
-                    <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                  {% endif %}
-                </form>
-              {% endif %}
-              <button type="button" class="openBtn text-decoration-none ms-3">
-                <i class="fa-solid fa-comment"></i>
-              </button>
-            </div>
           {% endif %}
-          <!-- 프로필 카드 안쪽에 팔로우 팔로잉 찜 목록을 넣는 경우 -->
-          <div class="d-flex mt-5">
-            <div class="d-flex flex-column text-center mx-3 align-items-center">
-              <div class="dropdown shadow-lg rounded-3">
-                <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로워</button>
-                <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                  <!-- 밑의 li 태그에 팔로워 목록 for 문 넣으면 됨 -->
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                </ul>
-                <p class="fw-bold my-1 follow-shadow text-white">1</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column text-center mx-3">
-              <div class="dropdown shadow-lg rounded-3">
-                <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로잉</button>
-                <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                  <!-- 밑의 li 태그에 팔로잉 목록 for 문 넣으면 됨 -->
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                </ul>
-                <p class="fw-bold my-1 follow-shadow text-white">124</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column text-center mx-3 rounded-3 shadow-lg">
-              <button class="font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px 20px;">
-                <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
-              </button>
-              <p class="fw-bold my-1 follow-shadow text-white">1</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -144,73 +83,7 @@
                 <div class="btn-outline-hover">
                   <a class="btn btn-outline-light rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
                 </div>
-              {% else %}
-                <div class="btn-list d-flex align-items-center">
-                  {% if request.user != user %}
-                    <form id="followForm" data-user-id="{{ user.pk }}">
-                      {% csrf_token %}
-                      {% if request.user in user.followers.all %}
-                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                      {% else %}
-                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                      {% endif %}
-                    </form>
-                  {% endif %}
-                  <button type="button" class="openBtn text-decoration-none ms-3">
-                    <i class="fa-solid fa-comment"></i>
-                  </button>
-                </div>
               {% endif %}
-            </div>
-          </div>
-          <div class="d-flex justify-content-center align-items-center pt-3 mt-4">
-            <!-- 팔로워 개수 -->
-            <div class="d-flex flex-column text-center mx-3 align-items-center">
-              <div class="dropdown shadow-lg rounded-3">
-                <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로워</button>
-                <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                  <!-- 밑의 li 태그에 팔로워 목록 for 문 넣으면 됨 -->
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                </ul>
-                <!-- 팔로워 숫자 -->
-                <p class="fw-bold my-1 follow-shadow text-light">1</p>
-              </div>
-            </div>
-            <!-- 팔로잉 개수 -->
-            <div class="d-flex flex-column text-center mx-3">
-              <div class="dropdown shadow-lg rounded-3">
-                <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로잉</button>
-                <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                  <!-- 밑의 li 태그에 팔로잉 목록 for 문 넣으면 됨 -->
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                </ul>
-                <!-- 팔로잉 숫자 -->
-                <p class="fw-bold my-1 follow-shadow text-light">124</p>
-              </div>
-            </div>
-            <!-- 찜 개수 -->
-            <div class="d-flex flex-column text-center mx-3 rounded-3 shadow-lg">
-              <button class="font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px 20px;">
-                <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
-              </button>
-              <!-- 찜목록 숫자 -->
-              <p class="fw-bold my-1 follow-shadow text-light">1</p>
             </div>
           </div>
         </div>
@@ -245,73 +118,7 @@
                 <div class="btn-outline-hover">
                   <a class="btn btn-outline-light rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
                 </div>
-              {% else %}
-                <div class="btn-list d-flex align-items-center">
-                  {% if request.user != user %}
-                    <form id="followForm" data-user-id="{{ user.pk }}">
-                      {% csrf_token %}
-                      {% if request.user in user.followers.all %}
-                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                      {% else %}
-                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                      {% endif %}
-                    </form>
-                  {% endif %}
-                  <button type="button" class="openBtn text-decoration-none">
-                    <i class="fa-solid fa-comment"></i>
-                  </button>
-                </div>
               {% endif %}
-            </div>
-            <div class="container d-flex justify-content-start align-items-center p-1 mt-4">
-              <!-- 팔로워 개수 -->
-              <div class="d-flex flex-column text-center mx-3 align-items-center">
-                <div class="dropdown shadow-lg rounded-3">
-                  <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로워</button>
-                  <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                    <!-- 밑의 li 태그에 팔로워 목록 for 문 넣으면 됨 -->
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                    </li>
-                  </ul>
-                  <!-- 팔로워 숫자 -->
-                  <p class="fw-bold my-1 follow-shadow text-light">1</p>
-                </div>
-              </div>
-              <!-- 팔로잉 개수 -->
-              <div class="d-flex flex-column text-center mx-3">
-                <div class="dropdown shadow-lg rounded-3">
-                  <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로잉</button>
-                  <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                    <!-- 밑의 li 태그에 팔로잉 목록 for 문 넣으면 됨 -->
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                    </li>
-                  </ul>
-                  <!-- 팔로잉 숫자 -->
-                  <p class="fw-bold my-1 follow-shadow text-light">124</p>
-                </div>
-              </div>
-              <!-- 찜 개수 -->
-              <div class="d-flex flex-column text-center mx-3 rounded-3 shadow-lg">
-                <button class="font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px 20px;">
-                  <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
-                </button>
-                <!-- 찜목록 숫자 -->
-                <p class="fw-bold my-1 follow-shadow text-light">1</p>
-              </div>
             </div>
           </div>
         </div>
@@ -342,68 +149,7 @@
             <div class="btn-outline-hover">
               <a class="btn btn-outline-light rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
             </div>
-          {% else %}
-            <div class="btn-list d-flex align-items-center">
-              {% if request.user != user %}
-                    <form id="followForm" data-user-id="{{ user.pk }}">
-                      {% csrf_token %}
-                      {% if request.user in user.followers.all %}
-                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                      {% else %}
-                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                      {% endif %}
-                    </form>
-                  {% endif %}
-              <button type="button" class="openBtn text-decoration-none ms-3">
-                <i class="fa-solid fa-comment"></i>
-              </button>
-            </div>
           {% endif %}
-          <!-- 프로필 카드 안쪽에 팔로우 팔로잉 찜 목록을 넣는 경우 -->
-          <div class="d-flex mt-5">
-            <div class="d-flex flex-column text-center mx-3 align-items-center">
-              <div class="dropdown shadow-lg rounded-3">
-                <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로워</button>
-                <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                  <!-- 밑의 li 태그에 팔로워 목록 for 문 넣으면 됨 -->
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                </ul>
-                <p class="fw-bold my-1 follow-shadow text-light">1</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column text-center mx-3">
-              <div class="dropdown shadow-lg rounded-3">
-                <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로잉</button>
-                <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                  <!-- 밑의 li 태그에 팔로잉 목록 for 문 넣으면 됨 -->
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                </ul>
-                <p class="fw-bold my-1 follow-shadow text-light">124</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column text-center mx-3 rounded-3 shadow-lg">
-              <button class="font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px 20px;">
-                <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
-              </button>
-              <p class="fw-bold my-1 follow-shadow text-light">1</p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -435,73 +181,7 @@
                 <div class="btn-outline-hover">
                   <a class="btn btn-outline-light rounded-0 font-space mt-2" href="{% url 'accounts:update' %}">수정하기</a>
                 </div>
-              {% else %}
-                <div class="btn-list d-flex align-items-center">
-                  {% if request.user != user %}
-                    <form id="followForm" data-user-id="{{ user.pk }}">
-                      {% csrf_token %}
-                      {% if request.user in user.followers.all %}
-                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                      {% else %}
-                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                      {% endif %}
-                    </form>
-                  {% endif %}
-                  <button type="button" class="openBtn text-decoration-none">
-                    <i class="fa-solid fa-comment"></i>
-                  </button>
-                </div>
               {% endif %}
-            </div>
-          </div>
-          <div class="d-flex justify-content-center align-items-center pt-3 mt-4">
-            <!-- 팔로워 개수 -->
-            <div class="d-flex flex-column text-center mx-3 align-items-center">
-              <div class="dropdown shadow-lg rounded-3">
-                <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로워</button>
-                <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                  <!-- 밑의 li 태그에 팔로워 목록 for 문 넣으면 됨 -->
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                </ul>
-                <!-- 팔로워 숫자 -->
-                <p class="fw-bold my-1 follow-shadow text-light">1</p>
-              </div>
-            </div>
-            <!-- 팔로잉 개수 -->
-            <div class="d-flex flex-column text-center mx-3">
-              <div class="dropdown shadow-lg rounded-3">
-                <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로잉</button>
-                <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                  <!-- 밑의 li 태그에 팔로잉 목록 for 문 넣으면 됨 -->
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                  </li>
-                </ul>
-                <!-- 팔로잉 숫자 -->
-                <p class="fw-bold my-1 follow-shadow text-light">124</p>
-              </div>
-            </div>
-            <!-- 찜 개수 -->
-            <div class="d-flex flex-column text-center mx-3 rounded-3 shadow-lg">
-              <button class="font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px 20px;">
-                <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
-              </button>
-              <!-- 찜목록 숫자 -->
-              <p class="fw-bold my-1 follow-shadow text-light">1</p>
             </div>
           </div>
         </div>
@@ -522,12 +202,12 @@
               <h1 class="mb-0 text-light" style="letter-spacing: -2px;">{{ user.username }}</h1>
               <div class="d-flex fw-lighter align-items-center mt-1">
                 <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" class="me-2" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px"></lord-icon>
-                <p class="mb-0 fw-normal text-dark font-space">{{ user.email }}</p>
+                <p class="mb-0 fw-normal text-light font-space">{{ user.email }}</p>
               </div>
               {% if user.content != "" %}
                 <div class="mt-2 d-flex">
                   <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px" class="me-2"></lord-icon>
-                  <p class="font-space text-dark">{{ user.content }}</p>
+                  <p class="font-space text-light">{{ user.content }}</p>
                 </div>
               {% else %}
                 <div class="mt-2"></div>
@@ -536,73 +216,7 @@
                 <div class="btn-outline-hover">
                   <a class="btn btn-outline-light rounded-0 font-space mt-2" href="{% url 'accounts:update' %}">수정하기</a>
                 </div>
-              {% else %}
-                <div class="btn-list d-flex align-items-center">
-                  {% if request.user != user %}
-                    <form id="followForm" data-user-id="{{ user.pk }}">
-                      {% csrf_token %}
-                      {% if request.user in user.followers.all %}
-                        <input type="submit" class="btn btn-outline-danger follow_cancel-btn rounded-0 font-space" value="팔로우 취소">
-                      {% else %}
-                        <input type="submit" class="btn rounded-0 follow-btn font-space" value="팔로우">
-                      {% endif %}
-                    </form>
-                  {% endif %}
-                  <button type="button" class="openBtn text-decoration-none">
-                    <i class="fa-solid fa-comment"></i>
-                  </button>
-                </div>
               {% endif %}
-            </div>
-            <div class="container d-flex justify-content-start align-items-center p-1 mt-4">
-              <!-- 팔로워 개수 -->
-              <div class="d-flex flex-column text-center mx-3 align-items-center">
-                <div class="dropdown shadow-lg rounded-3">
-                  <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로워</button>
-                  <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                    <!-- 밑의 li 태그에 팔로워 목록 for 문 넣으면 됨 -->
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                    </li>
-                  </ul>
-                  <!-- 팔로워 숫자 -->
-                  <p class="fw-bold my-1 follow-shadow text-light">1</p>
-                </div>
-              </div>
-              <!-- 팔로잉 개수 -->
-              <div class="d-flex flex-column text-center mx-3">
-                <div class="dropdown shadow-lg rounded-3">
-                  <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로잉</button>
-                  <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
-                    <!-- 밑의 li 태그에 팔로잉 목록 for 문 넣으면 됨 -->
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wdahlia</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                    </li>
-                    <li>
-                      <button class="dropdown-item bg-none text-black font-space" type="button">wlstnrdahlia</button>
-                    </li>
-                  </ul>
-                  <!-- 팔로잉 숫자 -->
-                  <p class="fw-bold my-1 follow-shadow text-light">124</p>
-                </div>
-              </div>
-              <!-- 찜 개수 -->
-              <div class="d-flex flex-column text-center mx-3 rounded-3 shadow-lg">
-                <button class="font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px 20px;">
-                  <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
-                </button>
-                <!-- 찜목록 숫자 -->
-                <p class="fw-bold my-1 follow-shadow text-light">1</p>
-              </div>
             </div>
           </div>
         </div>
@@ -610,79 +224,135 @@
     </div>
   {% endif %}
 
-  <!-- 채팅 팝업 -->
-  <div id="userchat" class="popup" style="display: none;">
-    <div class="popup-inner">
-      <div class="text-end">
-        <i class="bi bi-x-square-fill closeBtn"></i>
+  <div class="d-flex flex-column shadow-lg p-5 rounded-bottom" style="background-color: transparent;">
+    <!-- 팔로우 팔로잉 찜 개수 표시 -->
+    <div class="container d-flex justify-content-center align-items-center p-1">
+      <!-- 팔로워 개수 -->
+      <div class="d-flex flex-column text-center mx-3 align-items-center">
+        <div class="dropdown shadow-lg rounded-3">
+          <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로워</button>
+          <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
+            <!-- 밑의 li 태그에 팔로워 목록 for 문 넣으면 됨 -->
+            {% for follow_person in user.followers.all %}
+              <li>
+                <button id="followers-list" class="dropdown-item bg-none text-black font-space" type="button">{{ follow_person.username }}</button>
+              </li>
+            {% endfor %}
+          </ul>
+          <!-- 팔로워 숫자 -->
+          <p id="followers-count" class="fw-bold my-1 follow-shadow text-muted">{{ user.followers.count }}</p>
+        </div>
       </div>
-      <div class="greeting-box text-center align-bottom text-white">{{ request.user }}님 안녕하세요.</div>
+      <!-- 팔로잉 개수 -->
+      <div class="d-flex flex-column text-center mx-3">
+        <div class="dropdown shadow-lg rounded-3">
+          <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로잉</button>
+          <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
+            <!-- 밑의 li 태그에 팔로잉 목록 for 문 넣으면 됨 -->
+            {% for following_person in user.followings.all %}
+              <li>
+                <button id="followings-list" class="dropdown-item bg-none text-dark font-space" type="button">{{ following_person }}</button>
+              </li>
+            {% endfor %}
+          </ul>
+          <!-- 팔로잉 숫자 -->
+          <p id="followings-count" class="fw-bold my-1 follow-shadow text-muted">{{ user.followings.count }}</p>
+        </div>
+      </div>
+      <!-- 찜 개수 -->
+      <div class="d-flex flex-column text-center mx-3 rounded-3 shadow-lg">
+        <button class="font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px 20px;">
+          <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
+        </button>
+        <!-- 찜목록 숫자 -->
+        <p class="fw-bold my-1 follow-shadow text-muted">1</p>
+      </div>
+    </div>
+
+    <!-- 팔로우 폼 , DM 폼 -->
+    <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+      {% if request.user != user %}
+        <form id="followForm" data-user-id="{{ user.pk }}" class="text-center w-100 mb-4">
+          {% csrf_token %}
+          {% if request.user in user.followers.all %}
+            <input type="submit" class="btn follow_cancel-btn rounded-0 border border-dark border-opacity-10 font-space w-50" value="팔로우 취소">
+          {% else %}
+            <input type="submit" class="btn rounded-0 follow-btn border border-dark border-opacity-10 font-space w-50" value="팔로우">
+          {% endif %}
+        </form>
+        <a class="mb-0 dm-btn text-decoration-none btn border border-dark border-opacity-10 rounded-0 font-space w-50" href="{% url 'home' %}">
+          DM&nbsp;&nbsp;<i class="fa-solid fa-comment"></i>
+        </a>
+      {% endif %}
     </div>
   </div>
 
 {% endblock body %}
 {% block script %}
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
-    let target = document.querySelectorAll(".openBtn");
-
-    for (let i = 0; i < target.length; i++) {
-      target[i].addEventListener('click', function () {
-        popUp = document.querySelector("#userchat")
-        popUp.style.display = 'block';
-      });
-    }
-
     // 팔로우 기능
-    let form = document.querySelectorAll('#followForm')
-    let csrftokens = document.querySelectorAll('[name=csrfmiddlewaretoken]')
+    const form = document.querySelector('#followForm')
+    const csrftoken = document
+      .querySelector('[name=csrfmiddlewaretoken]')
+      .value
 
-    for (let i=0; i < form.length; i++) {
-      form[i].addEventListener('submit', function (event) {
+      form
+      .addEventListener('submit', function (event) {
         event.preventDefault()
-        let csrftoken = csrftokens[i].value
-        let userId = event.target.dataset.userId
-      });
-    }
-        console.log(csrftoken)
-        console.log(userId)
+
         axios({
-          method: 'POST',
-          url: `accounts/${userId}/follow/`,
+          method: 'post',
+          url: `/accounts/${event.target.dataset.userId}/follow/`,
           headers: {
             'X-CSRFToken': csrftoken
           }
-        }).then((response) => {
+        })
+          .then((response) => {
             const isFollowed = response.data.is_followed
             const followBtn = document.querySelector('#followForm > input[type=submit]')
             if (isFollowed === true) {
               followBtn.value = '팔로우 취소'
               followBtn
                 .classList
-                .add('btn-outline-danger')
+                .add('follow_cancel-btn')
               followBtn
                 .classList
-                .remove('btn-outline-info')
+                .remove('follow-btn')
             } else {
               followBtn.value = '팔로우'
               followBtn
                 .classList
-                .add('btn-outline-info')
+                .add('follow-btn')
               followBtn
                 .classList
-                .remove('btn-outline-danger')
+                .remove('follow_cancel-btn')
             }
-            const followersCountTag = document.querySelector('#followers-count')
-            const followingsCountTag = document.querySelector('#followings-count')
-            const followersCount = response.data.followers_count
-            const followingsCount = response.data.followings_count
-            followersCountTag.innerText = followersCount
-            followingsCountTag.innerText = followingsCount
+            const followersCountTag = document.querySelector('#followers-count');
+            const followingsCountTag = document.querySelector('#followings-count');
+            const followersCount = response.data.followers_count;
+            const followingsCount = response.data.followings_count;
+            followersCountTag.innerText = followersCount;
+            followingsCountTag.innerText = followingsCount;
+
+            const followersListTag = document.querySelectorAll('#followers-list');
+            const followingsListTag = document.querySelectorAll('#followings-list');
+            const followersList = response.data.follow_user;
+            const followingsList = response.data.following_user;
+
+      
+            for (let i=0; i < followersListTag.length; i++) {
+              followersListTag[i].innerText += followersList[i].username+"\n"
+              console.log(followersList[i].username)
+            }
+
+            for (let i=0; i < followingsListTag.length; i++) {
+              followingsListTag[i].innerText += followingsList[i].username
+            }
           })
           .catch((error) => {
-            console.log(error.response)
-          });
-
-        
+            console.log(error.response);
+          })
+        });
   </script>
 {% endblock script %}
