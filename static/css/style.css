@@ -249,16 +249,16 @@ body {
 }
 
 /* 채팅 버튼 */
-i.fa-solid {
+i.fa-comment{
   color: #fbcca3c6;
   font-size: 20px;
 }
 
-i.fa-solid:hover {
+i.fa-comment:hover {
   color: rgb(83, 162, 247);
 }
 
-i.fa-solid:active {
+i.fa-comment:active {
   color: rgb(184, 184, 251);
 }
 
@@ -340,7 +340,7 @@ div.btn-outline-hover>a.btn-outline-light:hover {
 }
 
 .review-delete-btn:hover {
-  background-color: rgba(232, 129, 92, 0.181);
+  background-color: rgba(224, 156, 131, 0.181);
   border: 1px solid rgba(49, 1, 1, 0.387);
   color: rgb(209, 30, 30);
 }
@@ -352,7 +352,7 @@ div.btn-outline-hover>a.btn-outline-light:hover {
 }
 
 .review-update-btn:hover {
-  background-color: rgba(104, 236, 148, 0.181);
+  background-color: rgba(140, 201, 161, 0.181);
   border: 1px solid rgba(1, 40, 1, 0.387);
   color: rgb(81, 128, 68);
 }
