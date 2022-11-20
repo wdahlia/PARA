@@ -270,8 +270,8 @@
     </div>
 
     <!-- 팔로우 폼 , DM 폼 -->
-    <div class="d-flex flex-column justify-content-center align-items-center mt-5">
-      {% if request.user != user %}
+    {% if request.user != user %}
+      <div class="d-flex flex-column justify-content-center align-items-center mt-5">
         <form id="followForm" data-user-id="{{ user.pk }}" class="text-center w-100 mb-4">
           {% csrf_token %}
           {% if request.user in user.followers.all %}
@@ -283,8 +283,9 @@
         <a class="mb-0 dm-btn text-decoration-none btn border border-dark border-opacity-10 rounded-0 font-space w-50" href="{% url 'home' %}">
           DM&nbsp;&nbsp;<i class="fa-solid fa-comment"></i>
         </a>
-      {% endif %}
-    </div>
+      </div>
+    {% else %}
+    {% endif %}
   </div>
 
 {% endblock body %}
@@ -342,12 +343,14 @@
 
       
             for (let i=0; i < followersListTag.length; i++) {
-              followersListTag[i].innerText += followersList[i].username+"\n"
+              followersListTag[i].innerText = followersList[i].username
+              followersListTag[i].innerText + "\n"
               console.log(followersList[i].username)
             }
 
             for (let i=0; i < followingsListTag.length; i++) {
-              followingsListTag[i].innerText += followingsList[i].username
+              followingsListTag[i].innerText = followingsList[i].username
+              followingsListTag[i].innerText + "\n"
             }
           })
           .catch((error) => {
