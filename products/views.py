@@ -76,6 +76,7 @@ def category(request, category_pk):
     c = Category.objects.get(sort=category_pk)
     products = Product.objects.filter(category_id=c)
     # images = Image.objects.filter()
+    # 전체
     img_dict = {}
     for product in products:
 
@@ -85,9 +86,31 @@ def category(request, category_pk):
     # print(img_dict)
     # gender = Product.objects.filter(gender=gender)
     # print(images)
+
+    # 남자 인 경우 
+    products_man = products.filter(gender='MAN')
+    dicts1 = {}
+    for i in products_man:
+        product = Product.objects.get(pk=i.pk)
+        image = Image.objects.filter(product_id=i.pk)[0]
+        dicts1[product] = image
+
+    # 여자 인 경우
+    products_woman = products.filter(gender='WOMAN')
+    dicts2 = {}
+    for j in products_woman:
+        product = Product.objects.get(pk=j.pk)
+        image = Image.objects.filter(product_id=j.pk)[0]
+        dicts2[product] = image
+
     context = {
         "img_dict": img_dict,
         "products": products,
+        "category": category_pk,
+        "man_clothes" : products_man,
+        "dicts1": dicts1,
+        "woman_clothes" : products_woman,
+        "dicts2": dicts2,  
         # "images": images,
         # "gender": gender,
     }
