@@ -1,27 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-<div class="pt-5 d-flex justify-content-around text-center container">
-  <div class="mx-2 fw-bolder text-secondary">
-    <a type="button" id="manProduct" class="text-decoration-none text-black">MAN</a>
-  </div>
-  <div class="mx-2 fw-bolder text-secondary">
-    <a type="button" id="womanProduct" class="text-decoration-none text-black">WOMAN</a>
-  </div>
-</div>
 
-  <div class="row">
-    {% for product in products %}
-      <a href="{% url 'products:detail' product.pk %}">
-        <p>{{ product.name }}</p>
+  <div class="pt-5 d-flex justify-content-around text-center container">
+    <div class="mx-2 fw-bolder text-secondary">
+      <a href="{% url 'products:gender_category' %}" type="button" id="manProduct" class="btn btn-outline-dark text-decoration-none rounded-0 font-space">
+        MAN
       </a>
-      {% for k, v in img_dict.items %}
-        {% if k == product.id %}
-            <img src="{{ v.product_image }}" alt="">
-        {% endif %}
-      {% endfor %}
+    </div>
+    <div class="mx-2 fw-bolder text-secondary">
+      <a href="{% url 'products:gender_category' %}" type="button" id="womanProduct" class="btn btn-outline-dark text-decoration-none rounded-0 font-space">
+        WOMAN
+      </a>
+    </div>
+  </div>
 
-  {% endfor %}
-</div>
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4 mt-5">
+    {% for product in products %}
+      <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none px-0 img-back">
+        <figure class="d-flex flex-column image-card mb-0">
+          {% for k, v in img_dict.items %}
+            {% if k == product.id %}
+              <img src="{{ v.product_image }}" alt="v.product_image" class="index-card-image">
+            {% endif %}
+          {% endfor %}
+          <figcaption class="pe-3 clothe_font-size">{{ product.name }}</figcaption>
+        </figure>
+      </a>
+    {% endfor %}
+  </div>
 {% endblock body %}
 
+{% block script %}
+<script>
+
+</script>
+{% endblock script %}
