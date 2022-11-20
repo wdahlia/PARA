@@ -3,17 +3,23 @@
 {% load static %}
 
 {% block body %}
-<h1><i class="bi bi-tag"></i>태그모음</h1>
-<br>
-<div>
-  {% load taggit_templatetags2_tags %}
-  {% get_tagcloud as tags %}
-  {% for tag in tags %}
-  <h3><span class="tag-{{tag.weight|floatformat:0}}">
-      <a class="badge rounded-pill bg-primary text-decoration-none"
-        href="{% url 'reviews:tagged_object_list' tag.name %}">#{{tag.name}} {{tag.num_times}}</a>
-    </span>
-  </h3>
-  {% endfor %}
-</div>
+  <h5 class="font-space fw-bolder">
+    <i class="bi bi-tag"></i>&nbsp;&nbsp;태그모음</h5>
+  <br>
+  <div>
+    {% load taggit_templatetags2_tags %}
+    {% get_tagcloud as tags %}
+    <div class="d-flex flex-wrap justify-content-evenly align-items-center">
+      {% for tag in tags %}
+        <h4 class="align-middle my-3 me-5">
+          <span class="tag-{{tag.weight|floatformat:0}}">
+            <a class="button-74 text-decoration-none d-flex flex-column rounded-pill position-relative mt-1" href="{% url 'reviews:tagged_object_list' tag.name %}">#{{tag.name}}
+              <!-- HTML !-->
+              <span class="mt-2 text-center font-space position-absolute top-0 start-100 translate-middle rounded-5 badge bg-primary" style="font-size: 13px;">{{tag.num_times}}</span>
+            </a>
+          </span>
+        </h4>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock body %}

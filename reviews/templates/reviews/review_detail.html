@@ -1,473 +1,587 @@
-{% extends 'base.html' %}
-{% load django_bootstrap5 %}
 {% load static %}
-{% block style %}
-<style></style>
-{% endblock style %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block body %}
-<div id='product_pk' data-info-id='{{ product.pk }}' class="row justify-content-center padding-page">
-  <div class="shadow-lg bg-white p-5">
-    <div class="row my-2">
-      <div class="col-12 col-lg-6 ">
-        <div class="position-sticky bg-white p-5 rounded-5 shadow-lg" style="top: 10rem;">
-          <div class="mb-3 d-flex justify-content-between align-items-center">
-            <h1 class="text-start fs-6 mb-0 fw-bold font-space">{{ product.name }}</h1>
-            <div class="d-flex align-items-center">
-              {% if review.user.profile_image %}
-              <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px"
-                height="25px" style="border-radius: 50%;">
-              {% else %}
-              <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover"
-                style="width:33px; height:33px; border-radius: 50%;">
-              </lord-icon>
-              {% endif %}
-              <p class="mb-0 ms-2 font-space"><a href="{% url 'accounts:detail' review.user.pk %}"
-                  class="text-decoration-none text-dark">
-                  {{ review.user.username }}
-                </a></p>
-            </div>
-          </div>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARA</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/logo.png' %}">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- CSS 파일 -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/8b9825c831.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    {% block style %}{% endblock %}
+  </head>
 
-          {% if review.review_image %}
-          <div class="d-flex justify-content-center">
-            <img src="{{ review.review_image.url }}" alt="{{ review.review_image }}" class="container px-0">
-          </div>
-          {% else %}
-          <div class="d-flex justify-content-center">
-            <img src="" alt="">
-          </div>
+  <body>
+    {% block nav %}
+      <!-- navbar -->
+      {% if messages %}
+        <nav class="navbar nav-margin bg-none fixed-top">
+        {% else %}
+          <nav class="navbar bg-none fixed-top">
           {% endif %}
-          <div class="my-3 text-end">
-            {% if review.grade == "1" %}
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            {% elif review.grade == "2" %}
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            {% elif review.grade == "3" %}
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            {% elif review.grade == "4" %}
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-regular fa-star text-warning"></i>
-            {% elif review.grade == "5" %}
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            <i class="fa-solid fa-star text-warning"></i>
-            {% endif %}
-          </div>
-          <pre class="fs-6 font-space">{{ review.content }}</pre>
-
-          <!-- tag -->
-          {% if review.tags.all %}
-          {% for tag in review.tags.all %}
-          <h4><a style="text-decoration: none" href="{% url 'reviews:tagged_object_list' tag.name %}">
-              <span class="badge rounded-pill bg-primary">
-                #{{ tag.name }}
-              </span>
-            </a>
-          </h4>
-          {% endfor %}
-          <a style="text-decoration: none" href="{% url 'reviews:tag_cloud' %}">태그 모아보기<i class="bi bi-tag"></i></a>
-          {% endif %}
-
-          {% if request.user == review.user %}
-          <form action="{% url 'reviews:review_delete' product.pk review.pk %}" method="POST">
-            {% csrf_token %}
-            <div class="text-end">
-              <a href="{% url 'reviews:review_update' product.pk review.pk %}" class="btn review-update-btn rounded-0"
-                method="POST">수정</a>
-              <input class="btn review-delete-btn rounded-0" type="submit" value="삭제">
+          <div class="container-fluid justify-content-between">
+            <!-- 토글 아이콘과 로고 이미지 -->
+            <div class="d-flex align-items-start col-7">
+              <button class="button-background" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+                <i class="bi bi-list fs-3 text-black"></i>
+              </button>
+              <a class="navbar-brand me-0" href="{% url 'products:index' %}"><img src="{% static 'images/navlogo.png' %}" alt="" class="ms-0" style="width: 40%; height: 70%;"></a>
             </div>
-          </form>
-          {% endif %}
-        </div>
-      </div>
-      {% comment %} 댓글 작성 {% endcomment %}
-      <div class="col-12 col-lg-6 p-5">
-        <div class="d-flex flex-column justify-content-start mt-3" style="z-index: 2;">
-          <form id='comment-form' data-detail-id="{{ review.pk }}">
-            {% csrf_token %}
-            {% bootstrap_form comment_form %}
-            <div class="text-end">
-              <button class="btn btn-dark rounded-0">작성</button>
-              <input type="hidden" name="parent" value=0>
-            </div>
-          </form>
-          <div id="comments" class="my-5">
-
-            <!-- 반복문으로 댓글 뽑음 -->
-            {% for comment in comments %}
-            {% if comment.parent_id == None %}
-            <div class="container " id='com{{ comment.pk }}'>
-              <div class=''>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div class="d-flex align-items-center">
-                    {% if comment.user.profile_image %}
-                    <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px"
-                      height="25px">
-                    {% else %}
-                    <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover"
-                      style="width:33px;height:33px"></lord-icon>
-                    {% endif %}
-                    <span class="text-muted ms-2"><a href="{% url 'accounts:detail' comment.user.pk %}"
-                        class="text-decoration-none text-dark">
-                        {{ comment.user.username }}
-                      </a></span>
-                  </div>
-                  <p class="mb-0 mx-3 text-truncate">{{ comment.content }}</p>
-                  <div class='comments_set'>
-                    {% if request.user == comment.user %}
-                    <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}'
-                      data-comment-id='{{ comment.pk }}'
-                      action="{% url 'reviews:comment_delete' product.pk review.pk comment.pk %}" method="POST">
-                      {% csrf_token %}
-                      <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
-                    </form>
-                    {% endif %}
-                  </div>
+            <!-- 아이콘 눌렀을때 토글로 열리는 곳-->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasDarkNavbar">
+              <div class="offcanvas-header align-items-start" style="background-color: rgba(255, 255, 249, 0.677);">
+                <button type="button" class="close-btn-background" data-bs-dismiss="offcanvas" aria-label="Close">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+                <div class="offcanvas-title text-start" id="offcanvasDarkNavbarLabel">
+                  <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
                 </div>
-                <div class='d-flex align-items-center'>
-                  <hr class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
-                  <a href="" class='text-decoration-none text-dark recomBox'><span data-box-id={{comment.id}}
-                      class='text-muted'>답글 보기</span></a>
-                </div>
+              </div>
+              <div class="offcanvas-body pt-0" style="background-color: rgba(255, 255, 249, 0.677);">
+                {% if request.user.is_authenticated %}
+                  <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
+                    <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
+                      {% if request.user.profile_image %}
+                        <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
+                        <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
+                      {% else %}
 
+                        <div class="d-flex justify-content-end">
+                          <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
+                            Login
+                          </a>
+                          <a href="{% url 'accounts:signup' %}" class="font-space text-black">
+                            Signup
+                          </a>
+                        </div>
 
+                        <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
+                        <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
 
-                {% comment %} 대댓글 출력 {% endcomment %}
-
-                <div id='recom_set{{comment.id}}' style='display: none;' class='py-2'>
-                  {% for recom in comments %}
-
-                  {% if comment.id == recom.parent_id %}
-                  <div id='com{{ recom.pk }}'>
-                    {% if recom.user.profile_image %}
-                    <img src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
-                    {% else %}
-                    <img src="{% static 'images/profiledetail.png' %}"
-                      style="border-radius: 50%; height: 32px; width: 32px;">
-                    {% endif %}
-                    <div class="d-flex">
-                      <p class='me-auto'> <span class='text-muted'> <a href="{% url 'accounts:detail' recom.user.pk %}"
-                            class="text-decoration-none text-dark">
-                            {{ recom.user.username }}
-                          </a></span> {{recom.content}}</p>
-                      <div class="comments_set">
-
-                        {% if recom.user == request.user %}
-                        <form id='parentform' data-product-id='{{ product.pk }}' data-review-id='{{ review.pk }}'
-                          data-comment-id='{{ recom.id }}'
-                          action="{% url 'reviews:comment_delete' product.pk review.pk recom.pk %}" method="POST">
-                          {% csrf_token %}
-                          <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
-                        </form>
-                        {% endif %}
-                      </div>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
+                      {% endif %}
+                    </a>
                   </div>
-
-                  {% comment %} 대댓글이 작성되는곳 {% endcomment %}
-
-                  {% if comment.user != request.user %}
-                  <a href="" data-comment-id={{ comment.id }}
-                    class='recomment_btn text-decoration-none text-dark text-muted'>[답글]</a>
-                  <div id='recom{{ comment.id }}' style='display:none;'>
-                    <form class="parentForm my-2" data-review-id="{{ review.pk }}" data-comment-id="{{ comment.id}}"
-                      data-product-id="{{ product.pk}}">
-                      {% csrf_token %}
-                      {% bootstrap_form comment_form %}
-                      <input name='parent' type='hidden' value="{{ comment.pk }}">
-                      <div class="text-end">
-                        <input type="submit" value="작성" class="btn btn-non btn-outline-dark rounded-0">
-                      </div>
-                    </form>
+                  <div class="text-end">
+                    <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
+                      Logout
+                    </a>
                   </div>
-                  {% endif %}
-                  <hr>
-
-                  <br>
-
-
-                </div>
+                {% else %}
+                  <div class="d-flex justify-content-end">
+                    <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
+                      Login
+                    </a>
+                    <a href="{% url 'accounts:signup' %}" class="font-space text-black">
+                      Signup
+                    </a>
+                  </div>
                 {% endif %}
-                <hr>
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-end">
+                  <li class="nav-item">
+                    <a class="nav-link active fs-1 fw-bolder font-space pb-0" style="font: rgb(181, 174, 174)" aria-current="page" href="{% url 'products:index' %}">
+                      <lord-icon src="https://cdn.lordicon.com/slduhdil.json" trigger="hover" style="width:32px;height:32px"></lord-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="d-flex justify-content-end align-items-center nav-link font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="{% url 'products:bestsellers' %}">
+                      <lord-icon src="https://cdn.lordicon.com/medpcfcy.json" trigger="hover" class="me-2 align-middle" style="width:25px;height:25px"></lord-icon>
+                      Best Sellers
 
-                <br>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '자켓'  %}">Jacket</a>
+                  </li>
+                  <li class="nav-item p-0">
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '코트'  %}">Coat</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '니트'  %}">Knit</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '셔츠'  %}">Shirt</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active text-black font-space p-0" aria-current="page" href="{% url 'products:category' '팬츠'  %}">Pants</a>
+                  </li>
+                </ul>
               </div>
             </div>
-            {% endif %}
-            {% endfor %}
 
+            <div class="d-flex d-none d-md-block col-5">
+              <div class="d-flex justify-content-end align-items-center" style="width: 100%">
+                <div class="me-auto" style="width: 5rem;">
+                  <a class="text-dark text-decoration-none" href="{% url 'search' %}">
+                    <span>
+                      <span class='me-2'>검색</span>
+                      <i class="bi bi-search"></i>
+                    </span>
+                    <hr class="mt-0 bg-black border border-dark border-1 opacity-75">
+                  </a>
+                </div>
+                <div class="d-flex align-items-center">
+                  <!-- 매장 찾기 accounts앱의 매장 지도가 모달 창으로 뜨게 됨 (내 위치 기반 주변 매장 찾기)-->
+                  <a href="" class="text-decoration-none text-black ms-2" style="width: 4rem; mix-blend-mode: color;" data-bs-toggle="modal" data-bs-target="#exampleModal">매장찾기</a>
+                  <!-- 장바구니 버튼 추가 -->
+                  <div class="mx-3">
+                    <a href="{% url 'cart:cart_detail' %}" class="text-decoration-none">
+                      <lord-icon src="https://cdn.lordicon.com/hyhnpiza.json" trigger="hover" colors="primary:#000000" style="width:35px;height:35px"></lord-icon>
+                    </a>
+                  </div>
+                </div>
+                <!-- div 누르면 프로필 디테일 페이지로 이동 -->
+                <div class="d-flex flex-column">
+                  <!-- 프로필 이미지 들어갈 곳 -->
+                  <div class="d-flex justify-content-center align-items-center">
+                    {% if request.user.is_authenticated %}
+                      <a href="{% url 'accounts:detail' request.user.pk %}" class="text-center text-decoration-none text-black">
+                        {% if request.user.profile_image %}
+                          <img src="{{ request.user.profile_image.url }}" style="width: 50px; height: 50px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
+                        {% else %}
+                          <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:50px;height:50px"></lord-icon>
+                        {% endif %}
+                        <!-- 프로필 닉네임 들어갈 곳-->
+                        <p class="font-space mb-0 fw-lighter">{{ request.user.username }}</p>
+                      </a>
+                      <a href="{% url 'accounts:logout' %}" class="ms-3 text-black">Logout</a>
+                    {% else %}
+                      <div class="d-flex">
+                        <a href="{% url 'accounts:login' %}" class="ms-3 text-black">Login</a>
+                        <a href="{% url 'accounts:signup' %}" class="ms-1 text-black">SignUp</a>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  {% endblock nav %}
+
+  <!-- 메일 전송 알림 -->
+  {% autoescape off %}
+    {% if messages %}
+      <ul class="messages ps-0" style="list-style:none;">
+        {% for message in messages %}
+          <li{% if message.tags %} class="mb-0 alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endautoescape %}
+
+  <div class="row justify-content-center padding-page">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content" tabinde="3">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">ZARA 매장 위치</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body d-flex">
+
+            <div class="map_wrap mx-auto" style="overflow:hidden;">
+              <div id="map" style="width: 600px; height:500px; position: relative"></div>
+
+              <div id="menu_wrap" class="bg_white">
+                <div class="option">
+                  <div>
+                    <div onsubmit="searchPlaces(); return false;">
+                      <input type="hidden" value="ZARA" id="keyword" size="15">
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <ul id="placesList"></ul>
+                <div id="pagination"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a161b332e0277c4f4f44160ff58a65f6&libraries=services"></script>
   <script>
-    const product_pk = document
-      .querySelector('#product_pk')
-      .dataset
-      .infoId
-    const commentForm = document.querySelector('#comment-form')
-    //console.log(commentForm)
-    const csrftoken = document
-      .querySelector('[name=csrfmiddlewaretoken]')
-      .value
-    commentForm
-      .addEventListener('submit', function (event) {
-        event.preventDefault();
-        axios({
-          method: 'POST',
-          url: `/reviews/${event.target.dataset.detailId}/review_detail/comments/`,
-          headers: {
-            'X-CSRFToken': csrftoken
-          },
-          data: new FormData(commentForm)
-        })
-          .then(response => {
-            //console.log(data)
-            //console.log(response.data.review_pk)
+    // 마커를 담을 배열입니다
+    var markers = [];
 
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+      mapOption = {
+        center: new kakao
+          .maps
+          .LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+      };
 
-            const comments = document.querySelector('#comments')
-            comments.insertAdjacentHTML('beforeend', `<div class=" container" id="com${response.data.comment_pk}">
-                <div class="">
+    // 지도를 생성합니다
+    var map = new kakao
+      .maps
+      .Map(mapContainer, mapOption);
 
+    // 장소 검색 객체를 생성합니다
+    var ps = new kakao
+      .maps
+      .services
+      .Places();
 
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                      {% if review.user.profile_image %}
-                      <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="25px" height="25px">
-                      {% else %}
-                      <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
-                      {% endif %}
-                      <span class="text-muted ms-2">${response.data.userName}</span>
-                    </div>
-                    <p class="mb-0 mx-3 text-truncate">${response.data.content}</p>
-                    <div class='comments_set'>
-                    <form data-product-id='${product_pk}' data-review-id='${response.data.review_pk}' data-comment-id='${response.data.comment_pk}' action="http://127.0.0.1:8000/reviews/${product_pk}/${response.data.review_pk}/review_detail/comments/${response.data.comment_pk}/comment_delete/" method="POST">
-                      {% csrf_token %}
-                      <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
-                    </form>
-                  </div>
-                  </div>
-                </div>
-                <hr>
-                <br>
-              </div>
-            </div>`);
+    // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+    var infowindow = new kakao
+      .maps
+      .InfoWindow({zIndex: 1});
 
+    // 키워드로 장소를 검색합니다
+    searchPlaces();
 
-            result = document.querySelector(`#com${response.data.comment_pk}`)
-            //console.log(result)
-            result.addEventListener('submit', event => {
-              event.preventDefault()
-              //console.log(event.target.dataset)
-              const product_pk = event.target.dataset.productId
-              const review_pk = event.target.dataset.reviewId
-              const comment_pk = event
-                .target
-                .dataset
-                .commentId
-              axios({
-                method: 'post',
-                url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
-                headers: {
-                  'X-CSRFToken': csrftoken
-                }
-              })
-                .then(response => {
-                  const deldiv = document.getElementById(`com${comment_pk}`)
-                  console.log(deldiv)
-                  deldiv.remove();
-                })
+    // 키워드 검색을 요청하는 함수입니다
+    function searchPlaces() {
 
-            })
-            commentForm.reset()
-          })
-          .catch(error => {
-            console.log(error.response)
-            if (error.response.status === 403) {
-              alert("로그인을 먼저 해주세요!")
-              window.location.href = '{% url "accounts:login" %}';
-            }
-          })
-      })
-    //삭제를 해보자아
-    const commentDel = document.querySelectorAll('.comments_set')
-    commentDel.forEach(form => {
-      form.addEventListener('submit', event => {
-        event.preventDefault()
-        //console.log(event.target.dataset)
-        const product_pk = event.target.dataset.productId
-        const review_pk = event.target.dataset.reviewId
-        const comment_pk = event.target.dataset.commentId
-        axios({
-          method: 'post',
-          url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
-          headers: {
-            'X-CSRFToken': csrftoken
-          }
-        })
-          .then(response => {
-            const deldiv = document.getElementById(`com${comment_pk}`)
-            console.log(deldiv)
-            if (deldiv === null) {
+      var keyword = document
+        .getElementById('keyword')
+        .value;
 
-              console.log(1)
-            }
-            deldiv.remove();
+      if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        alert('키워드를 입력해주세요!');
+        return false;
+      }
 
-          })
-          .catch(error => {
-            //console.log(deldiv)
-          })
-      })
-    })
+      // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+      ps.keywordSearch(keyword, placesSearchCB);
+    }
 
+    // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+    function placesSearchCB(data, status, pagination) {
+      if (status === kakao.maps.services.Status.OK) {
 
-    // 대댓..가즈아~
-    const parentForm = document.querySelectorAll('.parentForm')
+        // 정상적으로 검색이 완료됐으면
+        // 검색 목록과 마커를 표출합니다
+        displayPlaces(data);
 
-    parentForm.forEach(form => {
-      form.addEventListener('submit', event => {
-        event.preventDefault();
-        const product_pk = event.target.dataset.productId
-        const review_pk = event.target.dataset.reviewId
-        const comment_pk = event.target.dataset.commentId
-        console.log(event.target.dataset)
-        //console.log(review_pk)
-        //console.log(comment_pk)
-        console.log(event.target.dataset)
-        axios({
-          method: 'post',
-          url: `/reviews/${review_pk}/review_detail/comments/`,
-          headers: {
-            'X-CSRFToken': csrftoken
-          },
-          data: new FormData(form)
-        })
-          .then(response => {
-            console.log(response.data)
-            const recomSet = document.querySelector(`#recom_set${comment_pk}`)
-            const data = response.data
+        // 페이지 번호를 표출합니다
+        //displayPagination(pagination);
 
-            recomSet.insertAdjacentHTML('beforeend', `
-            <div id='com${response.data.comment_pk}' class="border my-2 p-2">
-              <div class="d-flex align-items-center">
-                {% if recom.user.profile_image %}
-                <img src="${data.image}" style="border-radius: 50%; height: 32px; width: 32px;">
-                {% else %}
-                <img src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
-                {% endif %}
-                <p class="mb-0 ms-2 me-auto text-muted">${response.data.userName}</p>
-            </div>
-            <p class="p-3">${response.data.content}</p>
-            <div class="comments_set text-end">
+      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
-           
-              <form id='parentform' data-product-id='${product_pk}' data-review-id='${review_pk}' data-comment-id='${response.data.comment_pk}' action="http://127.0.0.1:8000/reviews/${product_pk}/${review_pk}/review_detail/comments/${response.data.comment_pk}/comment_delete/" method="POST">
-                {% csrf_token %}
-                <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
-              </form>
-            </div>
-            </div>
-            `)
+        alert('검색 결과가 존재하지 않습니다.');
+        return;
 
+      } else if (status === kakao.maps.services.Status.ERROR) {
 
+        alert('검색 결과 중 오류가 발생했습니다.');
+        return;
 
-            result = document.querySelector(`#com${response.data.comment_pk}`)
-            result.addEventListener('submit', event => {
-              event.preventDefault()
-              //console.log(event.target.dataset)
-              const product_pk = event.target.dataset.productId
-              const review_pk = event.target.dataset.reviewId
-              const comment_pk = event
-                .target
-                .dataset
-                .commentId
-              axios({
-                method: 'post',
-                url: `/reviews/${product_pk}/${review_pk}/review_detail/comments/${comment_pk}/comment_delete/`,
-                headers: {
-                  'X-CSRFToken': csrftoken
-                }
-              })
-                .then(response => {
-                  const deldiv = document.getElementById(`com${comment_pk}`)
-                  console.log(deldiv)
-                  deldiv.remove();
-                })
-            })
-            commentForm.reset()
-          })
-          .catch(error => {
-            console.log(error.response)
-            if (error.response.status === 403) {
-              alert("로그인을 먼저 해주세요!")
-              window.location.href = '{% url "accounts:login" %}';
-            }
-          })
-        form.reset()
-      })
-    })
-    //답글 누르면 폼나오게
-    //console.log(document.getElementById('recom4').style.diplay="block;") // 아이디로 접근
-    const recomment_btn = document.querySelectorAll('.recomment_btn')
-    recomment_btn.forEach(form => {
-      form.addEventListener('click', event => {
-        event.preventDefault();
-        if (document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText === "display: none;") {
-          document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText = 'block';
-          //console.log(document.getElementById(`recom${event.target.dataset.commentId}`).style)
+      }
+    }
+
+    // 검색 결과 목록과 마커를 표출하는 함수입니다
+    function displayPlaces(places) {
+
+      var listEl = document.getElementById('placesList'),
+        menuEl = document.getElementById('menu_wrap'),
+        fragment = document.createDocumentFragment(),
+        bounds = new kakao
+          .maps
+          .LatLngBounds(),
+        listStr = '';
+
+      // 검색 결과 목록에 추가된 항목들을 제거합니다
+      removeAllChildNods(listEl);
+
+      // 지도에 표시되고 있는 마커를 제거합니다
+      removeMarker();
+
+      for (var i = 0; i < places.length; i++) {
+
+        var imageSrc = `{% static 'images/mark.png' %}`, // 마커이미지의 주소입니다
+          imageSize = new kakao
+            .maps
+            .Size(34, 39), // 마커이미지의 크기입니다
+          imageOption = {
+            offset: new kakao
+              .maps
+              .Point(27, 69)
+          }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        var markerImage = new kakao
+            .maps
+            .MarkerImage(imageSrc, imageSize, imageOption),
+          markerPosition = new kakao
+            .maps
+            .LatLng(places[i].y, places[i].x); // 마커가 표시될 위치입니다
+        // 마커를 생성합니다
+        var marker = new kakao
+          .maps
+          .Marker({
+            position: markerPosition, image: markerImage // 마커이미지 설정
+          });
+        marker.setMap(map);
+
+        // 마커를 생성하고 지도에 표시합니다
+        var placePosition = new kakao
+            .maps
+            .LatLng(places[i].y, places[i].x),
+          itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        bounds.extend(placePosition);
+
+        // 마커와 검색결과 항목에 mouseover 했을때
+        // 해당 장소에 인포윈도우에 장소명을 표시합니다
+        // mouseout 했을 때는 인포윈도우를 닫습니다
+        (function (marker, title) {
+          kakao
+            .maps
+            .event
+            .addListener(marker, 'mouseover', function () {
+              displayInfowindow(marker, title);
+            });
+
+          kakao
+            .maps
+            .event
+            .addListener(marker, 'mouseout', function () {
+              infowindow.close();
+            });
+
+          itemEl.onmouseover = function () {
+            displayInfowindow(marker, title);
+          };
+
+          itemEl.onmouseout = function () {
+            infowindow.close();
+          };
+        })(marker, places[i].place_name);
+
+        //fragment.appendChild(itemEl);
+      }
+
+      // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+      listEl.appendChild(fragment);
+      menuEl.scrollTop = 0;
+
+      // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+      map.setBounds(bounds);
+    }
+
+    // 검색결과 항목을 Element로 반환하는 함수입니다
+    function getListItem(index, places) {
+
+      var el = document.createElement('li'),
+        itemStr = '<span class="markerbg marker_' + (
+        index + 1) + '"></span>' + '<div class="info">' + '   <h5>' + places.place_name + '</h5>';
+
+      if (places.road_address_name) {
+        itemStr += '    <span>' + places.road_address_name + '</span>' + '   <span class="jibun gray">' + places.address_name + '</span>';
+      } else {
+        itemStr += '    <span>' + places.address_name + '</span>';
+      }
+
+      itemStr += '  <span class="tel">' + places.phone + '</span>' + '</div>';
+
+      el.innerHTML = itemStr;
+      el.className = 'item';
+
+      return el;
+    }
+
+    function relayout() {
+
+      // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+      // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
+      // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+      map.relayout();
+
+      //여기부터 내 위치!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+      if (navigator.geolocation) {
+
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+        navigator
+          .geolocation
+          .getCurrentPosition(function (position) {
+
+            var lat = position.coords.latitude, // 위도
+              lon = position.coords.longitude; // 경도
+
+            var locPosition = new kakao
+                .maps
+                .LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+              message = '<div style="padding: 5px 40px;">내 위치!</div>'; // 인포윈도우에 표시될 내용입니다
+
+            // 마커와 인포윈도우를 표시합니다
+            displayMarker(locPosition, message);
+
+          });
+
+      } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+        var locPosition = new kakao
+            .maps
+            .LatLng(33.450701, 126.570667),
+          message = 'geolocation을 사용할수 없어요..'
+
+        displayMarker(locPosition, message);
+      }
+    }
+
+    // 지도 위에 표시되고 있는 마커를 모두 제거합니다
+    function removeMarker() {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+      }
+      markers = [];
+    }
+
+    // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+    function displayPagination(pagination) {
+      var paginationEl = document.getElementById('pagination'),
+        fragment = document.createDocumentFragment(),
+        i;
+
+      // 기존에 추가된 페이지번호를 삭제합니다
+      while (paginationEl.hasChildNodes()) {
+        paginationEl.removeChild(paginationEl.lastChild);
+      }
+
+      for (i = 1; i <= pagination.last; i++) {
+        var el = document.createElement('a');
+        el.href = "#";
+        el.innerHTML = i;
+
+        if (i === pagination.current) {
+          el.className = 'on';
         } else {
-          console.log(document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText)
-          document.getElementById(`recom${event.target.dataset.commentId}`).style.cssText = 'display: none;';
+          el.onclick = (function (i) {
+            return function () {
+              pagination.gotoPage(i);
+            }
+          })(i);
         }
 
-      })
-    })
+        fragment.appendChild(el);
+      }
+      paginationEl.appendChild(fragment);
+    }
 
-    const recomBox = document.querySelectorAll('.recomBox')
-    recomBox.forEach(form => {
-      form.addEventListener('click', event => {
-        event.preventDefault();
-        toggle_ = document.getElementById(`recom_set${event.target.dataset.boxId}`)
-        //console.log(toggle_.style.cssText)
-        if (toggle_.style.cssText === "display: none;") {
-          toggle_.style.cssText = 'block';
-          //console.log(toggle_.style)
-        } else {
-          console.log(toggle_.style.cssText)
-          toggle_.style.cssText = 'display: none;';
-        }
-        //console.log(event.target.dataset.boxId)
-      })
-    })
+    // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+    // 인포윈도우에 장소명을 표시합니다
+    function displayInfowindow(marker, title) {
+      var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
 
+      infowindow.setContent(content);
+      infowindow.open(map, marker);
+    }
+
+    // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+    function displayMarker(locPosition, message) {
+
+      // 마커를 생성합니다
+      var marker = new kakao
+        .maps
+        .Marker({map: map, position: locPosition});
+
+      var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+      // 인포윈도우를 생성합니다
+      var infowindow = new kakao
+        .maps
+        .InfoWindow({content: iwContent, removable: iwRemoveable});
+
+      // 인포윈도우를 마커위에 표시합니다
+      infowindow.open(map, marker);
+
+      // 지도 중심좌표를 접속위치로 변경합니다
+      map.setCenter(locPosition);
+    }
+    // 내 위치 끝 !!!!!!!!!!!!!
+
+    // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+    function removeAllChildNods(el) {
+      while (el.hasChildNodes()) {
+        el.removeChild(el.lastChild);
+      }
+    }
+
+    // 모달이 열리면 아래 함수가 실행된다.
+    const my_modal = document.querySelector('#exampleModal')
+    my_modal.addEventListener('shown.bs.modal', function (e) {
+      console.log('모달 열렸다!!')
+      relayout()
+    });
   </script>
-</div>
 
+  <div class="container-css padding-page">
+    {% block body %}{% endblock body %}
+  </div>
 
-{% endblock body %}
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  {% block script %}{% endblock script %}
+  <script>
+    // 채널톡 api
+
+    <!-- Channel Plugin Scripts -->
+    (function () {
+      var w = window;
+      if (w.ChannelIO) {
+        return (window.console.error || window.console.log || function () {})('ChannelIO script included twice.');
+      }
+      var ch = function () {
+        ch.c(arguments);
+      };
+      ch.q = [];
+      ch.c = function (args) {
+        ch
+          .q
+          .push(args);
+      };
+      w.ChannelIO = ch;
+
+      function l() {
+        if (w.ChannelIOInitialized) {
+          return;
+        }
+        w.ChannelIOInitialized = true;
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+        s.charset = 'UTF-8';
+        var x = document.getElementsByTagName('script')[0];
+        x
+          .parentNode
+          .insertBefore(s, x);
+      }
+      if (document.readyState === 'complete') {
+        l();
+      } else if (window.attachEvent) {
+        window.attachEvent('onload', l);
+      } else {
+        window.addEventListener('DOMContentLoaded', l, false);
+        window.addEventListener('load', l, false);
+      }
+    })();
+    ChannelIO('boot', {"pluginKey": "e69cdbef-7bd0-4e5f-8b80-8705fde66182"});
+  <!-- End Channel Plugin -->
+</script>
+</body>
+
+</html>

@@ -4,17 +4,18 @@
 
 {% block body %}
 
-<h1><span class="badge rounded-pill bg-primary">#{{ tagname }}</span></h1>
-
-<div class="text-end">
-  <h4><a style="text-decoration: none " href="{% url 'reviews:tag_cloud' %}">태그 모아보기<i class="bi bi-tag"></i></a></h4>
+<div class="d-flex justify-content-between align-items-center">
+  <h1><span class="badge rounded-pill button-74">#{{ tagname }}</span></h1>
+  <div class="text-end">
+    <h5 class="mb-0"><a style="text-decoration: none;" class="font-space" href="{% url 'reviews:tag_cloud' %}"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;태그 모음</a></h5>
+  </div>
 </div>
 
 <br>
 <div class="accordion" id="accordionPanelsStayOpenExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+      <button class="accordion-button font-space" type="button" data-bs-toggle="collapse"
         data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
         Review List
       </button>
@@ -26,24 +27,36 @@
         <div class="card-header my-2">
           {% if review.user.profile_image %}
           <img src="{{ review.user.profile_image.url }}" alt="" style="width:32px; height:32px; border-radius: 50%;">
-          <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
-              {{ review.user.username }}</a></span>
+          &nbsp;
+          <span class="font-space">
+            <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+              {{ review.user.username }}
+            </a>
+          </span>
           {% else %}
           <img src="{% static 'images/profiledetail.png' %}" alt="" style="width:32px; height:32px;">
-          <span href=""> <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
-              {{ review.user.username }}</a></span>
+          <span class="font-space"> 
+            <a href="{% url 'accounts:detail' review.user.pk %}" class="text-decoration-none text-dark">
+              {{ review.user.username }}
+            </a>
+          </span>
           {% endif %}
         </div>
-        <div class="m-2">
-          <p><a class="align-top text-decoration-none text-dark"
-              href="{% url 'reviews:review_detail' review.product_id review.id  %}">{{ review.content }}</a></p>
+        <div class="py-3 text-truncate">
+          <p class="mb-0 text-truncate">
+            <a class="align-top text-decoration-none text-dark text-truncate" href="{% url 'reviews:review_detail' review.product_id review.id  %}">
+              {{ review.content }}
+            </a>
+          </p>
         </div>
-        <div class="m-2">
-          <p><a class="align-top text-decoration-none text-dark"
-              href="{% url 'products:detail' review.product_id  %}"><i class="bi bi-bag-check"></i>
-              {{ review.product.name }} </a></p>
+        <div class="py-3">
+          <p class="mb-0">
+            <a class="align-top text-decoration-none text-primary opacity-75" href="{% url 'products:detail' review.product_id  %}">
+              <i class="bi bi-bag-check"></i>&nbsp;{{ review.product.name }}
+            </a>
+          </p>
         </div>
-        <div class="m-2">
+        <div class="">
           {% if review.grade == "1" %}
           <i class="fa-solid fa-star text-warning"></i>
           <i class="fa-regular fa-star text-warning"></i>
