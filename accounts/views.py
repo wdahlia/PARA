@@ -73,7 +73,7 @@ def activateEmail(request, user, to_email):
         "accounts/template_activate_account.html",
         {
             "user": user.username,
-            "domain": get_current_site(request).domain,
+            "domain": "http://para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com/",
             "uid": urlsafe_base64_encode(force_bytes(user.pk)),
             "token": account_activation_token.make_token(user),
             "protocol": "https" if request.is_secure() else "http",
