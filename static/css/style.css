@@ -22,6 +22,7 @@ body {
     line-height: 336px;
     font-size: 0.8rem;
   }
+
   .image-scroll-size {
     height: 36rem;
   }
@@ -249,7 +250,7 @@ body {
 }
 
 /* 채팅 버튼 */
-i.fa-comment{
+i.fa-comment {
   color: #fbcca3c6;
   font-size: 20px;
 }
@@ -423,4 +424,10 @@ div.btn-outline-hover>a.btn-outline-light:hover {
     min-width: 90px;
     padding: 0 14px;
   }
+}
+
+.review_text {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -40,21 +40,29 @@
             </div>
           </a>
           <a href="{% url 'reviews:review_detail' products.pk review.pk %}" class="text-decoration-none font-space text-end">
-            <div class="card-body d-flex justify-content-between align-items-center rounded-0 border border-top-0 border-dark">
+            <div class="card-body d-flex justify-content-between align-items-center rounded-0 border border-top-0 border-dark" style="overflow: hidden;">
               <div class="d-flex align-items-end">
                 {% if review.review_image %}
                   <img src="{{ review.review_image.url }}" alt="" style="width:184px; height:154px;">
                 {% else %}
                   <img src="{% static 'images/noimg.png' %}" alt="" style="width:184px; height:154px;">
                 {% endif %}
+                <div>
+
+                <div class="d-flex flex-wrap px-3 align-top text-decoration-none text-dark text-truncate" style="min-width: 180px; max-width:300px;">
+                  <p  class="review_text">리뷰: {{ review.content }}</p>
+                </div>
+                <div class="d-flex flex-wrap px-3 align-top text-decoration-none text-dark text-truncate" style="min-width: 180px; max-width:300px;">
 
                 {% if review.comment_set.count %}
-                  <p class="mb-2 ms-2">댓글
+                  <p class="">댓글: 
                     {{ review.comment_set.count }}</p>
                 {% else %}
-                  <p class="mb-2 ms-2">댓글 0</p>
+                  <p class="">댓글 0</p>
                 {% endif %}
+                </div>
               </div>
+            </div>
 
               <div class="p-3 text-truncate text-dark">
                 <div class="my-3 d-flex justify-content-end">
@@ -95,9 +103,7 @@
                     <i class="fa-solid fa-star text-warning"></i>
                   {% endif %}
                 </div>
-                <div class="align-top text-decoration-none text-dark text-truncate">
-                  {{ review.content }}
-                </div>
+                
 
               </div>
             </div>
