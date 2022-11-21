@@ -32,7 +32,7 @@ SECRET_KEY = "django-insecure-4p3z#vs%7b1(39$$$qzdrpr%l_pfl-eo%3q*zj9lqj0hlympe-
 # DEBUG = True
 
 
-# test5
+# test6
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
