@@ -265,7 +265,7 @@
           <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
         </button>
         <!-- 찜목록 숫자 -->
-        <p class="fw-bold my-1 follow-shadow text-muted">1</p>
+        <p class="fw-bold my-1 follow-shadow text-muted">{{ user_likes|length }}</p>
       </div>
     </div>
 
@@ -286,6 +286,22 @@
       </div>
     {% else %}
     {% endif %}
+
+    {% comment %} 내가 찜한 상품 {% endcomment %}
+    <p>찜 목록</p> 
+    {% for user_like in user_likes %}
+      <a href="{% url 'products:detail' user_like.id %}">
+        <img src="{{ user_like.product.all.0.product_image }}" alt="">
+      </a>
+    {% endfor %}
+    
+    {% comment %} 내가 쓴 리뷰 {% endcomment %}
+    <p>리뷰</p>
+    {% for img in imgs %}
+      <a href="{% url 'products:detail' img.product_id %}">
+        <img src="{{ img.product_image }}" alt="">
+      </a>
+    {% endfor %}
   </div>
 
 {% endblock body %}

@@ -7,6 +7,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .models import User
+from products.models import Product, Image
 from .forms import CustomUserAuthenticationForm
 from django.http import JsonResponse
 
@@ -116,7 +117,7 @@ def activate(request, uidb64, token):
             request,
             f"이메일 인증이 완료되었습니다. <b>{user}</b>님 PARA에 오신 것을 환영합니다!",
         )
-        auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        auth_login(request, user, backend="django.contrib.auth.backends.ModelBackend")
         return redirect("accounts:index")
     else:
         messages.error(request, "링크가 유효하지 않습니다.")
@@ -125,8 +126,25 @@ def activate(request, uidb64, token):
 
 
 def detail(request, pk):
+    images = Image.objects.all()
+
     user = get_user_model().objects.get(pk=pk)
-    context = {"user": user}
+    user_likes = user.like_restaurants.all()  # user가 찜하기 한 product 객체 리스트
+
+    review_all = user.review_set.all()
+
+    reviews = []  # 중복 제거한 리뷰 리스트
+    reviews_id_check = []
+    for review in review_all:
+        if review.product_id not in reviews_id_check:
+            reviews_id_check.append(review.product_id)
+            reviews.append(review)
+
+    imgs = [] # 중복 제거 + 내가 쓴 리뷰의 product의 첫 번째 이미지
+    for review in reviews:
+        imgs.append(Image.objects.filter(product_id=review.product_id)[0])
+
+    context = {"user": user, "user_likes": user_likes, "reviews": reviews, "imgs": imgs}
     return render(request, "accounts/detail.html", context)
 
 
