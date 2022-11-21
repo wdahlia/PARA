@@ -2,110 +2,110 @@
 {% load static %}
 {% block body %}
 
-  <div class="d-flex flex-column">
-    <div class="pt-5 d-flex justify-content-center container mb-5">
-      <div class="mx-5 fw-bolder text-secondary">
-        <a id="manProduct" type="button" class="btn btn-outline-dark text-decoration-none rounded-0 font-space">MAN</a>
-      </div>
-      <div class="mx-5 fw-bolder text-secondary">
-        <a id="womanProduct" type="button" class="btn btn-outline-dark text-decoration-none rounded-0 font-space">
-          WOMAN
-        </a>
-      </div>
+<div class="d-flex flex-column">
+  <div class="pt-5 d-flex justify-content-center container mb-5">
+    <div class="mx-5 fw-bolder text-secondary">
+      <a id="manProduct" type="button" class="btn btn-outline-dark text-decoration-none rounded-0 font-space">MAN</a>
     </div>
-
-    <!-- man 카테고리 -->
-    <div id="manDiv" style="display: none;">
-      <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4">
-        {% for man in man_clothes %}
-          <div class="col">
-            <a href="{% url 'products:detail' man.pk %}" class="text-decoration-none px-0 img-back col">
-              <figure class="d-flex flex-column image-card mb-0">
-                {% for k, v in dicts1.items %}
-                  {% if k.pk == man.id %}
-                    <img src="{{ v.product_image }}" alt="v.product_image" class="index-card-image">
-                  {% endif %}
-                {% endfor %}
-                <figcaption class="pe-3 clothe_font-size">{{ man.name }}</figcaption>
-              </figure>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- woman 카테고리 -->
-    <div id="womanDiv" style="display: none;">
-      <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4">
-        {% for woman in woman_clothes %}
-          <a href="{% url 'products:detail' woman.pk %}" class="text-decoration-none px-0 img-back">
-            <figure class="d-flex flex-column image-card mb-0">
-              {% for key, value in dicts2.items %}
-                {% if key.pk == woman.id %}
-                  <img src="{{ value.product_image }}" alt="value.product_image" class="index-card-image">
-                {% endif %}
-              {% endfor %}
-              <figcaption class="pe-3 clothe_font-size">{{ woman.name }}</figcaption>
-            </figure>
-          </a>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- 카테고리 전체 -->
-    <div id="allDiv" style="display: block;">
-      <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4">
-        {% for product in products %}
-          <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none px-0 img-back">
-            <figure class="d-flex flex-column image-card mb-0">
-              {% for k, v in img_dict.items %}
-                {% if k == product.id %}
-                  <img src="{{ v.product_image }}" alt="v.product_image" class="index-card-image" style="width: 100%;">
-                {% endif %}
-              {% endfor %}
-              <figcaption class="pe-3 clothe_font-size">{{ product.name }}</figcaption>
-            </figure>
-          </a>
-        {% endfor %}
-      </div>
+    <div class="mx-5 fw-bolder text-secondary">
+      <a id="womanProduct" type="button" class="btn btn-outline-dark text-decoration-none rounded-0 font-space">
+        WOMAN
+      </a>
     </div>
   </div>
 
-  {% endblock body %}
+  <!-- man 카테고리 -->
+  <div id="manDiv" style="display: none;">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4">
+      {% for man in man_clothes %}
 
-  {% block script %}
-    <script>
-      let manBtn = document.querySelector('#manProduct');
-      let womanBtn = document.querySelector('#womanProduct');
-      let manDiv = document.querySelector('#manDiv');
-      let womanDiv = document.querySelector('#womanDiv');
-      let allDiv = document.querySelector('#allDiv');
+      <a href="{% url 'products:detail' man.pk %}" class="text-decoration-none px-0 img-back">
+        <figure class="d-flex flex-column image-card mb-0">
+          {% for k, v in dicts1.items %}
+          {% if k.pk == man.id %}
+          <img src="{{ v.product_image }}" alt="v.product_image" class="index-card-image">
+          {% endif %}
+          {% endfor %}
+          <figcaption class="pe-3 clothe_font-size">{{ man.name }}</figcaption>
+        </figure>
+      </a>
 
-      manBtn.addEventListener('click', function () {
-        if (manDiv.style.display === "none" && allDiv.style.display === "block") {
-          allDiv.style.display = "none";
-          console.log(allDiv)
-          manDiv.style.display = "block";
-        } else if (womanDiv.style.display === "block" && allDiv.style.display === "none") {
-          womanDiv.style.display = "none";
-          manDiv.style.display = "block";
-        } else {
-          manDiv.style.display = "none";
-          allDiv.style.display = "block";
-        }
-      });
+      {% endfor %}
+    </div>
+  </div>
 
-      womanBtn.addEventListener('click', function () {
-        if (womanDiv.style.display === "none" && allDiv.style.display === "block") {
-          allDiv.style.display = "none";
-          womanDiv.style.display = "block";
-        } else if (manDiv.style.display === "block" && allDiv.style.display === "none") {
-          manDiv.style.display = "none";
-          womanDiv.style.display = "block";
-        } else {
-          womanDiv.style.display = "none";
-          allDiv.style.display = "block";
-        }
-      });
-    </script>
-  {% endblock script %}
+  <!-- woman 카테고리 -->
+  <div id="womanDiv" style="display: none;">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4">
+      {% for woman in woman_clothes %}
+      <a href="{% url 'products:detail' woman.pk %}" class="text-decoration-none px-0 img-back">
+        <figure class="d-flex flex-column image-card mb-0">
+          {% for key, value in dicts2.items %}
+          {% if key.pk == woman.id %}
+          <img src="{{ value.product_image }}" alt="value.product_image" class="index-card-image">
+          {% endif %}
+          {% endfor %}
+          <figcaption class="pe-3 clothe_font-size">{{ woman.name }}</figcaption>
+        </figure>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 카테고리 전체 -->
+  <div id="allDiv" style="display: block;">
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-4">
+      {% for product in products %}
+      <a href="{% url 'products:detail' product.pk %}" class="text-decoration-none px-0 img-back">
+        <figure class="d-flex flex-column image-card mb-0">
+          {% for k, v in img_dict.items %}
+          {% if k == product.id %}
+          <img src="{{ v.product_image }}" alt="v.product_image" class="index-card-image" style="width: 100%;">
+          {% endif %}
+          {% endfor %}
+          <figcaption class="pe-3 clothe_font-size">{{ product.name }}</figcaption>
+        </figure>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+
+{% block script %}
+<script>
+  let manBtn = document.querySelector('#manProduct');
+  let womanBtn = document.querySelector('#womanProduct');
+  let manDiv = document.querySelector('#manDiv');
+  let womanDiv = document.querySelector('#womanDiv');
+  let allDiv = document.querySelector('#allDiv');
+
+  manBtn.addEventListener('click', function () {
+    if (manDiv.style.display === "none" && allDiv.style.display === "block") {
+      allDiv.style.display = "none";
+      console.log(allDiv)
+      manDiv.style.display = "block";
+    } else if (womanDiv.style.display === "block" && allDiv.style.display === "none") {
+      womanDiv.style.display = "none";
+      manDiv.style.display = "block";
+    } else {
+      manDiv.style.display = "none";
+      allDiv.style.display = "block";
+    }
+  });
+
+  womanBtn.addEventListener('click', function () {
+    if (womanDiv.style.display === "none" && allDiv.style.display === "block") {
+      allDiv.style.display = "none";
+      womanDiv.style.display = "block";
+    } else if (manDiv.style.display === "block" && allDiv.style.display === "none") {
+      manDiv.style.display = "none";
+      womanDiv.style.display = "block";
+    } else {
+      womanDiv.style.display = "none";
+      allDiv.style.display = "block";
+    }
+  });
+</script>
+{% endblock script %}
