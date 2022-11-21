@@ -288,21 +288,28 @@
     {% endif %}
 
     {% comment %} 내가 찜한 상품 {% endcomment %}
-    <p>찜 목록</p> 
-    {% for user_like in user_likes %}
-      <a href="{% url 'products:detail' user_like.id %}">
-        <img src="{{ user_like.product.all.0.product_image }}" alt="">
-      </a>
-    {% endfor %}
+    
+    <h5 class="mb-3 font-space fw-bolder" style="margin-top: 4rem;"><i class="fa-solid fa-heart text-danger fs-5 me-1"></i>나의 찜 목록<span class="ms-2 fs-6 font-space text-muted">{{ user_likes | length }}개</span></h5>
+    <hr class="mt-0">
+    <div class="your-class center" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
+      {% for user_like in user_likes %}
+        <a href="{% url 'products:detail' user_like.id %}" class="align-middle">
+          <img src="{{ user_like.product.all.0.product_image }}" alt="" width="200px" height="300px" class="like_card-image-hover" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
+        </a>
+      {% endfor %}
+    </div>
+    
     
     {% comment %} 내가 쓴 리뷰 {% endcomment %}
-    <p>리뷰</p>
-    {% for img in imgs %}
-      <a href="{% url 'products:detail' img.product_id %}">
-        <img src="{{ img.product_image }}" alt="">
+    <h5 class="mb-3 font-space fw-bolder mt-5">리뷰 작성한 상품<span class="ms-2 fs-6 font-space text-muted">{{ imgs | length }}개</span></h5>
+    <hr class="mt-0">
+    <div class="your-class myreview" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
+      {% for img in imgs %}
+      <a href="{% url 'products:detail' img.product_id %}" class="align-middle">
+        <img src="{{ img.product_image }}" alt="" width="200px" height="300px" class="like_card-image-hover" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
       </a>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
 
 {% endblock body %}
 {% block script %}
@@ -373,5 +380,198 @@
             console.log(error.response);
           })
         });
+  </script>
+  <script>
+
+    $(function(){
+      $('.center').slick({
+      slide: 'a',
+      infinite: true,
+      centerMode: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      speed : 500,
+      arrows : true,
+      autoplay : true,
+      autoplaySpeed : 2000,
+      pauseOnHover : true,
+      vertical : false,
+      prevArrow : "<button type='button' class='slick-prev shadow-lg' style='position: absolute; left: .2rem; z-index: 2;'>Previous</button>",
+      nextArrow : "<button type='button' class='slick-next shadow-lg' style='position: absolute; right: .2rem; z-index: 2;'>Next</button>",
+      draggable: true,
+      responsive: [
+
+        {
+          breakpoint: 2800,
+          settings: {
+            arrows: true,
+            centerPadding: '100px',
+            slidesToShow: 7,
+          }
+        },
+
+
+        {
+          breakpoint: 2400,
+          settings: {
+            arrows: true,
+            centerPadding: '20px',
+            slidesToShow: 6,
+          }
+        },
+
+        {
+          breakpoint: 2000,
+          settings: {
+            arrows: true,
+            centerPadding: '20px',
+            slidesToShow: 5,
+          }
+        },
+
+        {
+          breakpoint: 1300,
+          settings: {
+            arrows: true,
+            centerPadding: '20px',
+            slidesToShow: 4,
+          }
+        },
+
+
+        {
+          breakpoint: 1000,
+          settings: {
+            arrows: true,
+            centerPadding: '30px',
+            slidesToShow: 3,
+          }
+        },
+
+        {
+          breakpoint: 850,
+          settings: {
+            arrows: true,
+            centerPadding: '60px',
+            slidesToShow: 2,
+          }
+        },
+
+        {
+          breakpoint: 630,
+          settings: {
+            arrows: true,
+            centerPadding: '5px',
+            slidesToShow: 2,
+          }
+        },
+
+  
+        {
+          breakpoint: 550,
+          settings: {
+            arrows: true,
+            centerPadding: '54px',
+            slidesToShow: 1,
+          }
+        },
+      ]
+    })
+    });
+    $(function(){
+      $('.myreview').slick({
+      slide: 'a',
+      infinite: true,
+      centerMode: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      speed : 500,
+      arrows : true,
+      autoplay : true,
+      autoplaySpeed : 2000,
+      pauseOnHover : true,
+      vertical : false,
+      prevArrow : "<button type='button' class='slick-prev shadow-lg' style='position: absolute; left: .2rem; z-index: 2;'>Previous</button>",
+      nextArrow : "<button type='button' class='slick-next shadow-lg' style='position: absolute; right: .2rem; z-index: 2;'>Next</button>",
+      draggable: true,
+      responsive: [
+
+        {
+          breakpoint: 2800,
+          settings: {
+            arrows: true,
+            centerPadding: '100px',
+            slidesToShow: 7,
+          }
+        },
+
+
+        {
+          breakpoint: 2400,
+          settings: {
+            arrows: true,
+            centerPadding: '20px',
+            slidesToShow: 6,
+          }
+        },
+
+        {
+          breakpoint: 2000,
+          settings: {
+            arrows: true,
+            centerPadding: '20px',
+            slidesToShow: 5,
+          }
+        },
+
+        {
+          breakpoint: 1300,
+          settings: {
+            arrows: true,
+            centerPadding: '20px',
+            slidesToShow: 4,
+          }
+        },
+
+
+        {
+          breakpoint: 1000,
+          settings: {
+            arrows: true,
+            centerPadding: '30px',
+            slidesToShow: 3,
+          }
+        },
+
+        {
+          breakpoint: 850,
+          settings: {
+            arrows: true,
+            centerPadding: '60px',
+            slidesToShow: 2,
+          }
+        },
+
+        {
+          breakpoint: 630,
+          settings: {
+            arrows: true,
+            centerPadding: '5px',
+            slidesToShow: 2,
+          }
+        },
+
+  
+        {
+          breakpoint: 550,
+          settings: {
+            arrows: true,
+            centerPadding: '54px',
+            slidesToShow: 1,
+          }
+        },
+      ]
+    })
+    });
   </script>
 {% endblock script %}

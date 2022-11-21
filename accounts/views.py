@@ -118,7 +118,7 @@ def activate(request, uidb64, token):
             f"이메일 인증이 완료되었습니다. <b>{user}</b>님 PARA에 오신 것을 환영합니다!",
         )
         auth_login(request, user, backend="django.contrib.auth.backends.ModelBackend")
-        return redirect("accounts:index")
+        return redirect("main")
     else:
         messages.error(request, "링크가 유효하지 않습니다.")
 
