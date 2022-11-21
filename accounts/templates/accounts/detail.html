@@ -265,7 +265,7 @@
           <lord-icon src="https://cdn.lordicon.com/xryjrepg.json" class="align-middle" trigger="hover" colors="primary:#ffffff" style="width:25px;height:25px"></lord-icon>
         </button>
         <!-- 찜목록 숫자 -->
-        <p class="fw-bold my-1 follow-shadow text-muted">1</p>
+        <p class="fw-bold my-1 follow-shadow text-muted">{{ user_likes|length }}</p>
       </div>
     </div>
 
@@ -286,6 +286,41 @@
       </div>
     {% else %}
     {% endif %}
+   
+
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for user_like in user_likes %}
+          <div class="carousel-item active" size="width: 50px;">
+            <img src="{{ user_like.product.all.0.product_image }}">
+          </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    {% comment %} 내가 찜한 상품 {% endcomment %}
+    {% comment %} <p>찜 목록</p> 
+    {% for user_like in user_likes %}
+      <a href="{% url 'products:detail' user_like.id %}">
+        <img src="{{ user_like.product.all.0.product_image }}" alt="">
+      </a>
+    {% endfor %} {% endcomment %}
+    
+    {% comment %} 내가 쓴 리뷰 {% endcomment %}
+    <p>리뷰</p>
+    {% for img in imgs %}
+      <a href="{% url 'products:detail' img.product_id %}">
+        <img src="{{ img.product_image }}" alt="">
+      </a>
+    {% endfor %}
   </div>
 
 {% endblock body %}
