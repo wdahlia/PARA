@@ -92,7 +92,7 @@
               <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
             </div>
           </div>
-          <div class="offcanvas-body pt-0 fs-5" style="background-color: rgba(255, 255, 249, 0.677);">
+          <div class="offcanvas-body pt-0" style="background-color: rgba(255, 255, 249, 0.677);">
             {% if request.user.is_authenticated %}
               <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
                 <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
@@ -201,6 +201,17 @@
         <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 9"></span></div>
       <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
+
+    <!-- 메일 전송 알림 -->
+    {% autoescape off %}
+      {% if messages %}
+        <ul class="messages ps-0 rounded-0" style="list-style:none;">
+          {% for message in messages %}
+            <li{% if message.tags %} class="rounded-0 mb-0 alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endautoescape %}
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>

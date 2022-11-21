@@ -19,6 +19,10 @@
     <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
     {% block style %}{% endblock %}
   </head>
 
@@ -51,19 +55,8 @@
                       <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
                       <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
                     {% else %}
-
-                      <div class="d-flex justify-content-end">
-                        <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
-                          Login
-                        </a>
-                        <a href="{% url 'accounts:signup' %}" class="font-space text-black">
-                          Signup
-                        </a>
-                      </div>
-
                       <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
                       <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
-
                     {% endif %}
                   </a>
                 </div>
@@ -179,9 +172,9 @@
     <!-- 메일 전송 알림 -->
     {% autoescape off %}
       {% if messages %}
-        <ul class="messages ps-0" style="list-style:none;">
+        <ul class="messages ps-0 rounded-0" style="list-style:none;">
           {% for message in messages %}
-            <li{% if message.tags %} class="mb-0 alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+            <li{% if message.tags %} class="rounded-0 mb-0 alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
           {% endfor %}
         </ul>
       {% endif %}
@@ -586,6 +579,7 @@
       ChannelIO('boot', {"pluginKey": "e69cdbef-7bd0-4e5f-8b80-8705fde66182"});
       <!--End Channel Plugin
       -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     </script>
   </body>
 

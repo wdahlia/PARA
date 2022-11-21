@@ -433,3 +433,7 @@ div.btn-outline-hover>a.btn-outline-light:hover {
   text-overflow: ellipsis;
 }
  
+.like_card-image-hover:hover {
+  transform: scale(1.2);
+  transition: transform .5s;
+}
