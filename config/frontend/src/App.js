@@ -106,7 +106,7 @@ export class App extends Component {
             selectedDialog: null,
             socket: new ReconnectingWebSocket('ws://' + window.location.host + '/chat_ws')
         };
-  
+
         //some js magic
         this.performSendingMessage = this.performSendingMessage.bind(this);
         this.addMessage = this.addMessage.bind(this);
