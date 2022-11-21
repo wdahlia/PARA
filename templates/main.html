@@ -72,7 +72,6 @@
   </head>
 
   <body>
-     
     <nav class="navbar bg-none fixed-top">
       <div class="container-fluid justify-content-between">
         <!-- 토글 아이콘과 로고 이미지 -->
@@ -92,7 +91,7 @@
               <img src="{% static 'images/navlogo.png' %}" alt="" class="mx-5" style="width: 295px; height: 140px;">
             </div>
           </div>
-          <div class="offcanvas-body pt-0" style="background-color: rgba(255, 255, 249, 0.677);">
+          <div class="offcanvas-body pt-0" style="font-size: 18px; background-color: rgba(255, 255, 249, 0.677);">
             {% if request.user.is_authenticated %}
               <div class="d-flex justify-content-end align-items-center d-block d-sm-none mb-4 text-black w-100">
                 <a href="{% url 'accounts:detail' request.user.pk %}" class="d-flex align-items-center rounded-3 p-3 border text-decoration-none user-profile-nametag">
@@ -100,23 +99,13 @@
                     <img src="{{ request.user.profile_image.url }}" style="width: 33px; height: 33px; border-radius: 10rem;" alt="{{ request.user.profile_image }}">
                     <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
                   {% else %}
-
-                    <div class="d-flex justify-content-end">
-                      <a href="{% url 'accounts:login' %}" class="font-space text-black me-2">
-                        Login
-                      </a>
-                      <a href="{% url 'accounts:signup' %}" class="font-space text-black">
-                        Signup
-                      </a>
-                    </div>
-
                     <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px"></lord-icon>
                     <p class="mb-0 ms-2 font-space text-black">{{ request.user }}</p>
-
                   {% endif %}
                 </a>
               </div>
               <div class="text-end">
+                <a href="{% url 'accounts:index' %}" class="d-md-none text-black font-space fs-6">회원 목록</a>
                 <a href="{% url 'accounts:logout' %}" class="text-black font-space me-2">
                   Logout
                 </a>
@@ -141,6 +130,7 @@
                 <a class="d-flex justify-content-end align-items-center nav-link font-space active text-black pt-0 pb-0 align-middle" aria-current="page" href="{% url 'products:bestsellers' %}">
                   <lord-icon src="https://cdn.lordicon.com/medpcfcy.json" trigger="hover" class="me-2 align-middle" style="width:25px;height:25px"></lord-icon>
                   Best Sellers
+
                 </a>
               </li>
               <li class="nav-item">
@@ -163,7 +153,6 @@
         </div>
       </div>
     </nav>
-    
     <!-- Swiper -->
     <div class="swiper mySwiper swiper-initialized swiper-vertical swiper-pointer-events swiper-backface-hidden position-relative">
       <div class="swiper-wrapper" id="swiper-wrapper-f47c109c9cbe3c141" aria-live="polite">
