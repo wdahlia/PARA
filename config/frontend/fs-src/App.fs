@@ -224,7 +224,7 @@ let sendMessageReadMessage (sock: WebSocket) (user_pk: string) (message_id: int6
     ]
     sock.send (msgTypeEncoder MessageTypes.MessageRead data)
 
-let backendUrl = "http://para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com"
+let backendUrl = "http://127.0.0.1:8000"
 let messagesEndpoint = sprintf "%s/messages/" backendUrl
 let dialogsEndpoint = sprintf "%s/dialogs/" backendUrl
 let selfEndpoint = sprintf "%s/self/" backendUrl
