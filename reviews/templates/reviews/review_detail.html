@@ -116,12 +116,12 @@
                 <div class="container" id='com{{ comment.pk }}'>
                   <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center">
-                      {% if review.user.profile_image %}
-                        <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="33px" height="33px" style="border-radius: 50%;">
+                      {% if comment.user.profile_image %}
+                        <img src="{{ comment.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="33px" height="33px" style="border-radius: 50%;">
                       {% else %}
                         <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px;height:33px border-radius: 50%;"></lord-icon>
                       {% endif %}
-                      <span class="text-muted ms-2">{{ comment.user }}</span>
+                      <span class="text-muted ms-2 font-space">{{ comment.user }}</span>
                     </div>
                     <!-- 댓글 내용 상세 보기 -->
                     <a class="mb-0 mx-3 text-truncate font-space text-decoration-none text-black" data-bs-toggle="modal" data-bs-target="#commentDetailModal{{ comment.pk }}">{{ comment.content }}</a>
@@ -148,7 +148,7 @@
                     </div>
                   </div>
                   <div class='d-flex align-items-center'>
-                    <hr class="border border-dark border-1 opacity-50 d-block me-2" width="25px; ">
+                    <hr class="border border-dark border-1 opacity-50 d-block me-2" width="25px;">
                     <a href="" class='text-decoration-none text-dark recomBox'><span data-box-id={{comment.id}} class='text-muted'>답글 보기</span></a>
                   </div>
 
@@ -160,7 +160,7 @@
                     <div id='com{{ recom.pk }}' class="border my-2 p-2">
                       <div class="d-flex align-items-center">
                         {% if recom.user.profile_image %}
-                        <img src="{{ recom.user.profile_image.url}}" style="border-radius: 50%; height: 32px; width: 32px;">
+                        <img src="{{ recom.user.profile_image.url }}" style="border-radius: 50%; height: 32px; width: 32px;">
                         {% else %}
                         <img src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
                         {% endif %}
@@ -238,12 +238,12 @@
               <div class="container" id="com${response.data.comment_pk}">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <div class="d-flex align-items-center">
-                    {% if review.user.profile_image %}
-                    <img src="{{ review.user.profile_image.url }}" alt="{{ review.user.profile_image }}" width="33px" height="33px" style="border-radius: 50%;">
+                    {% if '${response.data.comment_image}' %}
+                    <img src="${response.data.comment_image}" alt="{{ review.user.profile_image }}" width="33px" height="33px" style="border-radius: 50%;">
                     {% else %}
                     <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" style="width:33px; height:33px; border-radius: 50%;"></lord-icon>
                     {% endif %}
-                    <span class="text-muted ms-2">${response.data.userName}</span>
+                    <span class="text-muted ms-2 font-space">${response.data.userName}</span>
                   </div>
                   <a class="mb-0 mx-3 text-truncate font-space text-decoration-none text-black" data-bs-toggle="modal" data-bs-target="#commentDetailModal${response.data.comment_pk}">${response.data.content}</a>
                   <div class="modal fade shadow-lg" id="commentDetailModal${response.data.comment_pk}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
@@ -371,25 +371,23 @@
             recomSet.insertAdjacentHTML('beforeend',`
             <div id='com${response.data.comment_pk}' class="border my-2 p-2">
               <div class="d-flex align-items-center">
-                {% if recom.user.profile_image %}
-                <img src="${data.image}" style="border-radius: 50%; height: 32px; width: 32px;">
-                {% else %}
+              {% if '${response.data.image}' %}
+                <img src="${response.data.image}" style="border-radius: 50%; height: 32px; width: 32px;">
+              {% else %}
                 <img src="{% static 'images/profiledetail.png' %}" style="border-radius: 50%; height: 32px; width: 32px;">
-                {% endif %}
+              {% endif %}
                 <p class="mb-0 ms-2 me-auto text-muted">${response.data.userName}</p>
-            </div>
-            <p class="p-3">${response.data.content}</p>
-            <div class="comments_set text-end">
-
-           
-              <form id='parentform' data-product-id='${product_pk}' data-review-id='${review_pk}' data-comment-id='${response.data.comment_pk}' action="http://127.0.0.1:8000/reviews/${product_pk}/${review_pk}/review_detail/comments/${response.data.comment_pk}/comment_delete/" method="POST">
-                {% csrf_token %}
-                <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
-              </form>
-            </div>
+              </div>
+              <p class="p-3">${response.data.content}</p>
+              <div class="comments_set text-end">           
+                <form id='parentform' data-product-id='${product_pk}' data-review-id='${review_pk}' data-comment-id='${response.data.comment_pk}' action="http://127.0.0.1:8000/reviews/${product_pk}/${review_pk}/review_detail/comments/${response.data.comment_pk}/comment_delete/" method="POST">
+                  {% csrf_token %}
+                  <input class="btn btn-outline-dark rounded-0" type="submit" value="삭제">
+                </form>
+              </div>
             </div>
             `)
-
+            
 
            
           result = document.querySelector(`#com${response.data.comment_pk}`) 

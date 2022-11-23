@@ -20,9 +20,9 @@ class ReviewForm(forms.ModelForm):
         }
 
         widgets = {
-            "content": TextInput(
+            "content": forms.Textarea(
                 attrs={
-                    "class": "border-0 border-bottom border-1 border-dark rounded-0 mx-1",
+                    "class": "border border-2 border-dark rounded-1 mx-1",
                     "style": "background: transparent;",
                     "placeholder": "리뷰를 입력해주세요",
                 }
