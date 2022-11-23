@@ -113,6 +113,7 @@ def comment_create(request, review_pk):
                         "comment_pk": comment.pk,
                         "content": comment.content,
                         "userName": comment.user.username,
+                        "comment_image" : comment.user.profile_image.url
                     }
                     return JsonResponse(context)
                 

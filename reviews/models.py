@@ -19,7 +19,7 @@ class Review(models.Model):
         ("5", "⭐⭐⭐⭐⭐"),
     )
     grade = models.CharField(max_length=2, choices=grade_choices)
-    content = models.CharField(max_length=160)
+    content = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     review_image = ProcessedImageField(

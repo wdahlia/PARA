@@ -218,7 +218,589 @@
                 </div>
               {% endif %}
             </div>
-          </div>
+          </div>{% extends 'base.html' %}
+          {% load static %}
+          
+          {% block style %}
+            <style>
+              .background-image-blurred-1 {
+                background-image: url("https://post-phinf.pstatic.net/MjAyMDExMjhfMjM5/MDAxNjA2NTQ3NTMxMTM3.8EvdKFu1MoNW2ARK6F5XcC-ljPUI-X8GGV8Wtv79SmEg.3ksn3KGvGPycUSfBEtcJl3jPtWqdJVImH0e6SV3XXIQg.JPEG/%EC%9E%90%EB%9D%BC8.jpg?type=w1200");
+                background-size: cover;
+                background-repeat: no-repeat;
+              }
+          
+              .backdrop {
+                background-color: rgba(1, 0, 0, 0.217);
+                backdrop-filter: blur(1rem);
+              }
+          
+              .backdrop-nopic {
+                background-color: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(2.2rem);
+              }
+          
+              .profile-card-shadow {
+                box-shadow: rgba(255, 255, 255, 0.1) 0 1px 1px 0 inset, rgba(50, 50, 93, 0.25) 0 50px 100px -20px, rgba(0, 0, 0, 0.3) 0 30px 60px -30px;
+              }
+            </style>
+          {% endblock %}
+          
+          {% block body %}
+          
+            <!-- viewpoint 제일 작은 사이즈 -->
+            <!-- if user.profileimage True -->
+            {% if user.profile_image %}
+              <div>
+                <div class="background-image-blur profile-card-shadow" style="background-image: url(' {{ user.profile_image.url }}'); background-repeat: none; background-size: cover; content: '';">
+                  <div class=" d-flex flex-column align-items-center d-sm-none shadow-lg p-5 backdrop">
+                    <img src="{{ user.profile_image.url }}" class="mb-3 profile-image-border" alt="{{ user.profile_image }}">
+                    <h1 class="mb-0 mt-3 text-light" style="letter-spacing: -2px; mix-blend-mode: luminosity">{{ user.username }}</h1>
+                    <div class="d-flex fw-lighter align-items-center mt-1">
+                      <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" class="me-2" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px"></lord-icon>
+                      <p class="mb-0 fw-normal font-space text-light">{{ user.email }}</p>
+                    </div>
+                    {% if user.content != "" %}
+                      <div class="mt-2 d-flex">
+                        <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px" class="me-2"></lord-icon>
+                        <p class="font-space text-light">{{ user.content }}</p>
+                      </div>
+                    {% else %}
+                      <div class="mt-2"></div>
+                    {% endif %}
+                    {% if request.user == user %}
+                      <div class="btn-outline-hover">
+                        <a class="btn btn-outline-light rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+          
+                <!-- viewpoint sm에서부터 보임 -->
+                <div class="background-image-blur profile-card-shadow" style="background-image: url(' {{ user.profile_image.url }}'); background-repeat: none; background-size: cover; content: '';">
+                  <div class="d-none d-sm-flex d-md-none row justify-content-center align-items-center rounded-0 shadow-lg p-5 backdrop">
+                    <!-- 프로필 이미지 들어가는 곳 -->
+                    <div class="col-6 text-center">
+                      <div class="text-end me-3">
+                        <img src="{{ user.profile_image.url }}" alt="{{ user.profile_image }}" class="profile-image-sm_md-border">
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="text-start ms-3">
+                        <h1 class="mb-0 text-light" style="letter-spacing: -2px;">{{ user.username }}</h1>
+                        <div class="d-flex fw-lighter align-items-center mt-1">
+                          <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" class="me-2" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px"></lord-icon>
+                          <p class="mb-0 fw-normal text-light font-space">{{ user.email }}</p>
+                        </div>
+                        {% if user.content != "" %}
+                          <div class="mt-2 d-flex">
+                            <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px" class="me-2"></lord-icon>
+                            <p class="font-space text-light">{{ user.content }}</p>
+                          </div>
+                        {% else %}
+                          <div class="mt-2"></div>
+                        {% endif %}
+                        {% if request.user == user %}
+                          <div class="btn-outline-hover">
+                            <a class="btn btn-outline-light rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!---->
+          
+                <!-- viewpoint md에서부터 보임-->
+                <div class="background-image-blur profile-card-shadow" style="background-image: url(' {{ user.profile_image.url }}'); background-repeat: none; background-size: cover; content: '';">
+                  <div class="d-none d-sm-none d-md-flex row justify-content-center align-items-center rounded-0 shadow-lg p-5 backdrop">
+                    <!-- 프로필 이미지 들어가는 곳 -->
+                    <div class="col-6 text-center">
+                      <div class="text-end me-3">
+                        <img src="{{ user.profile_image.url }}" alt="{{ user.profile_image }}" class="profile-image-sm_md-border">
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="text-start ms-3">
+                        <h1 class="mb-0 text-light" style="letter-spacing: -2px;">{{ user.username }}</h1>
+                        <div class="d-flex fw-lighter align-items-center mt-1">
+                          <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" class="me-2" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px"></lord-icon>
+                          <p class="mb-0 fw-normal text-light font-space">{{ user.email }}</p>
+                        </div>
+                        {% if user.content != "" %}
+                          <div class="mt-2 d-flex">
+                            <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px" class="me-2"></lord-icon>
+                            <p class="font-space text-light">{{ user.content }}</p>
+                          </div>
+                        {% else %}
+                          <div class="mt-2"></div>
+                        {% endif %}
+                        {% if request.user == user %}
+                          <div class="btn-outline-hover">
+                            <a class="btn btn-outline-light rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!---->
+              </div>
+          
+            {% elif not user.profile_image %}
+              <div>
+                <!-- 제일 창크기 작을 때 -->
+                <div class="background-image-blurred-1 profile-card-shadow">
+                  <div class="d-sm-none d-flex flex-column align-items-center backdrop-nopic shadow-lg p-5">
+                    <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" colors="primary:#ffffff" class="profile-image-border-nopic mb-3" style="width:200px;height:200px"></lord-icon>
+                    <h1 class="mb-0 text-light" style="letter-spacing: -2px; mix-blend-mode: luminosity">{{ user.username }}</h1>
+                    <div class="d-flex fw-lighter align-items-center mt-1">
+                      <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" class="me-2" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px"></lord-icon>
+                      <p class="mb-0 fw-normal font-space text-light">{{ user.email }}</p>
+                    </div>
+                    {% if user.content != "" %}
+                      <div class="mt-2 d-flex">
+                        <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px" class="me-2"></lord-icon>
+                        <p class="font-space text-light">{{ user.content }}</p>
+                      </div>
+                    {% else %}
+                      <div class="mt-2"></div>
+                    {% endif %}
+                    {% if request.user == user %}
+                      <div class="btn-outline-hover">
+                        <a class="btn btn-outline-light rounded-0 font-space" href="{% url 'accounts:update' %}">수정하기</a>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+          
+                <!-- viewpoint sm에서부터 보임 -->
+                <div class="background-image-blurred-1 profile-card-shadow">
+                  <div class="d-none d-md-none d-sm-flex row justify-content-center align-items-center rounded-0 shadow-lg p-5 backdrop-nopic">
+                    <!-- 프로필 이미지 들어가는 곳 -->
+                    <div class="col-6 text-center">
+                      <div class="text-end me-3">
+                        <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" colors="primary:#ffffff" class="profile-image-border-nopic mb-3" style="width:200px;height:200px"></lord-icon>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="text-start ms-3">
+                        <h1 class="mb-0 text-light" style="letter-spacing: -2px;">{{ user.username }}</h1>
+                        <div class="d-flex fw-lighter align-items-center mt-1">
+                          <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" class="me-2" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px"></lord-icon>
+                          <p class="mb-0 fw-normal text-light font-space">{{ user.email }}</p>
+                        </div>
+                        {% if user.content != "" %}
+                          <div class="mt-2 d-flex">
+                            <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px" class="me-2"></lord-icon>
+                            <p class="font-space text-light">{{ user.content }}</p>
+                          </div>
+                        {% else %}
+                          <div class="mt-2"></div>
+                        {% endif %}
+                        {% if request.user == user %}
+                          <div class="btn-outline-hover">
+                            <a class="btn btn-outline-light rounded-0 font-space mt-2" href="{% url 'accounts:update' %}">수정하기</a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!---->
+          
+                <!-- viewpoint md에서부터 보임-->
+                <div class="background-image-blurred-1 profile-card-shadow">
+                  <div class="d-none d-sm-none d-md-flex row justify-content-center align-items-center rounded-0 shadow-lg p-5 backdrop-nopic">
+                    <!-- 프로필 이미지 들어가는 곳 -->
+                    <div class="col-6 text-center">
+                      <div class="text-end me-3">
+                        <lord-icon src="https://cdn.lordicon.com/bhfjfgqz.json" trigger="hover" colors="primary:#ffffff" class="profile-image-border-nopic mb-3" style="width:200px;height:200px"></lord-icon>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="text-start ms-3">
+                        <h1 class="mb-0 text-light" style="letter-spacing: -2px;">{{ user.username }}</h1>
+                        <div class="d-flex fw-lighter align-items-center mt-1">
+                          <lord-icon src="https://cdn.lordicon.com/diihvcfp.json" class="me-2" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px"></lord-icon>
+                          <p class="mb-0 fw-normal text-light font-space">{{ user.email }}</p>
+                        </div>
+                        {% if user.content != "" %}
+                          <div class="mt-2 d-flex">
+                            <lord-icon src="https://cdn.lordicon.com/hpivxauj.json" trigger="hover" colors="primary:#ffffff" style="width:20px;height:20px" class="me-2"></lord-icon>
+                            <p class="font-space text-light">{{ user.content }}</p>
+                          </div>
+                        {% else %}
+                          <div class="mt-2"></div>
+                        {% endif %}
+                        {% if request.user == user %}
+                          <div class="btn-outline-hover">
+                            <a class="btn btn-outline-light rounded-0 font-space mt-2" href="{% url 'accounts:update' %}">수정하기</a>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          
+            <div class="d-flex flex-column shadow-lg p-5 rounded-bottom" style="background-color: transparent;">
+              <!-- 팔로우 팔로잉 찜 개수 표시 -->
+              <div class="container d-flex justify-content-center align-items-center p-1">
+                <!-- 팔로워 개수 -->
+                <div class="d-flex flex-column text-center mx-3 align-items-center">
+                  <div class="dropdown shadow-lg rounded-3">
+                    <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로워</button>
+                    <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
+                      <!-- 밑의 li 태그에 팔로워 목록 for 문 넣으면 됨 -->
+                      {% for follow_person in user.followers.all %}
+                        <li>
+                          <button id="followers-list" class="dropdown-item bg-none text-black font-space" type="button">{{ follow_person.username }}</button>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                    <!-- 팔로워 숫자 -->
+                    <p id="followers-count" class="fw-bold my-1 follow-shadow text-muted">{{ user.followers.count }}</p>
+                  </div>
+                </div>
+                <!-- 팔로잉 개수 -->
+                <div class="d-flex flex-column text-center mx-3">
+                  <div class="dropdown shadow-lg rounded-3">
+                    <button class="dropdown-toggle font-space bg-dark text-white btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false">팔로잉</button>
+                    <ul class="dropdown-menu rounded-0 border border-2 border-dark bg-none">
+                      <!-- 밑의 li 태그에 팔로잉 목록 for 문 넣으면 됨 -->
+                      {% for following_person in user.followings.all %}
+                        <li>
+                          <button id="followings-list" class="dropdown-item bg-none text-dark font-space" type="button">{{ following_person }}</button>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                    <!-- 팔로잉 숫자 -->
+                    <p id="followings-count" class="fw-bold my-1 follow-shadow text-muted">{{ user.followings.count }}</p>
+                  </div>
+                </div>
+                <!-- 찜 개수 -->
+                <div class="d-flex flex-column text-center mx-3 rounded-3 shadow-lg">
+                  <button class="font-space bg-dark text-white align-middle btn btn-none follow-dropdown-shadow" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 5px 20px;">
+                    <i class="fa-solid fa-heart"></i>
+                  </button>
+                  <!-- 찜목록 숫자 -->
+                  <p class="fw-bold my-1 follow-shadow text-muted">{{ user_likes|length }}</p>
+                </div>
+              </div>
+          
+              <!-- 팔로우 폼 , DM 폼 -->
+              {% if request.user != user %}
+                <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+                  <form id="followForm" data-user-id="{{ user.pk }}" class="text-center w-100 mb-4">
+                    {% csrf_token %}
+                    {% if request.user in user.followers.all %}
+                      <input type="submit" class="btn follow_cancel-btn rounded-0 border border-dark border-opacity-10 font-space w-50" value="팔로우 취소">
+                    {% else %}
+                      <input type="submit" class="btn rounded-0 follow-btn border border-dark border-opacity-10 font-space w-50" value="팔로우">
+                    {% endif %}
+                  </form>
+                  <a class="mb-0 dm-btn text-decoration-none btn border border-dark border-opacity-10 rounded-0 font-space w-50" href="{% url 'home' %}">
+                    DM&nbsp;&nbsp;<i class="fa-solid fa-comment"></i>
+                  </a>
+                </div>
+              {% else %}
+              {% endif %}
+          
+              {% comment %} 내가 찜한 상품 {% endcomment %}
+              
+              <h5 class="mb-3 font-space fw-bolder" style="margin-top: 4rem;"><i class="fa-solid fa-heart text-danger fs-5 me-1"></i>나의 찜 목록<span class="ms-2 fs-6 font-space text-muted">{{ user_likes | length }}개</span></h5>
+              <hr class="mt-0">
+              <div class="your-class center" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
+                {% for user_like in user_likes %}
+                  <a href="{% url 'products:detail' user_like.id %}" class="align-middle">
+                    <img src="{{ user_like.product.all.0.product_image }}" alt="" width="200px" height="300px" class="like_card-image-hover" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
+                  </a>
+                {% endfor %}
+              </div>
+              
+              
+              {% comment %} 내가 쓴 리뷰 {% endcomment %}
+              <h5 class="mb-3 font-space fw-bolder mt-5">리뷰 작성한 상품<span class="ms-2 fs-6 font-space text-muted">{{ imgs | length }}개</span></h5>
+              <hr class="mt-0">
+              <div class="your-class myreview" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
+                {% for img in imgs %}
+                <a href="{% url 'products:detail' img.product_id %}" class="align-middle">
+                  <img src="{{ img.product_image }}" alt="" width="200px" height="300px" class="like_card-image-hover" style="box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;">
+                </a>
+                {% endfor %}
+              </div>
+          
+          {% endblock body %}
+          {% block script %}
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script>
+              // 팔로우 기능
+              const form = document.querySelector('#followForm')
+              const csrftoken = document
+                .querySelector('[name=csrfmiddlewaretoken]')
+                .value
+          
+                form
+                .addEventListener('submit', function (event) {
+                  event.preventDefault()
+          
+                  axios({
+                    method: 'post',
+                    url: `/accounts/${event.target.dataset.userId}/follow/`,
+                    headers: {
+                      'X-CSRFToken': csrftoken
+                    }
+                  })
+                    .then((response) => {
+                      const isFollowed = response.data.is_followed
+                      const followBtn = document.querySelector('#followForm > input[type=submit]')
+                      if (isFollowed === true) {
+                        followBtn.value = '팔로우 취소'
+                        followBtn
+                          .classList
+                          .add('follow_cancel-btn')
+                        followBtn
+                          .classList
+                          .remove('follow-btn')
+                      } else {
+                        followBtn.value = '팔로우'
+                        followBtn
+                          .classList
+                          .add('follow-btn')
+                        followBtn
+                          .classList
+                          .remove('follow_cancel-btn')
+                      }
+                      const followersCountTag = document.querySelector('#followers-count');
+                      const followingsCountTag = document.querySelector('#followings-count');
+                      const followersCount = response.data.followers_count;
+                      const followingsCount = response.data.followings_count;
+                      followersCountTag.innerText = followersCount;
+                      followingsCountTag.innerText = followingsCount;
+          
+                      const followersListTag = document.querySelectorAll('#followers-list');
+                      const followingsListTag = document.querySelectorAll('#followings-list');
+                      const followersList = response.data.follow_user;
+                      const followingsList = response.data.following_user;
+          
+                
+                      for (let i=0; i < followersListTag.length; i++) {
+                        followersListTag[i].innerText = followersList[i].username
+                        followersListTag[i].innerText + "\n"
+                        console.log(followersList[i].username)
+                      }
+          
+                      for (let i=0; i < followingsListTag.length; i++) {
+                        followingsListTag[i].innerText = followingsList[i].username
+                        followingsListTag[i].innerText + "\n"
+                      }
+                    })
+                    .catch((error) => {
+                      console.log(error.response);
+                    })
+                  });
+            </script>
+            <script>
+              $(document).ready(function(){
+                $('.your-class').slick({
+                  setting-name: setting-value
+                });
+              });
+            </script>
+            <script>
+              $(function(){
+                $('.center').slick({
+                slide: 'a',
+                infinite: true,
+                centerMode: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                speed : 500,
+                arrows : true,
+                autoplay : true,
+                autoplaySpeed : 2000,
+                pauseOnHover : true,
+                vertical : false,
+                prevArrow : "<button type='button' class='slick-prev shadow-lg' style='position: absolute; left: .2rem; z-index: 2;'>Previous</button>",
+                nextArrow : "<button type='button' class='slick-next shadow-lg' style='position: absolute; right: .2rem; z-index: 2;'>Next</button>",
+                draggable: true,
+                responsive: [
+          
+                  {
+                    breakpoint: 2800,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '100px',
+                      slidesToShow: 7,
+                    }
+                  },
+          
+          
+                  {
+                    breakpoint: 2400,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '20px',
+                      slidesToShow: 6,
+                    }
+                  },
+          
+                  {
+                    breakpoint: 2000,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '20px',
+                      slidesToShow: 5,
+                    }
+                  },
+          
+                  {
+                    breakpoint: 1300,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '20px',
+                      slidesToShow: 4,
+                    }
+                  },
+          
+          
+                  {
+                    breakpoint: 1000,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '30px',
+                      slidesToShow: 3,
+                    }
+                  },
+          
+                  {
+                    breakpoint: 850,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '60px',
+                      slidesToShow: 2,
+                    }
+                  },
+          
+                  {
+                    breakpoint: 630,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '5px',
+                      slidesToShow: 2,
+                    }
+                  },
+          
+            
+                  {
+                    breakpoint: 550,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '54px',
+                      slidesToShow: 1,
+                    }
+                  },
+                ]
+              })
+              });
+              $(function(){
+                $('.myreview').slick({
+                slide: 'a',
+                infinite: true,
+                centerMode: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                speed : 500,
+                arrows : true,
+                autoplay : true,
+                autoplaySpeed : 2000,
+                pauseOnHover : true,
+                vertical : false,
+                prevArrow : "<button type='button' class='slick-prev shadow-lg' style='position: absolute; left: .2rem; z-index: 2;'>Previous</button>",
+                nextArrow : "<button type='button' class='slick-next shadow-lg' style='position: absolute; right: .2rem; z-index: 2;'>Next</button>",
+                draggable: true,
+                responsive: [
+          
+                  {
+                    breakpoint: 2800,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '100px',
+                      slidesToShow: 7,
+                    }
+                  },
+          
+          
+                  {
+                    breakpoint: 2400,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '20px',
+                      slidesToShow: 6,
+                    }
+                  },
+          
+                  {
+                    breakpoint: 2000,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '20px',
+                      slidesToShow: 5,
+                    }
+                  },
+          
+                  {
+                    breakpoint: 1300,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '20px',
+                      slidesToShow: 4,
+                    }
+                  },
+          
+          
+                  {
+                    breakpoint: 1000,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '30px',
+                      slidesToShow: 3,
+                    }
+                  },
+          
+                  {
+                    breakpoint: 850,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '60px',
+                      slidesToShow: 2,
+                    }
+                  },
+          
+                  {
+                    breakpoint: 630,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '5px',
+                      slidesToShow: 2,
+                    }
+                  },
+          
+            
+                  {
+                    breakpoint: 550,
+                    settings: {
+                      arrows: true,
+                      centerPadding: '54px',
+                      slidesToShow: 1,
+                    }
+                  },
+                ]
+              })
+              });
+            </script>
+          {% endblock script %}
         </div>
       </div>
     </div>
