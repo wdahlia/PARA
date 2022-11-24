@@ -11,30 +11,32 @@
 <br>
 
 ## 목차
-- [Contributors](#contributors)
-- [⚙️ 기술 스택](#️-기술-스택)
-- [Role](#role)
-- [주요 기능](#주요-기능)
-- [📂 페이지 구성 상세](#-페이지-구성-상세)
-      - [main.html](#mainhtml)
-  - [Accounts App](#accounts-app)
+- [PARA](#para)
+  - [목차](#목차)
+  - [Contributors](#contributors)
+  - [⚙️ 기술 스택](#️-기술-스택)
+  - [Role](#role)
+  - [주요 기능](#주요-기능)
+  - [📂 페이지 구성 상세](#-페이지-구성-상세)
+    - [main.html](#mainhtml)
+    - [Accounts App](#accounts-app)
       - [accounts/index.html](#accountsindexhtml)
       - [accounts/detail.html](#accountsdetailhtml)
       - [채널톡 API](#채널톡-api)
-  - [Products App](#products-app)
+    - [Products App](#products-app)
       - [products/index.html](#productsindexhtml)
       - [products/detail.html](#productsdetailhtml)
-  - [Reviews App](#reviews-app)
+    - [Reviews App](#reviews-app)
       - [reviews/detail.html](#reviewsdetailhtml)
       - [taggit](#taggit)
-  - [Navbar](#navbar)
+    - [Navbar](#navbar)
       - [Profile](#profile)
       - [매장 찾기](#매장-찾기)
       - [searched.html](#searchedhtml)
       - [bestseller.html](#bestsellerhtml)
       - [category.html](#categoryhtml)
-  - [모바일 화면](#모바일-화면)
-- [후기](#후기)
+    - [모바일 화면](#모바일-화면)
+  - [후기](#후기)
 
 <br>
 
@@ -48,9 +50,9 @@
 
 ## ⚙️ 기술 스택
 
-<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=Python&logoColor=white"><img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=Html5&logoColor=white"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=Css3&logoColor=white"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"><img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=green"><img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white">
+<img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=Python&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=Html5&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=Css3&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black">&nbsp;<img src="https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=green">&nbsp;<img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white">
 
-<img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white"><img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=yellow"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+<img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=yellow">&nbsp;<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">&nbsp;![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)&nbsp;![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 <br>
 
@@ -90,7 +92,7 @@
 
 <p align="center"><img src="https://user-images.githubusercontent.com/108653518/203839106-3b2a1d5e-1997-4cdf-81c7-3004921d035c.gif" alt="para_main"  /></p>
 
-###### main.html
+### main.html
 
 - `swiper` 라이브러리 사용
 - 동영상 + 사진 캐러샐 구성
@@ -99,11 +101,11 @@
 
 <br>
 
-#### Accounts App
+### Accounts App
 
 ![accounts:index html](https://user-images.githubusercontent.com/108653518/203839077-efc027bc-924f-4cb6-87fa-040404e9c1fe.png)
 
-###### accounts/index.html
+#### accounts/index.html
 
 - 카드 형태로 사용자의 프로필, 아이디, 가입일로부터 경과일 출력
 
@@ -111,7 +113,7 @@
 
 ![accounts:detail html](https://user-images.githubusercontent.com/108653518/203839061-91f4b11e-5d13-4c97-b700-7c1434917f7d.png)
 
-###### accounts/detail.html
+#### accounts/detail.html
 
 - 로그인한 유저 **자신의 프로필**
 
@@ -131,7 +133,7 @@
 
 <p align="center"><img src="https://user-images.githubusercontent.com/108653518/203839090-e66a2ac9-d22d-43dc-b97a-20d9e7bf2123.png" alt="channeltalk" style="zoom:67%;" /></p>
 
-###### 채널톡 API
+#### 채널톡 API
 
 - 채널톡 API 사용하여 PARA 챗봇 커스텀
 
@@ -139,11 +141,11 @@
 
 <br>
 
-#### Products App
+### Products App
 
 ![products:index html](https://user-images.githubusercontent.com/108653518/203839119-7b11fbc4-e40d-4962-b1c1-e311996598c5.png)
 
-###### products/index.html
+#### products/index.html
 
 - 크롤링으로 products App DB 구성
 - 전체 상품 목록 출력
@@ -155,7 +157,7 @@
 
 <p align="center"><img src="https://user-images.githubusercontent.com/108653518/203839110-93e686ae-eedc-4899-bb77-3fb7fbdaaf5c.gif" alt="products:detail html"  /></p>
 
-###### products/detail.html
+#### products/detail.html
 
 - 상품 정보(상품 이름, 상품 설명, 상품 색상, 상품 가격) - 크롤링 사용하여 DB 저장한 정보
 - 리뷰 평균 별점
@@ -166,11 +168,11 @@
 
 <br>
 
-#### Reviews App
+### Reviews App
 
 ![reviews:detail html](https://user-images.githubusercontent.com/108653518/203839573-fc539a03-ef34-478a-bed9-01361c177558.png)
 
-###### reviews/detail.html
+#### reviews/detail.html
 
 - 해시태그 기능
 - 댓글 대댓글 생성부터 삭제까지 비동기로 구현
@@ -181,7 +183,7 @@
 
 ![tag](https://user-images.githubusercontent.com/108653518/203839131-b59ef422-ceec-4af8-b55c-ac521f9e0771.png)
 
-###### taggit
+#### taggit
 
 - 해당 해시태그를 사용한 리뷰 목록
 - 전체 해시태그 목록
@@ -189,11 +191,11 @@
 
 <br>
 
-#### Navbar
+### Navbar
 
 <p align="center"><img src="https://user-images.githubusercontent.com/108653518/203839122-7e834605-4b27-4019-9881-c0152908034c.png" alt="profile_dropdwon"  /></p>
 
-###### Profile
+#### Profile
 
 - 프로필 클릭시 드롭다운
   - **내 프로필** (accounts/detail로 이동)
@@ -203,7 +205,7 @@
 
 <p align="center"><img src="https://user-images.githubusercontent.com/108653518/203839096-ab0879e6-e3a4-4f2e-8426-800f7828edca.png" alt="kakaomapapi"  /></p>
 
-###### 매장 찾기
+#### 매장 찾기
 
 - 사용자의 위치 기반 주변 매장 정보 출력 (**카카오 지도 API 활용**)
   - 마우스 오버시 매장의 정보(이름) 출력
@@ -213,7 +215,7 @@
 
 ![searched html](https://user-images.githubusercontent.com/108653518/203839127-3ecebe50-a65a-4b7a-bff6-0b5fde30f258.png)
 
-###### searched.html
+#### searched.html
 
 - 검색 결과 없는 경우 랜덤 상품 10개 목록 출력
 - 검색 결과 있는 경우 해당 상품 목록 출력
@@ -222,7 +224,7 @@
 
 ![bestseller html](https://user-images.githubusercontent.com/108653518/203839079-a421144e-b37d-4e2a-a33e-bf2e97728c49.png)
 
-###### bestseller.html
+#### bestseller.html
 
 - **조회수를 기준**으로 내림차순으로 12개의 상품 정렬
 - 각 상품 사진을 클릭하면 products/detail 페이지로 연결
@@ -231,7 +233,7 @@
 
 ![category html](https://user-images.githubusercontent.com/108653518/203839084-3051977e-f1b6-4276-8928-abd2638dbf8c.png)
 
-###### category.html
+#### category.html
 
 - 전체 제품을 **옷 분류 별**로 1차 카테고리화 그 후 **성별을 기준**으로 다시 카테고리화
   - 카테고리 안의 카테고리
