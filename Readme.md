@@ -11,32 +11,35 @@
 <br>
 
 ## 목차
-- [PARA](#para)
-  - [목차](#목차)
-  - [Contributors](#contributors)
-  - [⚙️ 기술 스택](#️-기술-스택)
-  - [Role](#role)
-  - [주요 기능](#주요-기능)
-  - [📂 페이지 구성 상세](#-페이지-구성-상세)
-    - [main.html](#mainhtml)
-    - [Accounts App](#accounts-app)
-      - [accounts/index.html](#accountsindexhtml)
-      - [accounts/detail.html](#accountsdetailhtml)
-      - [채널톡 API](#채널톡-api)
-    - [Products App](#products-app)
-      - [products/index.html](#productsindexhtml)
-      - [products/detail.html](#productsdetailhtml)
-    - [Reviews App](#reviews-app)
-      - [reviews/detail.html](#reviewsdetailhtml)
-      - [taggit](#taggit)
-    - [Navbar](#navbar)
-      - [Profile](#profile)
-      - [매장 찾기](#매장-찾기)
-      - [searched.html](#searchedhtml)
-      - [bestseller.html](#bestsellerhtml)
-      - [category.html](#categoryhtml)
-    - [모바일 화면](#모바일-화면)
-  - [후기](#후기)
+
+- [Contributors](#contributors)
+- [기술 스택](#-기술-스택)
+- [Role](#role)
+- [주요 기능](#주요-기능)
+- [페이지 구성 상세](#-페이지-구성-상세)
+  - [main.html](#mainhtml)
+  - [Accounts App](#accounts-app)
+    - [accounts/signup.html](#accountssignuphtml)
+    - [accounts/login.html](#accountsloginhtml)
+    - [accounts/index.html](#accountsindexhtml)
+    - [accounts/detail.html](#accountsdetailhtml)
+    - [채널톡 API](#채널톡-api)
+  - [Products App](#products-app)
+    - [products/index.html](#productsindexhtml)
+    - [products/detail.html](#productsdetailhtml)
+  - [Cart App](#cart-app)
+    - [cart/detail.html](#cartdetailhtml)
+  - [Reviews App](#reviews-app)
+    - [reviews/detail.html](#reviewsdetailhtml)
+    - [taggit](#taggit)
+  - [Navbar](#navbar)
+    - [Profile](#profile)
+    - [매장 찾기](#매장-찾기)
+    - [searched.html](#searchedhtml)
+    - [bestseller.html](#bestsellerhtml)
+    - [category.html](#categoryhtml)
+  - [모바일 화면](#모바일-화면)
+- [후기](#후기)
 
 <br>
 
@@ -103,6 +106,28 @@
 
 ### Accounts App
 
+![accounts:signup](Readme.assets/accounts:signup.png)
+
+#### accounts/signup.html
+
+- 회원 가입 폼 작성 후, 가입하기 버튼 클릭 시
+- 회원 인증 메일이 전송 완료 되었다라는 알림 창이 뜨게 됨 메일함에 들어가 주소를 클릭 하면,
+- 이메일 인증이 완료되었다는 알림 문구가 뜨게 됨
+- 이메일 인증 완료하지 못한다면 accounts/index.html에는 회원이 등록된 것 처럼 보이나
+  - is_active가 1이 되지 못했으므로 로그인을 진행할 수 없다
+- 이메일 인증 만료 시간 **4시간**으로 설정
+
+<br>
+
+![accounts:login](Readme.assets/accounts:login.png)
+
+#### accounts/login.html
+
+- 로그인 폼과, `signup.html`로 이동하는 버튼 존재
+- 네이버 로그인, 카카오 로그인 진행 시 오른쪽 사진처럼 나타나게 됨 - 소셜 로그인 진행 가능
+
+<br>
+
 ![accounts:index html](https://user-images.githubusercontent.com/108653518/203839077-efc027bc-924f-4cb6-87fa-040404e9c1fe.png)
 
 #### accounts/index.html
@@ -165,6 +190,18 @@
 - 찜하기 기능 비동기 구현
 - 조회수 구현
 - 리뷰 목록 모음
+
+<br>
+
+### Cart App
+
+![cart:detail.html](Readme.assets/cart:detail.html.png)
+
+#### cart/detail.html
+
+- `products/detail.html` 에서 담은 상품 정보들이 테이블에 출력
+  - `상품 이미지`, `상품명`, `수량`, `판매가`,` 주문 금액`, `삭제`, `총 금액`
+- 수량 변경 후 수정 버튼 클릭 시 주문 금액 변경
 
 <br>
 
