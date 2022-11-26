@@ -1,10 +1,10 @@
 # PARA
 
-> 배포주소: http://para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com/
+> 배포주소: http://para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com/  (2022/11/20 ~ 2022/11/25)
 >
 > 자라 사이트를 참고하여 만든 쇼핑몰 프로젝트
 
-- `개발 기간` : **11/9 ~ 11/21**
+- `개발 기간` : **2022/11/9 ~ 2022/11/21**
 - [기획서](기획서.md)
 - [회고](회고.md)
 - [구현](구현기능.md)
