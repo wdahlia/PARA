@@ -1,6 +1,6 @@
 # PARA
 
-> http://para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com/
+> 배포주소: http://para-env.eba-ezj4wh6p.ap-northeast-2.elasticbeanstalk.com/
 >
 > 자라 사이트를 참고하여 만든 쇼핑몰 프로젝트
 
