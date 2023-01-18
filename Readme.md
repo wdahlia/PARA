@@ -9,9 +9,8 @@
 - [회고](회고.md)
 - [발표자료](PARA.pdf)
 - [구현한_기능](구현기능.md)
-<br>
 ### 직접 구현
-<br>
+
 ## 목차
 
 - [Contributors](#contributors)
